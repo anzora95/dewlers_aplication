@@ -26,7 +26,7 @@
 {{--                                Tittle--}}
                                 <div class="form-group">
                                     <label for="tittle">Tittle</label>
-                                    <input type="text" class="form-control" id="tittle" name="tittle" aria-describedby="tittle">
+                                    <input type="text" class="form-control" id="tittle" name="tittle" aria-describedby="tittle" required>
                                 </div>
 
 {{--                                POT--}}
@@ -36,7 +36,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">$</span>
                                     </div>
-                                    <input type="number" id="pot" name="pot" class="form-control" placeholder="10.00" aria-label="pot" aria-describedby="pot" >
+                                    <input type="number" id="pot" name="pot" class="form-control" placeholder="10.00" aria-label="pot" aria-describedby="pot"  required>
                                 </div>
 
 {{--                                RETADO--}}
