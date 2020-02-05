@@ -19,3 +19,5 @@ Homestead.json
 ./idea
 
 dewlers_aplication/.idea/
+
+dewlers_aplication/composer.lock

@@ -28,9 +28,13 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/dashboard', 'IndexController@index');
     Route::get('/duelcreator', 'DuelController@index');
     Route::get('/status', 'DuelController@status');
+    Route::get('/transactionmanager', 'UserController@tmanager');
+    Route::get('/addcoins','UserController@addcoins'); //Para agregar monedas
 
 //      POST
     Route::post('/saveduel', 'DuelController@store');
+    Route::post('/savecoins', 'UserController@addcoins');
+
 
 });
 

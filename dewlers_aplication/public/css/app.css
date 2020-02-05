@@ -10883,4 +10883,13 @@ a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
-
+.nav-bar-separator{
+    margin: 5px 0 5px 0;
+}
+.deposit{
+    font-size: 18px;
+    margin: 0 0 5px 0;
+}
+.radios{
+    margin: 0 0 10px 0;
+}
