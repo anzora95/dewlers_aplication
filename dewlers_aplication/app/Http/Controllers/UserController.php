@@ -38,4 +38,9 @@ class UserController extends Controller
         return redirect('/transactionmanager');
     }
 
+    public  function witness(){
+
+        return view('UserMenu.witness');
+    }
+
 }

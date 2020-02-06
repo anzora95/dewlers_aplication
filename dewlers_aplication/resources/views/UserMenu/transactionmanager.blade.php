@@ -6,7 +6,7 @@
                 {{--                AQUI EL MENU--}}
                 {{--                <a href="/save_duel"><div class="btn btn-primary">Save</div></a>--}}
 
-                {{$balance->balance}}
+
                 <div class="container">
                     <div  class="row">
                         <div class="col"></div>
@@ -22,7 +22,7 @@
 
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="card-header">Dewl Coins</div>
+                        <div class="card-header">Add Dewl Coins</div>
                         <div class="card-body">
                             <form action="/savecoins" method="post">
                                 @csrf
