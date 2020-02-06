@@ -106,7 +106,7 @@ class ctl_users extends Model
      */
     public function internalaccounts()
     {
-        return $this->hasMany('App\Internalaccount');
+        return $this->hasMany('App\internalaccounts','ctl_user_id');
     }
 
     /**
