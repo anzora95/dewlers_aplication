@@ -19,6 +19,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class internalaccounts extends Model
 {
+
+    const CREATED_AT = 'registerDate';
+    const UPDATED_AT = 'modificationDate';
     /**
      * @var array
      */

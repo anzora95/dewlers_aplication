@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return view('test');
+});
+
 
 //      Authentication routes
 Auth::routes();
@@ -31,6 +35,8 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/transactionmanager', 'UserController@tmanager');
     Route::get('/addcoins','UserController@addcoins'); //Para agregar monedas
     Route::get('/witness','UserController@witness');//Para ver los duelos donde se es Witness
+    Route::get('/update_balance', 'DuelController@gamewinner');
+
 
 //      POST
     Route::post('/saveduel', 'DuelController@store');
