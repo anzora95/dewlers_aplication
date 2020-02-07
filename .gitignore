@@ -22,4 +22,6 @@ dewlers_aplication/.idea/
 
 dewlers_aplication/composer.lock
 
-.DS_Store
+.idea/
+
+dewlers_aplication/composer.json

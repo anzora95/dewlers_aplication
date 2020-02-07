@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\ctl_users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\internalaccounts;
-use App\ctl_users;
+use App\duels;
 class UserController extends Controller
 {
     //
@@ -41,7 +42,11 @@ class UserController extends Controller
     public  function witness(){
         $id = Auth::user()->id;
 
-        return view('UserMenu.witness')->with('id',$id);
+        $id=Auth::user();
+
+        $duels=duels::with('ctlUser2')->where('ctl_user_id_witness','=',$id->id)->get();
+
+        return view('UserMenu.witness')->with('duels',$duels);
     }
 
 }

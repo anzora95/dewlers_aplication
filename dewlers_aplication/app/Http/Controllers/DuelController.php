@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\internalaccounts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -122,17 +123,44 @@ class DuelController extends Controller
     public function  status()
     {
         $id_auth=Auth::user();
-//        $due=DB::table('duels')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_witness','=',$id_auth->id)->get();
         $due2=duels::with('ctlUser0')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_witness','=',$id_auth->id)->get();;
-//        $tittle=$due->tittle;
-//        $challenger=$due->ctl_user_id_challenger;
-//        $challenged=$due->ctl_user_id_challenged;
-//        $witness=$due->ctl_user_id_witness; //enviados para el view
-//        $regis=$due->registerDate;
-//        $duel_stat= $due->duelstate;
 
 
         return view('Duels.status')->with('duels',$due2);
-//        ->with('challenger',$challenger)-with('challenged',$challenged)->with('witness',$witness)->with('regis',$regis)->with('state',$duel_stat)
     }
+
+    public function gamewinner(){
+
+//      PLAYERS IDS
+        $id_winner=6;
+        $id_loser=1;
+
+//        TEST DUEL BALANCE
+        $duel_id=2;
+
+        DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner' => $id_winner, 'duelstate'=>2 ]);
+
+//        POT DEL DUELO
+        $duels_pot_data=duels::where('id','=',$duel_id)->first();
+        $pot=$duels_pot_data->pot;
+
+//        INTERNAL WINNER ACCOUNT BALANCE
+        $data_winner_balance=internalaccounts::where('ctl_user_id',$id_winner)->first();
+        $plus_balance=$data_winner_balance->balance + $pot;
+//        return View('test')->with('like',$plus_balance);
+
+//        UPDATING WINNER INTERNAL ACCOUNT
+        DB::table('internalaccounts')->where('ctl_user_id',$id_winner)->update(['balance'=>$plus_balance]);
+
+
+//        INTERNAL LOSER ACCOUNT BALANCE
+        $data_loser_balance=internalaccounts::where('ctl_user_id',$id_loser)->first();
+        $less_balance=$data_loser_balance->balance - $pot;
+
+//          UPDATING LOSER ACCOUNT BALANCE
+        DB::table('internalaccounts')->where('ctl_user_id',$id_loser)->update(['balance'=>$less_balance]);
+
+    }
+
+
 }

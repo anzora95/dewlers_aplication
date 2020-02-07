@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\persons;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\internalaccounts;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -64,10 +67,42 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        $data_ctl_users=array(
+            'username'=>$data['name'],
+            'password'=>Hash::make($data['password']),
+            'salt'=>'this is a test salt',
+            'status'=>1,
+            'appKey'=>'test appkey',
+            'code'=>'burned code',
+            'rankingStatus'=>'1',
+            'state_id'=>1,
+            'ranking_id'=>1,
+            'registerType_id'=>1,
+            'historyStatus'=>1
+        );
+
+        $last_id = DB::table('ctl_users')->insertGetId($data_ctl_users);
+
+        internalaccounts::create([
+            'code'=>1,
+            'balance'=>2500,
+            'status'=>1,
+            'ctl_user_id'=>$last_id
+        ]);
+
+        persons::create([
+            'firstName'=>$data['name'],
+            'lastName'=>$data['name'],
+            'email'=>$data['email'],
+            'birthDate'=>'2002-01-30',
+            'photography'=>'123456789',
+            'ctl_user_id'=>$last_id
+        ]);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($data['password'])
         ]);
     }
 }
