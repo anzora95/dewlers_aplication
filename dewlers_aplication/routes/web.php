@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/transactionmanager', 'UserController@tmanager');
     Route::get('/addcoins','UserController@addcoins'); //Para agregar monedas
     Route::get('/witness','UserController@witness');//Para ver los duelos donde se es Witness
-    Route::get('/update_balance', 'DuelController@gamewinner');
+    Route::get('/update_balance/{idduel}/{idwinner}', 'DuelController@gamewinner');
 
 
 //      POST
