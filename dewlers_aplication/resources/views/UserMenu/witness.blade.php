@@ -23,15 +23,17 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col"><h3> $1500.00</h3> </div>
+
                                 </div>
+                                <div class="col"><h5> Select a winner</h5> </div>
                                 <div class="radio-group">
                                 <div class="row">
-                                    <div  class="col-md-5 option challenger"  data-toggle="collapse" href="#collapseExample" onclick="selectwinner()">
+                                    <div  class="col-md-5 option challenger"   id="challenger"   >
                                             {{ Html::image('img/avatar.svg', 'challenger', array('style' => 'max-width: 40px; margin:auto; margin-top:15px;')) }}
                                                 <h5 >Challenger</h5>
                                         </div>
                                     <div class="col-md-2"><img src="https://img.icons8.com/ios/50/000000/head-to-head.png" class="vslogo" id="vslogo" ></div>
-                                    <div class="col-md-5 option challenger" onclick="selectwinner()" data-toggle="collapse" href="#collapseExample">
+                                    <div class="col-md-5 option challenger" id="challenged"  >
 
                                             {{ Html::image('img/avatar.svg', 'challenged', array('style' => 'max-width: 40px; margin:auto; margin-top:15px;')) }}
 
@@ -42,7 +44,7 @@
                                 </div>
                                 </div>
                                 <div class="row">
-                                    <div id="collapseExample" class="col choosewinnerbutton collapse">
+                                    <div id="collapseExample" class="col collapser collapse" >
                                         <a class="btn btn-info" href="#"  role="button">Winner</a>
                                     </div>
                                 </div>
@@ -51,6 +53,28 @@
                     </div>
                 </div>
             </div>
+
+        <script type="application/javascript">
+            $(document).ready(
+                function()
+                {
+                    $(".option").click(
+                        function(event)
+                        {
+                            $(this).toggleClass("active");
+                            var element = document.getElementById("collapseExample");
+
+                            if($("#challenger").hasClass("active") || $("#challenged").hasClass("active")){
+                                $(".collapser").collapse('show');
+                            }
+                            else{
+                                $(".collapser").collapse('hide');
+                            }
+                            $(this).siblings().removeClass("active");
+                        }
+                    );
+                });
+        </script>
             {{--         FIN de DUelos donde se es witness--}}
         </div>
 </div>

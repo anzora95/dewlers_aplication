@@ -57,7 +57,7 @@
                                 <td>{{$du->ctlUser1->username}}</td>
                                 <td>{{$du->ctlUser2->username}}</td>
                                 <td>{{$du->registerDate}}</td>
-                                <td>{{$du->status}}</td>
+                                <td>{{$du->duelstate}}</td>
                                 <td>-</td>
 
                             </tr>
