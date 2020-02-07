@@ -21,7 +21,7 @@
                     <div class="card">
                         <div class="card-header">Create a Duel</div>
                         <div class="card-body">
-                            <form action="/saveduel" method="post">
+                            <form action="/saveduel" method="post" onsubmit="sub_butt.disabled = true; return true;">
                                 @csrf
 {{--                                Tittle--}}
                                 <div class="form-group">
@@ -62,7 +62,7 @@
                                 </div>
 
 
-                                <button type="submit" class="btn btn-danger">DUEL</button>
+                                <button type="submit" class="btn btn-danger" id="sub_butt">DUEL</button>
                             </form>
                         </div>
                     </div>

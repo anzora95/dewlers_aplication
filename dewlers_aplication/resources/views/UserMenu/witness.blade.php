@@ -39,14 +39,16 @@
                 </div>
             </div>
 
-            @foreach($duels as $due)
+
 {{--            DUelos donde se es witness--}}
             @foreach($duels as $du)
+                @if($du->status==1)
                 <div class="col-md-8 duelwitness">
                     <div class="card">
                         <div class="card-header">{{$du->tittle}}</div>
                         <div class="card-body">
                             <form action="#" method="post">
+                                @csrf
                                 <div class="container">
                                     <div class="row">
                                         <div class="col"><h4>${{$du->pot}}</h4> </div>
@@ -72,14 +74,16 @@
                                 </div>
                                 <div class="row">
                                     <div id="collapseExample" class="col collapser{{$du->id}} collapse" >
-                                        <a class="btn btn-primary" onclick="ajaxwinner{{$du->id}}()"  role="button">Winner</a>
+                                        <a class="btn btn-primary" onclick="ajaxwinner{{$du->id}}()" role="button">Winner</a>
                                     </div>
                                 </div>
                         </div>
                         </form>
                     </div>
                 </div>
-                @endforeach
+                @endif
+
+            @endforeach
 
             </div>
 @foreach($duels as $du)
@@ -125,14 +129,13 @@
                 if($("#challenger{{$du->id}}").hasClass("active")){
                     console.log('Gano el retador');
                     var xhttp = new XMLHttpRequest();
-                    var url = "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}";
                     xhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
 
 
                         }
                     };
-                    xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}", true);
+                    xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}/{{$du->ctl_user_id_challenged}}", true);
                     xhttp.send();
                     alertify.alert('Ready!');
 
@@ -141,13 +144,12 @@
                 else{
                     console.log('Gano el retado');
                     var xhttp = new XMLHttpRequest();
-                    var url = "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}";
                     xhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
 
                         }
                     };
-                    xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenged}}", true);
+                    xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenged}}/{{$du->ctl_user_id_challenger}}", true);
                     xhttp.send();
                     alertify.alert('Ready!');
                     setTimeout(function(){ location.reload(); }, 3000);

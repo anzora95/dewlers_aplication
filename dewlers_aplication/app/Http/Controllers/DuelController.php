@@ -129,16 +129,16 @@ class DuelController extends Controller
         return view('Duels.status')->with('duels',$due2);
     }
 
-    public function gamewinner($idduel,$idwinner){
+    public function gamewinner($idduel,$idwinner,$idlosser){
 
 //      PLAYERS IDS
         $id_winner=$idwinner;
-        $id_loser=1;
+        $id_loser=$idlosser;
 
 //        TEST DUEL BALANCE
         $duel_id=$idduel;
 
-        DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>4 ]);
+        DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>4, 'status'=>0 ]);
 
 //        POT DEL DUELO
         $duels_pot_data=duels::where('id','=',$duel_id)->first();

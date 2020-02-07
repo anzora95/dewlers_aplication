@@ -112,11 +112,13 @@
                     $('#mytable').on('click', 'tr ', function() {
 
                         var data = table.row( this ).data();
+                        console.log(data[1]);
+                        console.log({{$due->id}})
                         var delayInMilliseconds = 1000; //1 second
                         alertify.confirm('Confirm Title', data[0], function(){ alertify.success('Ok');
-                                setTimeout(function() {
-                                    window.location.replace('/acepted/'+'{{$due->id}}');
-                                }, delayInMilliseconds)
+                                {{--setTimeout(function() {--}}
+                                {{--    window.location.replace('/acepted/'+'{{$due->id}}');--}}
+                                {{--}, delayInMilliseconds)--}}
                             }
                             , function(){ alertify.error('Cancel')});
 
