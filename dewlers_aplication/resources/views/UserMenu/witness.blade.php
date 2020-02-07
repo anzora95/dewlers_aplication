@@ -14,15 +14,17 @@
                     </div>
                 </div>
             </div>
+
+            @foreach($duels as $due)
 {{--            DUelos donde se es witness--}}
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Fastes Man in the office</div>
+                    <div class="card-header">{{$due->tittle}}</div>
                     <div class="card-body">
                         <form action="#" method="post">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col"><h3> $1500.00</h3> </div>
+                                    <div class="col"><h3> ${{$due->pot}}.00</h3> </div>
 
                                 </div>
                                 <div class="col"><h5> Select a winner</h5> </div>
@@ -30,14 +32,14 @@
                                 <div class="row">
                                     <div  class="col-md-5 option challenger"   id="challenger"   >
                                             {{ Html::image('img/avatar.svg', 'challenger', array('style' => 'max-width: 40px; margin:auto; margin-top:15px;')) }}
-                                                <h5 >Challenger</h5>
+                                                <h5 >{{$due->ctlUser0->username}}</h5>
                                         </div>
                                     <div class="col-md-2"><img src="https://img.icons8.com/ios/50/000000/head-to-head.png" class="vslogo" id="vslogo" ></div>
                                     <div class="col-md-5 option challenger" id="challenged"  >
 
                                             {{ Html::image('img/avatar.svg', 'challenged', array('style' => 'max-width: 40px; margin:auto; margin-top:15px;')) }}
 
-                                                <h5 class="card-title">Challenged</h5>
+                                                <h5 class="card-title">{{$due->ctlUser1->username}}</h5>
 
                                         </div>
                                     </div>
@@ -53,6 +55,7 @@
                     </div>
                 </div>
             </div>
+        @endforeach
 
         <script type="application/javascript">
             $(document).ready(

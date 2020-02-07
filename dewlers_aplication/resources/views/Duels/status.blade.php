@@ -48,7 +48,7 @@
                         <tbody>
                         @foreach($duels as $du)
                             @if($du->ctl_user_id_challenged == Auth::user()->id)
-                                <tr onclick="acept_{{$du->id}}()">
+                                <tr id="acept{{$du->id}}">
                             @else
                                 <tr id="mv_jose_row">
                             @endif
@@ -58,7 +58,7 @@
                                 <td>{{$du->ctlUser0->username}}</td>
                                 <td>{{$du->ctlUser1->username}}</td>
                                 <td>{{$du->registerDate}}</td>
-                                <td>{{$du->status}}</td>
+                                <td>{{$du->duelstatus->description}}</td>
                                     @if($du->ctl_user_id_winner==null)
                                         <td>--</td>
                                     @else
@@ -104,19 +104,24 @@
         @if($due->ctl_user_id_challenged == Auth::user()->id)
             <script type="application/javascript">
 
-                function acept_{{$due->id}}(){
-                    var delayInMilliseconds = 1000; //1 second
+                $(document).ready(function() {
 
-                    var flag =1;
-                    var id = id_val;
+                    var table = $('#mytable').DataTable();
 
-                    alertify.confirm('Bet', 'Acept this bet?', function(){alertify.success('Ok');
-                            setTimeout(function() {
-                                window.location.replace('/delete_dispatch/'+id+'/'+flag);
-                            }, delayInMilliseconds)
-                        }
-                        , function(){ alertify.error('Cancel')});
-                }
+
+                    $('#mytable').on('click', 'tr ', function() {
+
+                        var data = table.row( this ).data();
+                        var delayInMilliseconds = 1000; //1 second
+                        alertify.confirm('Confirm Title', data[0], function(){ alertify.success('Ok');
+                                setTimeout(function() {
+                                    window.location.replace('/acepted/'+'{{$due->id}}');
+                                }, delayInMilliseconds)
+                            }
+                            , function(){ alertify.error('Cancel')});
+
+                    } );
+                } );
 
             </script>
 
