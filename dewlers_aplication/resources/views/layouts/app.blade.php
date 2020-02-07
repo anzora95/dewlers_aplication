@@ -57,34 +57,32 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
 
+                <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/duelcreator') }}">Create Duel</a>
+                        </li>
+
+                        <li class="nav-item" >
+                            <a class="nav-link" href="#">History</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="{{ url('/status') }}">Status</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/witness')}}">Witness</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="/transactionmanager">Transactions Manager</a>
+                        </li>
                     </ul>
 
-                    {{--                    CENTER MENU  // The user is authenticated...--}}
+
 
                     @auth
 
-
-                        <div  class="col-10 text-center">
-                            <a class="navbar-brand nav-menu" href="{{ url('/duelcreator') }}">
-                                Create Duel
-                            </a>
-                            <a class="navbar-brand nav-menu " href="#">
-                                History
-                            </a>
-                            <a class="navbar-brand nav-menu " href="{{ url('/status') }}">
-                                Status
-                            </a>
-                            <a class="navbar-brand nav-menu " href="{{url('/witness')}}">
-                                Witness
-                            </a>
-                            <a class="navbar-brand nav-menu " href="/transactionmanager">
-                                Transactions Manager
-                            </a>
-                        </div>
 
                 @endauth
 
