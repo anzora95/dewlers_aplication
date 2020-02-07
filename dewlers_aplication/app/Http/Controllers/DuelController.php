@@ -123,7 +123,7 @@ class DuelController extends Controller
     public function  status()
     {
         $id_auth=Auth::user();
-        $due2=duels::with('ctlUser0')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_witness','=',$id_auth->id)->get();;
+        $due2=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenged','=',$id_auth->id)->get();;
 
 
         return view('Duels.status')->with('duels',$due2);
@@ -138,7 +138,7 @@ class DuelController extends Controller
 //        TEST DUEL BALANCE
         $duel_id=$idduel;
 
-        DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner' => $id_winner, 'duelstate'=>2 ]);
+        DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>4 ]);
 
 //        POT DEL DUELO
         $duels_pot_data=duels::where('id','=',$duel_id)->first();
@@ -159,6 +159,13 @@ class DuelController extends Controller
 
 //          UPDATING LOSER ACCOUNT BALANCE
         DB::table('internalaccounts')->where('ctl_user_id',$id_loser)->update(['balance'=>$less_balance]);
+
+    }
+
+    public function acept_challenge($id){
+
+        DB::table('duels')->where('id',$id)->update(['duelstate'=>2]);
+        return redirect('/status');
 
     }
 

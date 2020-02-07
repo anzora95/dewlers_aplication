@@ -38,6 +38,8 @@
                     </div>
                 </div>
             </div>
+
+            @foreach($duels as $due)
 {{--            DUelos donde se es witness--}}
             @foreach($duels as $du)
                 <div class="col-md-8 duelwitness">

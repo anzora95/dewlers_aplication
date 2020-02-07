@@ -40,7 +40,6 @@
                             <th>POT</th>
                             <th>Challenger</th>
                             <th>Challenged</th>
-                            <th>Witness</th>
                             <th>Date</th>
                             <th>Status</th>
                             <th>Winner</th>
@@ -48,33 +47,31 @@
                         </thead>
                         <tbody>
                         @foreach($duels as $du)
-
-                            <tr onclick="ocultar();">
+                            @if($du->ctl_user_id_challenged == Auth::user()->id)
+                                <tr id="acept{{$du->id}}">
+                            @else
+                                <tr id="mv_jose_row">
+                            @endif
                                 <td>{{$du->tittle}}</td>
                                 <td>${{$du->pot}}.00</td>
 
                                 <td>{{$du->ctlUser0->username}}</td>
                                 <td>{{$du->ctlUser1->username}}</td>
-                                <td>{{$du->ctlUser2->username}}</td>
                                 <td>{{$du->registerDate}}</td>
-                                <td>{{$du->duelstate}}</td>
-                                <td>-</td>
+                                <td>{{$du->duelstatus->description}}</td>
+                                    @if($du->ctl_user_id_winner==null)
+                                        <td>--</td>
+                                    @else
+                                        <td>{{$du->ctlUser3->username}}</td>
+                                    @endif
 
-                            </tr>
-                            <div class="collapse" id="collapse">
-                                <div class="card card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                </div>
-                            </div>
 
-                            <script type="application/javascript">
-                                function ocultar(){
+                                </tr>
 
-                                    $('.collapse').collapse();
-                                }
 
-                            </script>
+
                         @endforeach
+
                         </tbody>
                         <tfoot>
                         <tr>
@@ -82,7 +79,6 @@
                             <th>POT</th>
                             <th>Challenger</th>
                             <th>Challenged</th>
-                            <th>Witness</th>
                             <th>Date</th>
                             <th>Status</th>
                             <th>Winner</th>
@@ -102,6 +98,39 @@
         } );
     </script>
 
+
+
+    @foreach($duels as $due)
+        @if($due->ctl_user_id_challenged == Auth::user()->id)
+            <script type="application/javascript">
+
+                $(document).ready(function() {
+
+                    var table = $('#mytable').DataTable();
+
+
+                    $('#mytable').on('click', 'tr ', function() {
+
+                        var data = table.row( this ).data();
+                        var delayInMilliseconds = 1000; //1 second
+                        alertify.confirm('Confirm Title', data[0], function(){ alertify.success('Ok');
+                                setTimeout(function() {
+                                    window.location.replace('/acepted/'+'{{$due->id}}');
+                                }, delayInMilliseconds)
+                            }
+                            , function(){ alertify.error('Cancel')});
+
+                    } );
+                } );
+
+            </script>
+
+
+        @endif
+    @endforeach
+
+
+    
 @endsection
 
 

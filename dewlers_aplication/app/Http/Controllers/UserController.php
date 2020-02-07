@@ -40,11 +40,10 @@ class UserController extends Controller
     }
 
     public  function witness(){
-        $id = Auth::user()->id;
 
         $id=Auth::user();
 
-        $duels=duels::with('ctlUser2')->where('ctl_user_id_witness','=',$id->id)->get();
+        $duels=duels::with('ctlUser0','ctlUser1')->where('ctl_user_id_witness','=',$id->id)->get();
 
         return view('UserMenu.witness')->with('duels',$duels);
     }
