@@ -35,10 +35,10 @@
                         </thead>
                         <tbody>
                         @foreach($duels as $du)
-                            @if($du->duelstate == 2)
-                                <tr style="background-color: #f4b0af">
+                            @if($du->ctl_user_id_challenged == Auth::user()->id)
+                                <tr onclick="acept_{{$du->id}}()">
                             @else
-                                <tr>
+                                <tr id="mv_jose_row">
                             @endif
                                 <td>{{$du->tittle}}</td>
                                 <td>${{$du->pot}}.00</td>
@@ -46,10 +46,19 @@
                                 <td>{{$du->ctlUser1->username}}</td>
                                 <td>{{$du->registerDate}}</td>
                                 <td>{{$du->status}}</td>
-                                <td>{{$du->ctlUser3->username}}</td>
+                                    @if($du->ctl_user_id_winner==null)
+                                        <td>--</td>
+                                    @else
+                                        <td>{{$du->ctlUser3->username}}</td>
+                                    @endif
 
-                            </tr>
+
+                                </tr>
+
+
+
                         @endforeach
+
                         </tbody>
                         <tfoot>
                         <tr>
@@ -75,6 +84,34 @@
             $('#mytable').DataTable();
         } );
     </script>
+
+
+
+    @foreach($duels as $due)
+        @if($due->ctl_user_id_challenged == Auth::user()->id)
+            <script type="application/javascript">
+
+                function acept_{{$due->id}}(){
+                    var delayInMilliseconds = 1000; //1 second
+
+                    var flag =1;
+                    var id = id_val;
+
+                    alertify.confirm('Bet', 'Acept this bet?', function(){alertify.success('Ok');
+                            setTimeout(function() {
+                                window.location.replace('/delete_dispatch/'+id+'/'+flag);
+                            }, delayInMilliseconds)
+                        }
+                        , function(){ alertify.error('Cancel')});
+                }
+
+            </script>
+
+
+        @endif
+    @endforeach
+
+
     
 @endsection
 

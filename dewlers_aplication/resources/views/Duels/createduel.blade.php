@@ -30,13 +30,13 @@
                                 </div>
 
 {{--                                POT--}}
-                                <label for="pot">Pot</label>
+                                <label for="pot">Bet</label>
                                 <div class="input-group mb-3">
 
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">$</span>
                                     </div>
-                                    <input type="number" id="pot" name="pot" class="form-control" placeholder="10.00" aria-label="pot" aria-describedby="pot"  required>
+                                    <input type="number" id="pot" name="pot" class="form-control" placeholder="10.00" aria-label="pot" aria-describedby="pot"  required min="10" >
                                 </div>
 
 {{--                                RETADO--}}

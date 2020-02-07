@@ -123,7 +123,7 @@ class DuelController extends Controller
     public function  status()
     {
         $id_auth=Auth::user();
-        $due2=duels::with('ctlUser0')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenged','=',$id_auth->id)->get();;
+        $due2=duels::with('ctlUser0','ctlUser3')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenged','=',$id_auth->id)->get();;
 
 
         return view('Duels.status')->with('duels',$due2);
