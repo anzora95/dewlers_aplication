@@ -80,8 +80,12 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    WELCOME TO DEWLERS
+                <div class="container">
+                    <div class="col">
+
+                        <h1>WELCOME TO DEWLERS</h1>
+
+                </div>
                 </div>
 
 {{--                <div class="links">--}}
