@@ -19,6 +19,18 @@
             <div class="col-md-12">
                 {{--                AQUI EL MENU--}}
                 {{--                <a href="/save_duel"><div class="btn btn-primary">Save</div></a>--}}
+                <div class="container status-space">
+                    <div  class="row">
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col text-right">
+                            <a href="{{ url('/dashboard') }}">
+                                <button type="button" class="btn btn-outline-secondary">Go Back</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="container">
                     <table id="mytable" class="display" style="width:100%">
@@ -36,9 +48,11 @@
                         </thead>
                         <tbody>
                         @foreach($duels as $du)
-                            <tr>
+
+                            <tr onclick="ocultar();">
                                 <td>{{$du->tittle}}</td>
                                 <td>${{$du->pot}}.00</td>
+
                                 <td>{{$du->ctlUser0->username}}</td>
                                 <td>{{$du->ctlUser1->username}}</td>
                                 <td>{{$du->ctlUser2->username}}</td>
@@ -47,6 +61,19 @@
                                 <td>-</td>
 
                             </tr>
+                            <div class="collapse" id="collapse">
+                                <div class="card card-body">
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                </div>
+                            </div>
+
+                            <script type="application/javascript">
+                                function ocultar(){
+
+                                    $('.collapse').collapse();
+                                }
+
+                            </script>
                         @endforeach
                         </tbody>
                         <tfoot>
@@ -74,7 +101,7 @@
             $('#mytable').DataTable();
         } );
     </script>
-    
+
 @endsection
 
 

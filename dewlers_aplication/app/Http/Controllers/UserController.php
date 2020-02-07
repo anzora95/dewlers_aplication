@@ -39,8 +39,9 @@ class UserController extends Controller
     }
 
     public  function witness(){
+        $id = Auth::user()->id;
 
-        return view('UserMenu.witness');
+        return view('UserMenu.witness')->with('id',$id);
     }
 
 }

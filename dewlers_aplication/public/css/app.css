@@ -10893,3 +10893,40 @@ a.text-dark:focus {
 .radios{
     margin: 0 0 10px 0;
 }
+.status-space{
+    margin: 0 0 10px 0;
+}
+.witness-div{
+    margin: 0 0 10px 0;
+}
+.vslogo{
+    margin-top: 28px;
+    max-width: 35px;
+}
+.blink_me {
+    animation: blinker 1.7s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.choosewinnerbutton{
+    margin: 15px 0 0 0;
+}
+.option
+{
+    margin: 10px auto;
+}
+.option.active
+{
+    border: 4px solid black;
+}
+@media only screen and (max-width: 767px) {
+    /* For mobile phones: */
+    .vslogo {
+        margin-top: 0px !important;
+    }
+}
