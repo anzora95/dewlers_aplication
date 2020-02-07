@@ -28,7 +28,6 @@
                             <th>POT</th>
                             <th>Challenger</th>
                             <th>Challenged</th>
-                            <th>Witness</th>
                             <th>Date</th>
                             <th>Status</th>
                             <th>Winner</th>
@@ -36,15 +35,18 @@
                         </thead>
                         <tbody>
                         @foreach($duels as $du)
-                            <tr>
+                            @if($du->duelstate == 2)
+                                <tr style="background-color: #f4b0af">
+                            @else
+                                <tr>
+                            @endif
                                 <td>{{$du->tittle}}</td>
                                 <td>${{$du->pot}}.00</td>
                                 <td>{{$du->ctlUser0->username}}</td>
                                 <td>{{$du->ctlUser1->username}}</td>
-                                <td>{{$du->ctlUser2->username}}</td>
                                 <td>{{$du->registerDate}}</td>
                                 <td>{{$du->status}}</td>
-                                <td>-</td>
+                                <td>{{$du->ctlUser3->username}}</td>
 
                             </tr>
                         @endforeach
@@ -55,7 +57,6 @@
                             <th>POT</th>
                             <th>Challenger</th>
                             <th>Challenged</th>
-                            <th>Witness</th>
                             <th>Date</th>
                             <th>Status</th>
                             <th>Winner</th>
