@@ -19,6 +19,18 @@
             <div class="col-md-12">
                 {{--                AQUI EL MENU--}}
                 {{--                <a href="/save_duel"><div class="btn btn-primary">Save</div></a>--}}
+                <div class="container status-space">
+                    <div  class="row">
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col text-right">
+                            <a href="{{ url('/dashboard') }}">
+                                <button type="button" class="btn btn-outline-secondary">Go Back</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="container">
                     <table id="mytable" class="display" style="width:100%">
@@ -42,6 +54,7 @@
                             @endif
                                 <td>{{$du->tittle}}</td>
                                 <td>${{$du->pot}}.00</td>
+
                                 <td>{{$du->ctlUser0->username}}</td>
                                 <td>{{$du->ctlUser1->username}}</td>
                                 <td>{{$du->registerDate}}</td>

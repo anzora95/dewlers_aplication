@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/scripts.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -77,7 +78,7 @@
                             <a class="navbar-brand nav-menu " href="{{ url('/status') }}">
                                 Status
                             </a>
-                            <a class="navbar-brand nav-menu " href="#">
+                            <a class="navbar-brand nav-menu " href="{{url('/witness')}}">
                                 Witness
                             </a>
                             <a class="navbar-brand nav-menu " href="/transactionmanager">

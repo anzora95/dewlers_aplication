@@ -40,6 +40,7 @@ class UserController extends Controller
     }
 
     public  function witness(){
+        $id = Auth::user()->id;
 
         $id=Auth::user();
 
