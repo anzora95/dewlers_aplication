@@ -4,7 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>DEWLERS</title>
+
+        <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/scripts.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -14,7 +25,7 @@
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: 'Nunito', sans-serif;
+                font-family: 'Nunito', sans-serif !important;
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
@@ -82,10 +93,18 @@
             <div class="content">
                 <div class="container">
                     <div class="col">
+                        <h1><strong>DEWLERS</strong></h1>
+                        <h3>Just Dewl It</h3>
+                        <div class="row hmbtn" >
+                            <a href="{{ url('/duelcreator') }}">
+                                <button type="button"  class="btn btn-danger btnhome">Create a Dewl</button>
+                                </a>
+                            <a href="#">
+                                <button type="button"  class="btn btn-secondary btnhome">Create a Dewl</button>
+                                </a>
+                        </div>
 
-                        <h1>WELCOME TO DEWLERS</h1>
-
-                </div>
+                    </div>
                 </div>
 
 {{--                <div class="links">--}}

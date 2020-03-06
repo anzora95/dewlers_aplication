@@ -10933,3 +10933,20 @@ a.text-dark:focus {
 .duelwitness{
     margin: 0 0 10px 0;
 }
+
+/* HOME PAGE */
+.hmbtn{
+    margin: 20px 0 0 0;
+}
+.btnhome{
+    margin: 0 5px 0 5px;
+}
+.arrow-back{
+
+}
+.arrow-back:hover{
+    opacity: 0.6;
+}
+.status-table{
+    margin-top: 30px;
+}

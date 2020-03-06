@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/witness','UserController@witness');//Para ver los duelos donde se es Witness
     Route::get('/update_balance/{idduel}/{idwinner}', 'DuelController@gamewinner');
     Route::get('/acepted/{id}', 'DuelController@acept_challenge');
+    Route::get('/update_balance/{idduel}/{idwinner}/{idlosser}', 'DuelController@gamewinner');
 
 
 

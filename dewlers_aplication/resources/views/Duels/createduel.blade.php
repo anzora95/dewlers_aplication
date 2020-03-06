@@ -6,31 +6,39 @@
                 {{--                AQUI EL MENU--}}
             <div class="container">
                 <div  class="row">
-                    <div class="col"></div>
+                    <div class="col">
+                        <a href="{{ url('/dashboard') }}">
+                            {{-- <button type="button" class="btn btn-outline-secondary">Go Back</button> --}}
+                            {{ Html::image('img/left-1.svg', 'back', array('style' => 'max-width: 40px; margin:auto; margin-top:15px;color:#6c757d','class'=>'arrow-back')) }}
+                            </a>
+                    </div>
                     <div class="col"></div>
                     <div class="col"></div>
                     <div class="col text-right">
-                        <a href="{{ url('/dashboard') }}">
-                        <button type="button" class="btn btn-outline-secondary">Go Back</button>
-                        </a>
                     </div>
                 </div>
             </div>
 
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="card-header">Create a Duel</div>
+                        <div class="card-header">Create a Dewl</div>
                         <div class="card-body">
-                            <form action="/saveduel" method="post">
+                            <form action="/saveduel" method="post" onsubmit="sub_butt.disabled = true; return true;">
                                 @csrf
 {{--                                Tittle--}}
                                 <div class="form-group">
-                                    <label for="tittle">Tittle</label>
+                                    <label for="title">Title</label>
                                     <input type="text" class="form-control" id="tittle" name="tittle" aria-describedby="tittle" required>
+                                </div>
+{{--                                DESCRIPTION--}}
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea name="description" id="descriptio" class="form-control" cols="30" rows="3" required></textarea>
+
                                 </div>
 
 {{--                                POT--}}
-                                <label for="pot">Bet</label>
+                                <label for="pot">Dewl</label>
                                 <div class="input-group mb-3">
 
                                     <div class="input-group-prepend">
@@ -62,7 +70,7 @@
                                 </div>
 
 
-                                <button type="submit" class="btn btn-danger">DUEL</button>
+                                <button type="submit" class="btn btn-danger" id="sub_butt">DEWL</button>
                             </form>
                         </div>
                     </div>

@@ -3,33 +3,32 @@
     <div class="container">
         <div class="row justify-content-center text-center">
 
-                {{--                AQUI EL MENU--}}
-                {{--                <a href="/save_duel"><div class="btn btn-primary">Save</div></a>--}}
-
-
-                <div class="container">
-                    <div  class="row">
-                        <div class="col"></div>
-                        <div class="col"></div>
-                        <div class="col"></div>
-                        <div class="col text-right">
-                            <a href="{{ url('/dashboard') }}">
-                                <button type="button" class="btn btn-outline-secondary">Go Back</button>
+                   {{--                AQUI EL MENU--}}
+            <div class="container">
+                <div  class="row">
+                    <div class="col">
+                        <a href="{{ url('/dashboard') }}">
+                            {{-- <button type="button" class="btn btn-outline-secondary">Go Back</button> --}}
+                            {{ Html::image('img/left-1.svg', 'back', array('style' => 'max-width: 40px; margin:auto; margin-top:15px;color:#6c757d','class'=>'arrow-back')) }}
                             </a>
-                        </div>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col text-right">
                     </div>
                 </div>
+            </div>
 
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="card-header">Add Dewl Coins</div>
+                        <div class="card-header">Add Stacks</div>
                         <div class="card-body">
                             <form action="/savecoins" method="post">
                                 @csrf
                                 {{--                                Tittle--}}
                                 <div class="container">
                                 <div class="form-group ">
-                                    <label for="tittle" class="deposit">how much do you want to deposit?</label>
+                                    <label for="tittle" class="deposit">How much do you want to deposit?</label>
                                     <br>
                                     <div class="btn-group btn-group-toggle radios" data-toggle="buttons">
                                         <label class="btn btn-secondary active">

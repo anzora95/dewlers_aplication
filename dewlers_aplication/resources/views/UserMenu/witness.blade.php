@@ -26,27 +26,32 @@
 
     <div class="container">
         <div class="row justify-content-center text-center">
-            <div class="container witness-div">
+               {{--                AQUI EL MENU--}}
+               <div class="container">
                 <div  class="row">
-                    <div class="col"></div>
+                    <div class="col">
+                        <a href="{{ url('/dashboard') }}">
+                            {{-- <button type="button" class="btn btn-outline-secondary">Go Back</button> --}}
+                            {{ Html::image('img/left-1.svg', 'back', array('style' => 'max-width: 40px; margin:auto; margin-top:15px;color:#6c757d','class'=>'arrow-back')) }}
+                            </a>
+                    </div>
                     <div class="col"></div>
                     <div class="col"></div>
                     <div class="col text-right">
-                        <a href="{{ url('/dashboard') }}">
-                            <button type="button" class="btn btn-outline-secondary">Go Back</button>
-                        </a>
                     </div>
                 </div>
             </div>
 
-            @foreach($duels as $due)
+
 {{--            DUelos donde se es witness--}}
             @foreach($duels as $du)
+                @if($du->status==1)
                 <div class="col-md-8 duelwitness">
                     <div class="card">
                         <div class="card-header">{{$du->tittle}}</div>
                         <div class="card-body">
                             <form action="#" method="post">
+                                @csrf
                                 <div class="container">
                                     <div class="row">
                                         <div class="col"><h4>${{$du->pot}}</h4> </div>
@@ -72,14 +77,16 @@
                                 </div>
                                 <div class="row">
                                     <div id="collapseExample" class="col collapser{{$du->id}} collapse" >
-                                        <a class="btn btn-primary" onclick="ajaxwinner{{$du->id}}()"  role="button">Winner</a>
+                                        <a class="btn btn-primary" onclick="ajaxwinner{{$du->id}}()" role="button">Winner</a>
                                     </div>
                                 </div>
                         </div>
                         </form>
                     </div>
                 </div>
-                @endforeach
+                @endif
+
+            @endforeach
 
             </div>
 @foreach($duels as $du)
@@ -125,14 +132,13 @@
                 if($("#challenger{{$du->id}}").hasClass("active")){
                     console.log('Gano el retador');
                     var xhttp = new XMLHttpRequest();
-                    var url = "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}";
                     xhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
 
 
                         }
                     };
-                    xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}", true);
+                    xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}/{{$du->ctl_user_id_challenged}}", true);
                     xhttp.send();
                     alertify.alert('Ready!');
 
@@ -141,13 +147,12 @@
                 else{
                     console.log('Gano el retado');
                     var xhttp = new XMLHttpRequest();
-                    var url = "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}";
                     xhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
 
                         }
                     };
-                    xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenged}}", true);
+                    xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenged}}/{{$du->ctl_user_id_challenger}}", true);
                     xhttp.send();
                     alertify.alert('Ready!');
                     setTimeout(function(){ location.reload(); }, 3000);
