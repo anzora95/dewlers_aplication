@@ -17,77 +17,87 @@
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-md-12">
-                {{--                AQUI EL MENU--}}
-                {{--                <a href="/save_duel"><div class="btn btn-primary">Save</div></a>--}}
-                <div class="container status-space">
-                    <div  class="row">
-                        <div class="col"></div>
-                        <div class="col"></div>
-                        <div class="col"></div>
-                        <div class="col text-right">
-                            <a href="{{ url('/dashboard') }}">
-                                <button type="button" class="btn btn-outline-secondary">Go Back</button>
+                   {{--                AQUI EL MENU--}}
+            <div class="container">
+                <div  class="row">
+                    <div class="col text-left">
+                        <a href="{{ url('/dashboard') }}">
+                            {{-- <button type="button" class="btn btn-outline-secondary">Go Back</button> --}}
+                            {{ Html::image('img/left-1.svg', 'back', array('style' => 'max-width: 40px; margin:auto; margin-top:15px;color:#6c757d','class'=>'arrow-back')) }}
                             </a>
-                        </div>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col text-right">
                     </div>
                 </div>
-
-                <div class="container">
-                    <table id="mytable" class="display" style="width:100%">
-                        <thead>
-                        <tr>
-                            <th>Tittle</th>
-                            <th>POT</th>
-                            <th>Challenger</th>
-                            <th>Challenged</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Winner</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($duels as $du)
-                            @if($du->ctl_user_id_challenged == Auth::user()->id)
-                                <tr id="acept{{$du->id}}">
-                            @else
-                                <tr id="mv_jose_row">
-                            @endif
-                                <td>{{$du->tittle}}</td>
-                                <td>${{$du->pot}}.00</td>
-
-                                <td>{{$du->ctlUser0->username}}</td>
-                                <td>{{$du->ctlUser1->username}}</td>
-                                <td>{{$du->registerDate}}</td>
-                                <td>{{$du->duelstatus->description}}</td>
-                                    @if($du->ctl_user_id_winner==null)
-                                        <td>--</td>
-                                    @else
-                                        <td>{{$du->ctlUser3->username}}</td>
-                                    @endif
+            </div>
 
 
-                                </tr>
+            <div class="col-md-12 status-table">
+                <div class="card">
+                    <div class="card-header">Dewl Status </div>
+                    <div class="card-body">
+                        <table id="mytable" class="display" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>Tittle</th>
+                                <th>POT</th>
+                                <th>Challenger</th>
+                                <th>Challenged</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Winner</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($duels as $du)
+                                @if($du->ctl_user_id_challenged == Auth::user()->id)
+                                    <tr id="acept{{$du->id}}">
+                                @else
+                                    <tr id="mv_jose_row">
+                                @endif
+                                    <td>{{$du->tittle}}</td>
+                                    <td>${{$du->pot}}.00</td>
+
+                                    <td>{{$du->ctlUser0->username}}</td>
+                                    <td>{{$du->ctlUser1->username}}</td>
+                                    <td>{{$du->registerDate}}</td>
+                                    <td>{{$du->duelstatus->description}}</td>
+                                        @if($du->ctl_user_id_winner==null)
+                                            <td>--</td>
+                                        @else
+                                            <td>{{$du->ctlUser3->username}}</td>
+                                        @endif
+
+
+                                    </tr>
 
 
 
-                        @endforeach
+                            @endforeach
 
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Tittle</th>
-                            <th>POT</th>
-                            <th>Challenger</th>
-                            <th>Challenged</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Winner</th>
-                        </tr>
-                        </tfoot>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>Tittle</th>
+                                <th>POT</th>
+                                <th>Challenger</th>
+                                <th>Challenged</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Winner</th>
+                            </tr>
+                            </tfoot>
 
-                    </table>
-
+                        </table>
+                    </div>
                 </div>
+            </div>
+
+
+
+
             </div>
         </div>
     </div>
@@ -132,7 +142,7 @@
     @endforeach
 
 
-    
+
 @endsection
 
 

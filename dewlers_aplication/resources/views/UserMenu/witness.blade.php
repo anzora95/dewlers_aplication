@@ -26,15 +26,18 @@
 
     <div class="container">
         <div class="row justify-content-center text-center">
-            <div class="container witness-div">
+               {{--                AQUI EL MENU--}}
+               <div class="container">
                 <div  class="row">
-                    <div class="col"></div>
+                    <div class="col">
+                        <a href="{{ url('/dashboard') }}">
+                            {{-- <button type="button" class="btn btn-outline-secondary">Go Back</button> --}}
+                            {{ Html::image('img/left-1.svg', 'back', array('style' => 'max-width: 40px; margin:auto; margin-top:15px;color:#6c757d','class'=>'arrow-back')) }}
+                            </a>
+                    </div>
                     <div class="col"></div>
                     <div class="col"></div>
                     <div class="col text-right">
-                        <a href="{{ url('/dashboard') }}">
-                            <button type="button" class="btn btn-outline-secondary">Go Back</button>
-                        </a>
                     </div>
                 </div>
             </div>

@@ -59,10 +59,13 @@
 
 
                 <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                    @guest
+
+                    @else
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/duelcreator') }}">Create Duel</a>
+                            <a class="nav-link" href="{{ url('/duelcreator') }}">Create Dewl</a>
                         </li>
 
                         <li class="nav-item" >
@@ -75,9 +78,10 @@
                             <a class="nav-link" href="{{url('/witness')}}">Witness</a>
                         </li>
                         <li class="nav-item" >
-                            <a class="nav-link" href="/transactionmanager">Transactions Manager</a>
+                            <a class="nav-link" href="/transactionmanager">Deposit Stacks</a>
                         </li>
                     </ul>
+                    @endguest
 
 
 
@@ -102,9 +106,12 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+
                                     {{ Auth::user()->name }}
-                                    &#162;
+                                    <strong>
                                         {{ $amount  = \Illuminate\Support\Facades\DB::table('internalaccounts')->where('id','=',Auth::user()->id)->first()->balance}}
+                                        Stacks
+                                    </strong>
                                     <span class="caret"></span>
                                 </a>
 
