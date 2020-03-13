@@ -144,11 +144,16 @@ class DuelController extends Controller
         $duels_pot_data=duels::where('id','=',$duel_id)->first();
         $pot=$duels_pot_data->pot;
 
+        //division del pot
+        $pot_dewlers=$pot*0.1;
+        $pot_winner=$pot*0.85;
+        $pot_witness=$pot*0.05;
+
 //        INTERNAL WINNER ACCOUNT BALANCE
         $data_winner_balance=internalaccounts::where('ctl_user_id',$id_winner)->first();
-        $plus_balance=$data_winner_balance->balance + $pot;
+        $plus_balance=$data_winner_balance->balance + $pot_winner;
 //        return View('test')->with('like',$plus_balance);
-
+//marvin 2585 jose 2471 ariel 4418.5
 //        UPDATING WINNER INTERNAL ACCOUNT
         DB::table('internalaccounts')->where('ctl_user_id',$id_winner)->update(['balance'=>$plus_balance]);
 
@@ -157,8 +162,18 @@ class DuelController extends Controller
         $data_loser_balance=internalaccounts::where('ctl_user_id',$id_loser)->first();
         $less_balance=$data_loser_balance->balance - $pot;
 
+
 //          UPDATING LOSER ACCOUNT BALANCE
         DB::table('internalaccounts')->where('ctl_user_id',$id_loser)->update(['balance'=>$less_balance]);
+
+        //INTERNAL WITNESS ACCOUNT BALANCE
+        $id_witness=$duels_pot_data->ctl_user_id_witness;// se obtiene el id de el witness
+        $data_witness_balance=internalaccounts::where('ctl_user_id',$id_witness)->first(); //se obtiene la row donde esta la cuenta interna de el witness
+        $plus_balance_witness=$data_witness_balance->balance + $pot_witness;
+        DB::table('internalaccounts')->where('ctl_user_id',$id_witness)->update(['balance'=>$plus_balance_witness]);
+
+
+
 
     }
 
