@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class persons extends Model
 {
+    const CREATED_AT = 'registerDate';
+    const UPDATED_AT = 'modificationDate';
     /**
      * @var array
      */

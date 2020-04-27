@@ -26,9 +26,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property duelstatuses $duelstatuses
  * @property Gameaccountbalance[] $gameaccountbalances
  * @property Sentpayment[] $sentpayments
+
  */
 class duels extends Model
 {
+
+    public $primaryKey='id';
+
+    protected $table = 'duels';
     /**
      * @var array
      */
@@ -88,5 +93,11 @@ class duels extends Model
     public function sentpayments()
     {
         return $this->hasMany('App\sentpayment');
+    }
+
+    public function don(){
+
+        return $this->hasOne('App\double_or_nothing');
+
     }
 }

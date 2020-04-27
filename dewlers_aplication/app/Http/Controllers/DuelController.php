@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\internalaccounts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\duels;
+use App\double_or_nothing;
 
 class DuelController extends Controller
 {
@@ -122,17 +124,86 @@ class DuelController extends Controller
     public function  status()
     {
         $id_auth=Auth::user();
-//        $due=DB::table('duels')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_witness','=',$id_auth->id)->get();
-        $due2=duels::with('ctlUser0')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_witness','=',$id_auth->id)->get();;
-//        $tittle=$due->tittle;
-//        $challenger=$due->ctl_user_id_challenger;
-//        $challenged=$due->ctl_user_id_challenged;
-//        $witness=$due->ctl_user_id_witness; //enviados para el view
-//        $regis=$due->registerDate;
-//        $duel_stat= $due->duelstate;
+        $due2=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenged','=',$id_auth->id)->get();;
+        $don_status=DB::table('double_or_nothing')->where('loser_id',$id_auth)->get();  //se enviara para comparar si el don debe repetirse o no
+        $don_status=double_or_nothing::where('loser_id', '=', $id_auth)->get();
+
+//        foreach ($don_status as $don){
+//            echo $don->status;
+//        }
 
 
-        return view('Duels.status')->with('duels',$due2);
-//        ->with('challenger',$challenger)-with('challenged',$challenged)->with('witness',$witness)->with('regis',$regis)->with('state',$duel_stat)
+//        if($don_status==null){
+//            $id = Auth::user();
+//
+//            $actualamount = DB::table('internalaccounts')->where('id','=',$id->id)->first();
+//
+//            return view('UserMenu.index')->with('actualamount',$actualamount->balance);
+//        }else{
+
+
+        return view('Duels.status')->with('duels',$due2)->with('don_status',$don_status);
+//        }
     }
+
+    public function gamewinner($idduel,$idwinner,$idlosser){
+
+//      PLAYERS IDS
+        $id_winner=$idwinner;
+        $id_loser=$idlosser;
+
+//        TEST DUEL BALANCE
+        $duel_id=$idduel;
+
+        DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>4, 'status'=>0 ]);
+
+//        POT DEL DUELO
+        $duels_pot_data=duels::where('id','=',$duel_id)->first();
+        $pot=$duels_pot_data->pot;
+
+        //division del pot
+        $pot_dewlers=$pot*0.1;
+        $pot_winner=$pot*0.85;
+        $pot_witness=$pot*0.05;
+
+//        INTERNAL WINNER ACCOUNT BALANCE
+        $data_winner_balance=internalaccounts::where('ctl_user_id',$id_winner)->first();
+        $plus_balance=$data_winner_balance->balance + $pot_winner;
+//        return View('test')->with('like',$plus_balance);
+//marvin 2585 jose 2471 ariel 4418.5
+//        UPDATING WINNER INTERNAL ACCOUNT
+        DB::table('internalaccounts')->where('ctl_user_id',$id_winner)->update(['balance'=>$plus_balance]);
+
+
+//        INTERNAL LOSER ACCOUNT BALANCE
+        $data_loser_balance=internalaccounts::where('ctl_user_id',$id_loser)->first();
+        $less_balance=$data_loser_balance->balance - $pot;
+
+
+//          UPDATING LOSER ACCOUNT BALANCE
+        DB::table('internalaccounts')->where('ctl_user_id',$id_loser)->update(['balance'=>$less_balance]);
+
+        //INTERNAL WITNESS ACCOUNT BALANCE
+        $id_witness=$duels_pot_data->ctl_user_id_witness;// se obtiene el id de el witness
+        $data_witness_balance=internalaccounts::where('ctl_user_id',$id_witness)->first(); //se obtiene la row donde esta la cuenta interna de el witness
+        $plus_balance_witness=$data_witness_balance->balance + $pot_witness;
+        DB::table('internalaccounts')->where('ctl_user_id',$id_witness)->update(['balance'=>$plus_balance_witness]);
+
+        //create double or nothing dependiendo del perdedor
+        DB::table('double_or_nothing')->insert(["duel_id"=>$duel_id,
+            'status'=>1,
+            'loser_id'=>$id_loser]);
+
+
+
+    }
+
+    public function acept_challenge($id){
+
+        DB::table('duels')->where('id',$id)->update(['duelstate'=>2]);
+        return redirect('/status');
+
+    }
+
+
 }

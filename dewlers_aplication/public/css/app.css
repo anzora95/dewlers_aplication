@@ -10883,4 +10883,70 @@ a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+.nav-bar-separator{
+    margin: 5px 0 5px 0;
+}
+.deposit{
+    font-size: 18px;
+    margin: 0 0 5px 0;
+}
+.radios{
+    margin: 0 0 10px 0;
+}
+.status-space{
+    margin: 0 0 10px 0;
+}
+.witness-div{
+    margin: 0 0 10px 0;
+}
+.vslogo{
+    margin-top: 28px;
+    max-width: 35px;
+}
+.blink_me {
+    animation: blinker 1.7s linear infinite;
+}
 
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.choosewinnerbutton{
+    margin: 15px 0 0 0;
+}
+.option
+{
+    margin: 10px auto;
+}
+.option.active
+{
+    border: 4px solid black;
+}
+@media only screen and (max-width: 767px) {
+    /* For mobile phones: */
+    .vslogo {
+        margin-top: 0px !important;
+    }
+}
+.duelwitness{
+    margin: 0 0 10px 0;
+}
+
+/* HOME PAGE */
+.hmbtn{
+    margin: 20px 0 0 0;
+}
+.btnhome{
+    margin: 0 5px 0 5px;
+}
+.arrow-back{
+
+}
+.arrow-back:hover{
+    opacity: 0.6;
+}
+.status-table{
+    margin-top: 30px;
+}
