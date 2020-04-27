@@ -30,17 +30,31 @@
                                 <div class="form-group ">
                                     <label for="tittle" class="deposit">How much do you want to deposit?</label>
                                     <br>
-                                    <div class="btn-group btn-group-toggle radios" data-toggle="buttons">
-                                        <label class="btn btn-secondary active">
-                                            <input type="radio" name="option" id="option1" value="20" checked> $20.00
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="option" id="option2" value="60"> $60.00
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="option" id="option3" value="100"> $100.00
-                                        </label>
-                                    </div>
+{{--                                    <div class="btn-group btn-group-toggle radios" data-toggle="buttons">--}}
+{{--                                        <label class="btn btn-secondary active">--}}
+{{--                                            <input type="radio" name="option" id="option1" value="20" checked> $20.00--}}
+{{--                                        </label>--}}
+{{--                                        <label class="btn btn-secondary">--}}
+{{--                                            <input type="radio" name="option" id="option2" value="60"> $60.00--}}
+{{--                                        </label>--}}
+{{--                                        <label class="btn btn-secondary">--}}
+{{--                                            <input type="radio" name="option" id="option3" value="100"> $100.00--}}
+{{--                                        </label>--}}
+{{--                                    </div>--}}
+
+                                    <select id="amount" name="amount">
+                                        <option value="200">$10.25 = 200 Stacks</option>
+                                        <option value="400">$20.50 = 400 Stacks</option>
+                                        <option value="2000">$102.50 = 2000 Stacks</option>
+                                        <option value="10000">$512.50 = 10000 Stacks</option>
+                                        <option value="20000">$1025.00 = 20000 Stacks</option>
+                                        <option value="100000">$5125.00 = 100000 Stacks</option>
+                                        <option value="200000">$1250.00 = 200000 Stacks</option>
+                                        <option value="1000000">$51250.50 = 1000000 Stacks</option>
+                                        <option value="2000000">$102,500.00 = 2000000 Stacks</option>
+                                        <option value="200000000">$1025000,500.00 = 200000000 Stacks</option>
+
+                                    </select>
                                 </div>
 
                                 {{--                                POT--}}

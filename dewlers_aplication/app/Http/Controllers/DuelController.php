@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\duels;
+use App\double_or_nothing;
 
 class DuelController extends Controller
 {
@@ -124,9 +125,25 @@ class DuelController extends Controller
     {
         $id_auth=Auth::user();
         $due2=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenged','=',$id_auth->id)->get();;
+        $don_status=DB::table('double_or_nothing')->where('loser_id',$id_auth)->get();  //se enviara para comparar si el don debe repetirse o no
+        $don_status=double_or_nothing::where('loser_id', '=', $id_auth)->get();
+
+//        foreach ($don_status as $don){
+//            echo $don->status;
+//        }
 
 
-        return view('Duels.status')->with('duels',$due2);
+//        if($don_status==null){
+//            $id = Auth::user();
+//
+//            $actualamount = DB::table('internalaccounts')->where('id','=',$id->id)->first();
+//
+//            return view('UserMenu.index')->with('actualamount',$actualamount->balance);
+//        }else{
+
+
+        return view('Duels.status')->with('duels',$due2)->with('don_status',$don_status);
+//        }
     }
 
     public function gamewinner($idduel,$idwinner,$idlosser){
@@ -172,6 +189,10 @@ class DuelController extends Controller
         $plus_balance_witness=$data_witness_balance->balance + $pot_witness;
         DB::table('internalaccounts')->where('ctl_user_id',$id_witness)->update(['balance'=>$plus_balance_witness]);
 
+        //create double or nothing dependiendo del perdedor
+        DB::table('double_or_nothing')->insert(["duel_id"=>$duel_id,
+            'status'=>1,
+            'loser_id'=>$id_loser]);
 
 
 

@@ -100,7 +100,7 @@
                                 <button type="button"  class="btn btn-danger btnhome">Create a Dewl</button>
                                 </a>
                             <a href="#">
-                                <button type="button"  class="btn btn-secondary btnhome">Create a Dewl</button>
+                                <button type="button"  class="btn btn-secondary btnhome">Gamers</button>
                                 </a>
                         </div>
 

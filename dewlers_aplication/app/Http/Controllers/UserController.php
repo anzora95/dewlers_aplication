@@ -22,6 +22,7 @@ class UserController extends Controller
         $id = Auth::user();
         $amount = $request->input('option');
         $ownAmount = $request->input('ownAmount');
+        $amount = $request->input('amount');
         $actualamount = DB::table('internalaccounts')->where('id','=',$id->id)->first();
         //            Si el valor del OwnAmount esta vacion obtenemos el de los radiobutton
         if(empty( $ownAmount)){
@@ -44,8 +45,9 @@ class UserController extends Controller
         $id=Auth::user();
 
         $duels=duels::with('ctlUser0','ctlUser1')->where('ctl_user_id_witness','=',$id->id)->get();
+        $don_status  =  DB::table('double_or_nothing')->where('loser_id',$id);  //se enviara para comparar si el don debe repetirse o no
 
-        return view('UserMenu.witness')->with('duels',$duels);
+        return view('UserMenu.witness')->with('duels',$duels)->with('don_status',$don_status); // se enviara para evitar que el witness pueda ver este duelo se ocupara si es necesario.
     }
 
 }

@@ -48,14 +48,73 @@
                                 <th>Date</th>
                                 <th>Status</th>
                                 <th>Winner</th>
+                                <th hidden>id</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($duels as $du)
-                                @if($du->ctl_user_id_challenged == Auth::user()->id)
-                                    <tr id="acept{{$du->id}}">
+
+                                @if($du->ctl_user_id_challenged == Auth::user()->id)                                                     {{--// si el usuario retado es igual al logueado--}}
+
+                                    @if($du->ctl_user_id_winner != Auth::user()->id and $du->ctl_user_id_winner!=null)                   {{--si el ganador es diferente al logueado (permitira el don)--}}
+
+                                        @foreach($don_status as $don)                               {{--// recorre los duelos aptos para don--}}
+                                        <p>{{$don->duel_id}} </p>
+
+                                            @if($du->id==$don->duel_id)                             {{--// si el duelo actual coincide con uno apto para don--}}
+
+                                                @if($don->status==0)                                {{--// si el status de don actual es 0 es decir ya efectuo el don--}}
+
+                                                <tr id="acept{{$du->id}}">                          {{--// la fila no tiene ninguna clase--}}
+
+                                                @endif
+
+                                            @endif
+
+
+                                        @endforeach
+
+                                    <tr id="acept{{$du->id}}" class="fenix_duel" style="background-color: #2a9055" >  {{--//clase fenix_duel permite al logueado crear el doble o nada--}}
+
+                                    @elseif($du->ctl_user_id_winner == Auth::user()->id and $du->duelstate!=5)                              {{--// si el ganador es igual al logueado pero no se ha solcitado el doble o nada--}}
+
+                                        <tr id="acept{{$du->id}}">                                                                          {{--//coloca solo este id--}}
+
+                                    @elseif($du->ctl_user_id_winner == Auth::user()->id and $du->duelstate==5)                              {{-- // si el ganador es el logueado (permitira aceptar el don)--}}
+
+                                         <tr id="acept{{$du->id}}" class="don_challenged" style="background-color: #FFD04B" >               {{--// clase don challenged (permite aceptar el don)--}}
+
+{{--                                    @elseif($du->)--}}
+
+                                    @endif
                                 @else
-                                    <tr id="mv_jose_row">
+
+                                    @if($du->ctl_user_id_winner != Auth::user()->id and $du->ctl_user_id_winner!=null)
+                                        @foreach($don_status as $don)                               {{--// recorre los duelos aptos para don--}}
+
+                                                     <p>{{$don->duel_id}} </p>
+                                            @if($du->id==$don->duel_id)                             {{--// si el duelo actual coincide con uno apto para don--}}
+
+                                                @if($don->status==0)                                {{--// si el status de don actual es 0 es decir ya efectuo el don--}}
+
+                                                    <tr id="acept{{$du->id}}">                          {{--// la fila no tiene ninguna clase--}}
+
+                                                @endif
+
+                                            @endif
+
+                                        @endforeach
+
+                                        <tr id="mv_jose_row " class="fenix_duel" style="background-color: #2a9055">
+
+                                    @elseif($du->ctl_user_id_winner == Auth::user()->id and $du->duelstate!=5)
+                                        <tr id="mv_jose_row">
+
+                                    @elseif($du->ctl_user_id_winner == Auth::user()->id and $du->duelstate==5)                              {{-- // si el ganador es el logueado (permitira aceptar el don)--}}
+
+                                    <tr id="acept{{$du->id}}" class="don_challenged" style="background-color: #FFD04B" >
+
+                                    @endif
                                 @endif
                                     <td>{{$du->tittle}}</td>
                                     <td>${{$du->pot}}.00</td>
@@ -69,6 +128,7 @@
                                         @else
                                             <td>{{$du->ctlUser3->username}}</td>
                                         @endif
+                                    <td hidden>{{$du->id}}</td>
 
 
                                     </tr>
@@ -87,6 +147,7 @@
                                 <th>Date</th>
                                 <th>Status</th>
                                 <th>Winner</th>
+                                <th hidden>id</th>
                             </tr>
                             </tfoot>
 
@@ -110,8 +171,8 @@
 
 
 
-    @foreach($duels as $due)
-        @if($due->ctl_user_id_challenged == Auth::user()->id)
+{{--    @foreach($duels as $due)--}}
+{{--        @if($due->ctl_user_id_challenged == Auth::user()->id)--}}
             <script type="application/javascript">
 
                 $(document).ready(function() {
@@ -119,18 +180,48 @@
                     var table = $('#mytable').DataTable();
 
 
-                    $('#mytable').on('click', 'tr ', function() {
+                    // CREAR DOBLE O NADA
+
+                    $('#mytable').on('click', 'tr.fenix_duel', function() {
 
                         var data = table.row( this ).data();
+                        console.log('Este es el valor de data que no se que es xd');
                         console.log(data[1]);
-                        console.log({{$due->id}})
+                        {{--console.log({{}});--}}
                         var delayInMilliseconds = 1000; //1 second
-                        alertify.confirm('Confirm Title', data[0], function(){ alertify.success('Ok');
-                                {{--setTimeout(function() {--}}
-                                {{--    window.location.replace('/acepted/'+'{{$due->id}}');--}}
-                                {{--}, delayInMilliseconds)--}}
+                        // alertify.confirm('Double or nothing', data[0], function(){ alertify.success('Ok');
+                        //     }
+                        //     , function(){ alertify.error('Cancel')});
+
+                            alertify.confirm('Double or nothing', 'Come on, one more match, double or nothing!  You agree?', function(){alertify.success('Deleted');
+                                    setTimeout(function() {
+                                        window.location.replace("/double_or_nothing/"+data[7]+"/");
+                                    })
+                                }
+                                , function(){ alertify.error('Cancel')});
+
+                    } );
+
+
+                //    ACEPTAR DOBLE O NADA
+
+                    $('#mytable').on('click', 'tr.don_challenged', function() {
+
+                        var data = table.row( this ).data();
+                        console.log('Este es el valor de data que no se que es xd');
+                        console.log(data[1]);
+                            {{--console.log({{}});--}}
+                        var delayInMilliseconds = 1000; //1 second
+                        // alertify.confirm('Double or nothing', data[0], function(){ alertify.success('Ok');
+                        //     }
+                        //     , function(){ alertify.error('Cancel')});
+
+                        alertify.confirm('Double or nothing','You have been challenged by your rival to a double or nothing You agree?', function(){alertify.success('Deleted');
+                                setTimeout(function() {
+                                    window.location.replace("/acepted_don/"+data[7]+"/");
+                                })
                             }
-                            , function(){ alertify.error('Cancel')});
+                            , function(){ alertify.error("Cancel")});
 
                     } );
                 } );
@@ -138,10 +229,14 @@
             </script>
 
 
-        @endif
-    @endforeach
+{{--        @endif--}}
+{{--    @endforeach--}}
 
+{{--    <p>this is th  don status</p>--}}
 
+{{--    @foreach($don_status as $don)--}}
+{{--        <p>{{$don->duel_id}}</p>--}}
+{{--    @endforeach--}}
 
 @endsection
 
