@@ -10956,7 +10956,7 @@ a.text-dark:focus {
 }
 .row.row-main-menu{
     height: 500px;
-    background-color:#393a3c;
+    background-color:#ffffff;
 }
 .witness-history{
     padding: 0px;
@@ -10991,5 +10991,5 @@ a.text-dark:focus {
     margin-top: 8px;
 }
 .table-dewls{
-    margin-top: 8px;
+    margin-top: 15px;
 }
