@@ -10950,3 +10950,46 @@ a.text-dark:focus {
 .status-table{
     margin-top: 30px;
 }
+/* MAIN MENU DASHBOARD */
+.container.vertical-center{
+    margin-top: 70px;
+}
+.row.row-main-menu{
+    height: 500px;
+    background-color:#393a3c;
+}
+.witness-history{
+    padding: 0px;
+}
+.div-history{
+    height: 250px;
+    background-color: #00b6e3 ;
+}
+.div-witness{
+    height: 250px;
+    background-image: linear-gradient(to right, #dc1f65, #cf1a64, #c11662, #b31260, #a60f5d);
+}
+
+/* CONTAINERS CENTER*/
+.container centered {
+
+    margin: auto;
+
+}
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.text-white-icon{
+    color: white !important;
+}
+.row-menu{
+    margin-top: 8px;
+}
+.table-dewls{
+    margin-top: 8px;
+}
