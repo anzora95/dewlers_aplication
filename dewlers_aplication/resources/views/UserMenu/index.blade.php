@@ -19,7 +19,7 @@
                        <div   class="container centered">
                            <div class="row row-menu">
                                <div class="col">
-                                   <svg class="bi bi-plus-circle-fill text-white-icon" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                   <svg class="bi bi-plus-circle-fill " width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                        <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM8.5 4a.5.5 0 00-1 0v3.5H4a.5.5 0 000 1h3.5V12a.5.5 0 001 0V8.5H12a.5.5 0 000-1H8.5V4z" clip-rule="evenodd"/>
                                    </svg>
                                  </div>
@@ -28,7 +28,53 @@
                                <div class="col"></div>
                                <div class="col"></div>
                            </div>
-                          
+                           <div  class="table-dewls">
+                               <table id="example" class="display" style="width:100%">
+                                   <thead>
+                                   <tr>
+                                       <th>Name</th>
+                                       <th>Position</th>
+                                       <th>Office</th>
+                                       <th>Age</th>
+                                       <th>Start date</th>
+                                       <th>Salary</th>
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                   <tr>
+                                       <td>Tiger Nixon</td>
+                                       <td>System Architect</td>
+                                       <td>Edinburgh</td>
+                                       <td>61</td>
+                                       <td>2011/04/25</td>
+                                       <td>$320,800</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Garrett Winters</td>
+                                       <td>Accountant</td>
+                                       <td>Tokyo</td>
+                                       <td>63</td>
+                                       <td>2011/07/25</td>
+                                       <td>$170,750</td>
+                                   </tr>
+                                   </tbody>
+                                   <tfoot>
+                                   <tr>
+                                       <th>Name</th>
+                                       <th>Position</th>
+                                       <th>Office</th>
+                                       <th>Age</th>
+                                       <th>Start date</th>
+                                       <th>Salary</th>
+                                   </tr>
+                                   </tfoot>
+                               </table>
+                               <script type="application/javascript">
+                                   $(document).ready(function() {
+                                       $('#example').DataTable();
+                                   } );
+                               </script>
+                           </div>
                        </div>
                     </div>
                     <div class="col-sm witness-history">
