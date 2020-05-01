@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\internalaccounts;
+use App\Reviews;
+use App\category_users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -193,6 +195,43 @@ class DuelController extends Controller
         DB::table('double_or_nothing')->insert(["duel_id"=>$duel_id,
             'status'=>1,
             'loser_id'=>$id_loser]);
+
+        //Creation of reviews and user_category
+        //Winner Review
+        DB::table("Reviews")->insert(['description'=>'The witness was very good',
+            'stars'=>4,
+            'created_at'=>date('y-m-d H:i:s'),
+            'rol'=>'Winner',
+            'duel'=>$idduel,
+            'user'=>$idwinner
+            ]);
+
+        //Winner Review Count
+        $winner_review_count=DB::table('Reviews')
+            ->where('user','=',$idwinner)->avg('stars');
+        DB::table('category_users')->where('user',$idwinner)->update(['avg'=>$winner_review_count]);
+
+        //Loser Review
+        DB::table("Reviews")->insert(['description'=>'The witness was very bad',
+            'stars'=>2,
+            'created_at'=>date('y-m-d H:i:s'),
+            'rol'=>'Loser',
+            'duel'=>$idduel,
+            'user'=>$idlosser
+        ]);
+        //Loser Review Count
+        $loser_review_count=DB::table('Reviews')
+            ->where('user','=',$idlosser)->avg('stars');
+        DB::table('category_users')->where('user',$idlosser)->update(['avg'=>$loser_review_count]);
+
+
+
+
+
+
+
+
+
 
 
 
