@@ -57,7 +57,7 @@
                                 <div class="card-header">{{$du->tittle}}</div>
                                 <div class="card-body">
 
-                                    @if($witness_acept==1)
+{{--                                    @if($witness_acept==1)--}}
 
                                         <form action="#" method="post">
                                             @csrf
@@ -92,35 +92,35 @@
                                 </div>
                                 </form>
 
-                                    @else
+{{--                                    @else--}}
 
-                                        <div class="container">
-                                            <div class="row ">
+{{--                                        <div class="container">--}}
+{{--                                            <div class="row ">--}}
 
-                                                <div class="col">
-                                                    <p>Have you received a request to witness a duel? <br>
+{{--                                                <div class="col">--}}
+{{--                                                    <p>Have you received a request to witness a duel? <br>--}}
 
-                                                        Do you accept</p>
-                                                </div>
+{{--                                                        Do you accept</p>--}}
+{{--                                                </div>--}}
 
-                                            </div>
+{{--                                            </div>--}}
 
-                                            <div class="row justify-content-center">
+{{--                                            <div class="row justify-content-center">--}}
 
-                                                <div class="col-md-4">
-                                                    <div class="btn btn-primary">Accept</div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="btn btn-warning">Cancel</div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
+{{--                                                <div class="col-md-4">--}}
+{{--                                                    <div class="btn btn-primary">Accept</div>--}}
+{{--                                                </div>--}}
+{{--                                                <div class="col-md-4">--}}
+{{--                                                    <div class="btn btn-warning">Cancel</div>--}}
+{{--                                                </div>--}}
 
 
+{{--                                            </div>--}}
+{{--                                        </div>--}}
 
-                                    @endif
+
+
+{{--                                    @endif--}}
 
                             </div>
                         </div>
