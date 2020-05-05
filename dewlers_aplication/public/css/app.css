@@ -10954,9 +10954,16 @@ a.text-dark:focus {
 .container.vertical-center{
     margin-top: 70px;
 }
-.row.row-main-menu{
+
+.col-md-6.overflow-auto.dewl-flex{
     height: 500px;
-    background-color:#ffffff;
+    background-color:white;
+    padding: 0;
+}
+
+
+.col-md-6.history-flex{
+    padding: 0;
 }
 .witness-history{
     padding: 0px;
@@ -10992,4 +10999,42 @@ a.text-dark:focus {
 }
 .table-dewls{
     margin-top: 15px;
+}
+
+.high{
+    height: 700px;
+    background-color: yellow;
+    margin: 25px;
+}
+
+.row.add-dewl-icon{
+    margin-top: 15px;
+}
+
+/*ADD DEWL BUTTON CSS*/
+.add-dewl-icon{
+ outline: 0; !important;
+}
+
+.hidden-div{
+    display: none;
+}
+
+.dewl-content{
+    margin-top: 10px;
+}
+.history-content{
+    margin-top: 10px;
+}
+.witness-content{
+    margin-top: 10px;
+}
+
+.title-dashboard{
+    font-size: 22px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
