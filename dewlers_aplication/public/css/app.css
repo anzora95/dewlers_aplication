@@ -10957,7 +10957,7 @@ a.text-dark:focus {
 
 .col-md-6.overflow-auto.dewl-flex{
     height: 500px;
-    background-color:white;
+    background-color:#393a3c;
     padding: 0;
 }
 
@@ -11014,6 +11014,9 @@ a.text-dark:focus {
 /*ADD DEWL BUTTON CSS*/
 .add-dewl-icon{
  outline: 0; !important;
+    margin-left: 0px;
+    margin-right: 0px;
+
 }
 
 .hidden-div{
@@ -11021,7 +11024,47 @@ a.text-dark:focus {
 }
 
 .dewl-content{
-    margin-top: 10px;
+    margin: 50px 0px 0px 0px;
+    color: #ffffff;
+}
+.dewl-row{
+    margin: 0px 8px 8px 8px;
+
+}
+.vs-div:after, .info-div-first:before {
+    content:'';
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+}
+.vs-div:after {
+    left: 100%;
+    border-top: 33px solid #000000;
+    border-right: 30px solid transparent;
+}
+.info-div-first:before {
+    right: 100%;
+    border-bottom: 33px solid #000000;
+    border-left: 30px solid transparent;
+}
+.text-dewl-green{
+    color: #00d9aa;
+}
+.vs-div{
+    background-color: #a80004;
+    padding-top: 6px;
+}
+.info-div-first {
+    background-color: #000000;
+    padding-top: 6px;
+}
+.info-icon{
+    background-color: #000000;
+}
+.info-div{
+    background-color: #000000;
+    padding-top: 6px;
 }
 .history-content{
     margin-top: 10px;
