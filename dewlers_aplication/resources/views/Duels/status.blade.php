@@ -7,6 +7,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" defer ></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.js"></script>
 
 @stop
 @section('content')
@@ -165,8 +167,14 @@
 
     <script type="application/javascript">
         $(document).ready(function() {
-            $('#mytable').DataTable();
+            $('#mytable').DataTable({autoWidth: false,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
         } );
+
     </script>
 
 
@@ -225,6 +233,10 @@
 
                     } );
                 } );
+
+                // $(document).ready(function() {
+                //     var table = $('#example').DataTable(  );
+                // } );
 
             </script>
 
