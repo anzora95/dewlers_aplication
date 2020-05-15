@@ -11048,12 +11048,18 @@ a.text-dark:focus {
     border-bottom: 33px solid #000000;
     border-left: 30px solid transparent;
 }
+. history-content{
+   background-color: #000000;
+}
+#tabs-1{
+    background-color: #FFFFFF;
+}
 .text-dewl-green{
     color: #00d9aa;
 }
 .vs-div{
-    background-color: #a80004;
-    padding-top: 6px;
+    background: rgb(168,0,4);
+    background: linear-gradient(150deg, rgba(168,0,4,1) 28%, rgba(253,36,17,1) 100%);
 }
 .info-div-first {
     background-color: #000000;
