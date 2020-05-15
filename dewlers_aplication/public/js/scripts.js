@@ -11,21 +11,4 @@ function createdewl() {
     $('#exampleModalCenter').modal('toggle');
 }
 
-// DATA TABLE
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
-
-$(document).ready(function() {
-    $('#example2').DataTable();
-} );
-
-$(document).ready(function() {
-    $('#example3').DataTable();
-} );
-
-
-$( function() {
-    $( "#tabs" ).tabs();
-} );
 
