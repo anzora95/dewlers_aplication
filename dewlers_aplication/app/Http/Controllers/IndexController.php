@@ -26,9 +26,9 @@ class IndexController extends Controller
 
         $id_auth=Auth::user();
         $due2=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenged','=',$id_auth->id)->orWhere('ctl_user_id_witness','=',$id_auth->id)->get();
-//        $don_status=double_or_nothing::where('loser_id', '=', $id_auth)->get();
+       $challengeds= DB::table('ctl_users')->where('id','!=',$id_auth->id)->get();
 
-        return view('UserMenu.index')->with('duels',$due2);
+        return view('UserMenu.index')->with('duels',$due2)->with('challengeds',$challengeds);
 
 
         //detalles para el front

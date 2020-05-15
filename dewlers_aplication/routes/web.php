@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function (){
 
 //      GET REDIRECT
     Route::get('/home', 'IndexController@index');
-    Route::get('/dashboard', 'IndexController@index');
+    Route::get('/dashboard', 'IndexController@index_tables');
     Route::get('/duelcreator', 'DuelController@index');
     Route::get('/status', 'DuelController@status');
     Route::get('/transactionmanager', 'UserController@tmanager');
