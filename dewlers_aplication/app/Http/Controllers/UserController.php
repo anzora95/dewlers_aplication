@@ -40,14 +40,21 @@ class UserController extends Controller
         return redirect('/transactionmanager');
     }
 
+    public function aceptwitness($id, $confirmacion){
+
+
+
+    }
+
     public  function witness(){
 
         $id=Auth::user();
 
         $duels=duels::with('ctlUser0','ctlUser1')->where('ctl_user_id_witness','=',$id->id)->get();
         $don_status  =  DB::table('double_or_nothing')->where('loser_id',$id);  //se enviara para comparar si el don debe repetirse o no
+        $witness_acept=0;
 
-        return view('UserMenu.witness')->with('duels',$duels)->with('don_status',$don_status); // se enviara para evitar que el witness pueda ver este duelo se ocupara si es necesario.
+        return view('UserMenu.witness')->with('duels',$duels)->with('don_status',$don_status)->with('witness_acept',$witness_acept); // se enviara para evitar que el witness pueda ver este duelo se ocupara si es necesario.
     }
 
 }
