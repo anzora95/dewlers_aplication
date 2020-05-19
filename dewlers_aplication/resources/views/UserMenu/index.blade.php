@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('extra_links')
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" defer></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" defer></script>
+
 @stop
 @section('content')
 
@@ -57,13 +59,9 @@
 
                                             @default
                                             {{ HTML::image('img/Dewlers_iconos_X2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
-{{--                                            @break--}}
-
-{{--                                            @default--}}
-{{--                                            {{ HTML::image('img/Dewlers_iconos_Lo-P2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}--}}
 
                                         @endswitch
-{{--                                        </svg>--}}
+
                                     </div>
                                     <div class="col-md-2 info-div text-dewl-green">
                                         {{$du->pot}}
@@ -127,26 +125,101 @@
 
                                 </div>
                                 <div class="container history-content">
+                                    <div class="row add-dewl-icon">
+                                        <div class="col text-left" style="padding-left: 30px;">
+                                            <span class="title-dashboard" style="color: white">Record</span>
+                                        </div>
+                                        <div class="col"></div>
+                                    </div>
+                                    <ul class="nav nav-tabs">
+                                        <li onclick="active_li(0)"  class="history-li" style="background-color: #00d9aa"><a class="navigation-url" data-toggle="tab" href="#home">Win</a></li>
+                                        <li onclick="active_li(1)"  class="history-li"><a class="navigation-url" data-toggle="tab" href="#menu1">Lost</a></li>
+                                        <li onclick="active_li(2)"  class="history-li"><a class="navigation-url" data-toggle="tab" href="#menu2">Witness</a></li>
 
-                                    <div id="tabs">
-                                        <ul>
-                                            <li><a href="#tabs-1">Win</a></li>
-                                            <li><a href="#tabs-2">Lost</a></li>
-                                            <li><a href="#tabs-3">Witness</a></li>
-                                        </ul>
-                                        <div id="tabs-1">
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div class="tab-header">
                                             <div class="row">
-                                                <div class="col-md-4"><strong>Challenge</strong></div>
-                                                <div class="col-md-4"><strong>Stacks</strong></div>
-                                                <div class="col-md-3"><strong>Date</strong></div>
+                                                <div class="col-md-4 text-center"><strong>Challenge</strong></div>
+                                                <div class="col-md-2 text-center"><strong>Stacks</strong></div>
+                                                <div class="col-md-3 text-center"><strong>Date</strong></div>
+                                                <div class="col-md-3 text-center"></div>
+
                                             </div>
                                         </div>
-                                        <div id="tabs-2">
-                                            <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+                                        <div id="home" class="tab-pane fade in active show">
+                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            <div class="row win-row">
+                                                <div class="col-md-4 history-challenge text-center">Alex</div>
+                                                <div class="col-md-2 history-stacks text-center">336</div>
+                                                <div class="col-md-3 history-date text-center">2020/2/15</div>
+                                                <div class="col-md-3 history-info text-center">More info</div>
+                                            </div>
+                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            <div class="row win-row">
+                                                <div class="col-md-4 history-challenge">Sandy</div>
+                                                <div class="col-md-2 history-stacks">256</div>
+                                                <div class="col-md-3 history-date">2020/2/15</div>
+                                                <div class="col-md-3 history-info">More info</div>
+                                            </div>
+                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            <div class="row win-row">
+                                                <div class="col-md-4 history-challenge">Mac</div>
+                                                <div class="col-md-2 history-stacks">50</div>
+                                                <div class="col-md-3 history-date">2020/2/15</div>
+                                                <div class="col-md-3 history-info">More info</div>
+                                            </div>
                                         </div>
-                                        <div id="tabs-3">
-                                            <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-                                            <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+                                        <div id="menu1" class="tab-pane fade">
+                                            {{--                                            THIS IS A LINE INSIDE THE LOST TAB--}}
+                                            <div class="row lost-row">
+                                                <div class="col-md-4 history-challenge">Miguel</div>
+                                                <div class="col-md-2 history-stacks">336</div>
+                                                <div class="col-md-3 history-date">2020/2/15</div>
+                                                <div class="col-md-3 history-info">More info</div>
+                                            </div>
+                                            {{--                                            THIS IS A LINE INSIDE THE LOST TAB--}}
+                                            <div class="row lost-row">
+                                                <div class="col-md-4 history-challenge">Peter</div>
+                                                <div class="col-md-2 history-stacks">256</div>
+                                                <div class="col-md-3 history-date">2020/2/15</div>
+                                                <div class="col-md-3 history-info">More info</div>
+                                            </div>
+                                            {{--                                            THIS IS A LINE INSIDE THE LOST TAB--}}
+                                            <div class="row lost-row">
+                                                <div class="col-md-4 history-challenge">Josh</div>
+                                                <div class="col-md-2 history-stacks">50</div>
+                                                <div class="col-md-3 history-date">2020/2/15</div>
+                                                <div class="col-md-3 history-info">More info</div>
+                                            </div>
+                                         </div>
+                                        <div id="menu2" class="tab-pane fade">
+                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            <div class="row win-row">
+                                                <div class="col-md-4 history-challenge text-center">Michael</div>
+                                                <div class="col-md-2 history-stacks text-center">336</div>
+                                                <div class="col-md-3 history-date text-center">2020/2/15</div>
+                                                <div class="col-md-3 history-info text-center">More info</div>
+                                            </div>
+                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            <div class="row win-row">
+                                                <div class="col-md-4 history-challenge">Rick</div>
+                                                <div class="col-md-2 history-stacks">256</div>
+                                                <div class="col-md-3 history-date">2020/2/15</div>
+                                                <div class="col-md-3 history-info">More info</div>
+                                            </div>
+                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            <div class="row win-row">
+                                                <div class="col-md-4 history-challenge">Morty</div>
+                                                <div class="col-md-2 history-stacks">50</div>
+                                                <div class="col-md-3 history-date">2020/2/15</div>
+                                                <div class="col-md-3 history-info">More info</div>
+                                            </div>
+                                        </div>
+                                        <div id="menu3" class="tab-pane fade">
+                                            <h3>Menu 3</h3>
+                                            <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                                         </div>
                                     </div>
                                 </div>

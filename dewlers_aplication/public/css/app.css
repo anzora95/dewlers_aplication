@@ -4453,6 +4453,7 @@ input[type=button].btn-block {
 
 .nav-tabs {
   border-bottom: 1px solid #dee2e6;
+
 }
 
 .nav-tabs .nav-item {
@@ -10981,8 +10982,8 @@ a.text-dark:focus {
 
 .row.add-dewl-icon{
     margin-top: 15px;
+    max-width: 100%;
 }
-
 /*ADD DEWL BUTTON CSS*/
 .add-dewl-icon{
  outline: 0; !important;
@@ -11000,8 +11001,7 @@ a.text-dark:focus {
     color: #ffffff;
 }
 .dewl-row{
-    margin: 0px 8px 8px 8px;
-
+    margin: 0px 0px 8px 0px !important;
 }
 .vs-div:after, .info-div-first:before {
     content:'';
@@ -11058,4 +11058,62 @@ a.text-dark:focus {
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+.tab-header{
+    margin-top: 10px;
+}
+.tab-content{
+    color: #ffffff;
+    background-color: #000000;
+    padding-top: 10px;
+}
+.tab-pane{
+    margin-top: 10px;
+    font-weight: 300;
+    padding-bottom: 10px;
+}
+.history-stacks{
+    color: #00d9aa;
+}
+.win-row{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    max-width: 100%;
+}
+.lost-row{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    max-width: 100%;
+}
+.history-info{
+    background-color: #00d9aa;
+    color: #000000;
+    font-weight: 600;
+}
+.nav-tabs{
+    margin-top: 20px;
+    border-bottom-width: 0px !important;
+    text-align: center;
+}
+.history-li{
+    padding-right: 30px;
+    padding-left: 30px;
+    background-color: #000000;
+    font-weight: 800;
+}
+.navigation-url{
+    color: #ffffff;
+
+}
+
+.navigation-url:hover{
+    text-decoration: none;
+
+}
+a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+.active-li{
+    background-color: #00d9aa;
 }
