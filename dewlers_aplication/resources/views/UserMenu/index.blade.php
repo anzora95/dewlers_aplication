@@ -1,7 +1,15 @@
 @extends('layouts.app')
 @section('extra_links')
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
+    <!-- Date Picker -->
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    {{HTML::style('css/app.css')}}
+    {{HTML::script('js/app.js')}}
 
 @stop
 @section('content')
@@ -71,46 +79,6 @@
                                 </div>
                                 @endforeach
 
-{{--                                <div class="row dewl-row">--}}
-{{--                                    <div class="col-md-3 vs-div">VS</div>--}}
-{{--                                    <div class="col-md-4 info-div-first">NAME</div>--}}
-{{--                                    <div class="col-md-3 info-icon">--}}
-{{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-2 info-div text-dewl-green">1520</div>--}}
-{{--                                </div>--}}
-{{--                                <div class="row dewl-row">--}}
-{{--                                    <div class="col-md-3 vs-div">VS</div>--}}
-{{--                                    <div class="col-md-4 info-div-first">NAME</div>--}}
-{{--                                    <div class="col-md-3 info-icon">--}}
-{{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-2 info-div text-dewl-green">1520</div>--}}
-{{--                                </div>--}}
-{{--                                <div class="row dewl-row">--}}
-{{--                                    <div class="col-md-3 vs-div">VS</div>--}}
-{{--                                    <div class="col-md-4 info-div-first">NAME</div>--}}
-{{--                                    <div class="col-md-3 info-icon">--}}
-{{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-2 info-div text-dewl-green">1520</div>--}}
-{{--                                </div>--}}
-{{--                                <div class="row dewl-row">--}}
-{{--                                    <div class="col-md-3 vs-div">VS</div>--}}
-{{--                                    <div class="col-md-4 info-div-first">NAME</div>--}}
-{{--                                    <div class="col-md-3 info-icon">--}}
-{{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-2 info-div text-dewl-green">1520</div>--}}
-{{--                                </div>--}}
 
                             </div>
 
@@ -209,12 +177,24 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="formGroupExampleInput">Date</label>
-                                    
+                                <div class="form-group" style="font-size: 12px;">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label style="font-size: 12px;">Delivery Date</label>
+                                            <input data-toggle="datepicker">
+                                        </div>
+                                        <script>
 
+                                            $('[data-toggle="datepicker"]').datepicker();
 
+                                        </script>
+                                        <div class="col">
+                                            <label style="font-size: 12px;">Estimated Return</label>
+                                            <input id="datepicker2" width="120" name="pick_up_date" required>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-danger">DEWL</button>
                             </form>
@@ -232,4 +212,9 @@
 
         </div>
     </div>
+
+{{--    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>--}}
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>--}}
+{{--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>--}}
+
 @endsection
