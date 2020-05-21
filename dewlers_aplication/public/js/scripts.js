@@ -11,4 +11,19 @@ function createdewl() {
     $('#exampleModalCenter').modal('toggle');
 }
 
-
+// ACTIVE_LI FUNCTION
+function active_li(n){
+    console.log(n);
+    var li = document.getElementsByClassName("history-li");
+    var i = 0;
+    for (i=0; i <= 2; i++){
+        console.log("--------")
+        console.log(i);
+        console.log(n);
+        if(i == n){
+            li[i].style.background = "#00d9aa"
+        }else{
+            li[i].style.background = "#000000"
+        }
+    }
+}
