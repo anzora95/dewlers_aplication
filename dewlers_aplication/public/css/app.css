@@ -11106,6 +11106,10 @@ a.text-dark:focus {
 
 }
 
+#datepicker{
+    margin:0 auto;
+
+}
 .navigation-url:hover{
     text-decoration: none;
 

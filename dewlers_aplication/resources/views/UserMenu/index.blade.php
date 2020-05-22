@@ -5,7 +5,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" defer></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" defer></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 @stop
 @section('content')
 
@@ -191,30 +193,43 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="/saveduel" method="post">
+                            <form action="/saveduel" method="post" onsubmit="sub_butt.disabled = true; return true;">
                                 @csrf
+                                {{--                                Tittle--}}
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput">Title</label>
-                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="tittle" name="tittle" aria-describedby="tittle" required>
                                 </div>
+                                {{--                                DESCRIPTION--}}
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput2">Description</label>
-                                    <textarea type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"></textarea>
+                                    <label for="description">Description</label>
+                                    <textarea name="description" id="descriptio" class="form-control" cols="30" rows="3" required></textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label for="formGroupExampleInput">Dewl</label>
+                                {{--                                POT--}}
+                                <label for="pot">Dewl</label>
+                                <div class="input-group mb-3">
+
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                    </div>
                                     <input type="number" id="pot" name="pot" class="form-control" placeholder="10.00" aria-label="pot" aria-describedby="pot"  required min="10" >
                                 </div>
+
+                                {{--                                RETADO--}}
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput">VS</label>
+                                    <label for="challendged">VS</label>
                                     <select class="form-control" id="challendged"  name="challendged" >
                                         @foreach($challengeds as $chall)
                                             <option value="{{$chall->id}}" > {{ $chall->username }} </option>
                                         @endforeach
+
                                     </select>
                                 </div>
+
+
+                                {{--                                      TESTIGO--}}
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput">Witness</label>
+                                    <label for="exampleFormControlSelect1">Witness</label>
                                     <select class="form-control" name="witness" id="witness">
                                         @foreach($challengeds as $chall)
                                             <option value="{{$chall->id}}" > {{ $chall->username }} </option>
@@ -222,8 +237,16 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput">Date</label>
-                                    <input id="datepicker" width="276" />
+                                    <label for="formGroupExampleInput">Schedule Dewl</label>
+                                    <br>
+{{--                                    <svg class="bi bi-calendar" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
+{{--                                        <path fill-rule="evenodd" d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" clip-rule="evenodd"/>--}}
+{{--                                        <path fill-rule="evenodd" d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>--}}
+{{--                                    </svg>--}}
+                                    <input name="startdate" type="text" id="datepicker">
+                                    <script type="application/javascript">
+                                        $('#datepicker').datepicker({ format: 'yyyy-mm-dd' });
+                                    </script>
 
                                 </div>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -244,7 +267,5 @@
         </div>
     </div>
 
-    <script type="application/javascript">
-        $('#datepicker').datepicker();
-    </script>
+
 @endsection
