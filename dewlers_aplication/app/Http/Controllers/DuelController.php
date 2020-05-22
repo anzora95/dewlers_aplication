@@ -51,7 +51,7 @@ class DuelController extends Controller
         $user_challenger=$user->id;
         $user_challenged=$request->post('challendged');
         $user_witness=$request->post("witness");
-        $start='2020-01-31';
+        $start= $request->post("startdate");
         $end='2020-02-10';
         $file='this is a test file';
         $status=1;
@@ -63,8 +63,8 @@ class DuelController extends Controller
             'ctl_user_id_challenger'=>$user_challenger,
             'ctl_user_id_challenged'=>$user_challenged,
             'ctl_user_id_witness'=>$user_witness,
-            'registerDate'=>$start ,
-            'modificationDate'=>$end,
+            'registerDate'=>date("Y-m-d") ,
+            'modificationDate'=>$start,
             'startDate'=>$start,
             'endDate'=>$end,
             'testFile'=>$file,
@@ -72,9 +72,8 @@ class DuelController extends Controller
             'duelstate'=>$duel_state,
             'pot'=>$pot]);
 
-
-        return view('UserMenu.index');
-
+//        return view('UserMenu.index'); che
+        return redirect("dashboard");
 
     }
 

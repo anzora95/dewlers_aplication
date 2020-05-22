@@ -30,6 +30,10 @@ Route::get('/review_duel', function () {
 Auth::routes();
 
 
+Route::get('/date', function () {
+    return view('Duels/date');
+});
+
 
 Route::middleware(['auth'])->group(function (){
 
