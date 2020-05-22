@@ -28,8 +28,6 @@ class IndexController extends Controller
         $due2=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where('ctl_user_id_challenger','=',$id_auth->id)->orWhere('ctl_user_id_challenged','=',$id_auth->id)->orWhere('ctl_user_id_witness','=',$id_auth->id)->get();
        $challengeds= DB::table('ctl_users')->where('id','!=',$id_auth->id)->get();
 
-        return view('UserMenu.index')->with('duels',$due2)->with('challengeds',$challengeds);
-
 
         //detalles para el front
 //-------------------------------------------------------------*------------------------------------------------------------*------------------------------------
@@ -39,20 +37,26 @@ class IndexController extends Controller
         //Historial
 
         // Win
-        //if duelstatus == finish codigo 4  y  ctl_user_winner == usuariologueado
+        //if duelstatus == finish codigo 6  y  ctl_user_winner == usuariologueado
+        $record_winner=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where( [['ctl_user_id_winner','=',$id_auth->id],['duelstate','!=',6]])->get();
+
 
         //Lost
-        //if duelstatus == finish codigo 4  y  ctl_user_winner != usuariologueado
+        //if duelstatus == finish codigo 6  y  ctl_user_winner != usuariologueado y ctl_user_witness != usuario logeado
+        $record_loser=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where([['ctl_user_id_winner','!=',$id_auth->id],['duelstate','!=',6],['ctl_user_id_witness','!=',$id_auth->id]])->get();
+
 
         //Witness
-        //if duelstatus == finish codigo 4  y ctl_user_witness == usuariologueado
+        //if duelstatus == finish codigo 6  y ctl_user_witness == usuariologueado
+        $record_witness=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where([['ctl_user_id_witness','=',$id_auth->id],['duelstate','!=',6]])->get();
+
 //-------------------------------------------------------------*------------------------------------------------------------*------------------------------------
 
         //WITNESS
 
         //if duelstatus != finish codigo 4  y ctl_user_witness == usuariologueado
 
-
+        return view('UserMenu.index')->with('duels',$due2)->with('challengeds',$challengeds)->with('r_winner', $record_winner)->with('r_loser',$record_loser)->with('r_witness',$record_witness);
     }
 
 

@@ -70,46 +70,6 @@
                                 </div>
                                 @endforeach
 
-{{--                                <div class="row dewl-row">--}}
-{{--                                    <div class="col-md-3 vs-div">VS</div>--}}
-{{--                                    <div class="col-md-4 info-div-first">NAME</div>--}}
-{{--                                    <div class="col-md-3 info-icon">--}}
-{{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-2 info-div text-dewl-green">1520</div>--}}
-{{--                                </div>--}}
-{{--                                <div class="row dewl-row">--}}
-{{--                                    <div class="col-md-3 vs-div">VS</div>--}}
-{{--                                    <div class="col-md-4 info-div-first">NAME</div>--}}
-{{--                                    <div class="col-md-3 info-icon">--}}
-{{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-2 info-div text-dewl-green">1520</div>--}}
-{{--                                </div>--}}
-{{--                                <div class="row dewl-row">--}}
-{{--                                    <div class="col-md-3 vs-div">VS</div>--}}
-{{--                                    <div class="col-md-4 info-div-first">NAME</div>--}}
-{{--                                    <div class="col-md-3 info-icon">--}}
-{{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-2 info-div text-dewl-green">1520</div>--}}
-{{--                                </div>--}}
-{{--                                <div class="row dewl-row">--}}
-{{--                                    <div class="col-md-3 vs-div">VS</div>--}}
-{{--                                    <div class="col-md-4 info-div-first">NAME</div>--}}
-{{--                                    <div class="col-md-3 info-icon">--}}
-{{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-2 info-div text-dewl-green">1520</div>--}}
-{{--                                </div>--}}
 
                             </div>
 
@@ -150,72 +110,50 @@
                                         </div>
                                         <div id="home" class="tab-pane fade in active show">
                                             {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            @foreach($r_winner as $winner)
                                             <div class="row win-row">
-                                                <div class="col-md-4 history-challenge text-center">Alex</div>
-                                                <div class="col-md-2 history-stacks text-center">336</div>
-                                                <div class="col-md-3 history-date text-center">2020/2/15</div>
+                                                @if($winner->ctl_user_id_winner == $winner->ctl_user_id_challenger) {{-- si el id del GANADOR es igual al de EL RETADOR  poner el nombre del retador --}}
+                                                <div class="col-md-4 history-challenge text-center">{{$winner->ctlUser1->username}}</div>
+                                                 @else
+                                                 <div class="col-md-4 history-challenge text-center">{{$winner->ctlUser0->username}}</div>
+                                                @endif
+                                                <div class="col-md-2 history-stacks text-center">{{$winner->pot}}</div>
+                                                <div class="col-md-3 history-date text-center">{{$winner->startDate}}</div>
                                                 <div class="col-md-3 history-info text-center">More info</div>
                                             </div>
+                                            @endforeach
                                             {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
-                                            <div class="row win-row">
-                                                <div class="col-md-4 history-challenge">Sandy</div>
-                                                <div class="col-md-2 history-stacks">256</div>
-                                                <div class="col-md-3 history-date">2020/2/15</div>
-                                                <div class="col-md-3 history-info">More info</div>
-                                            </div>
-                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
-                                            <div class="row win-row">
-                                                <div class="col-md-4 history-challenge">Mac</div>
-                                                <div class="col-md-2 history-stacks">50</div>
-                                                <div class="col-md-3 history-date">2020/2/15</div>
-                                                <div class="col-md-3 history-info">More info</div>
-                                            </div>
+
                                         </div>
                                         <div id="menu1" class="tab-pane fade">
                                             {{--                                            THIS IS A LINE INSIDE THE LOST TAB--}}
+                                            @foreach($r_loser as $loser)
                                             <div class="row lost-row">
-                                                <div class="col-md-4 history-challenge">Miguel</div>
-                                                <div class="col-md-2 history-stacks">336</div>
-                                                <div class="col-md-3 history-date">2020/2/15</div>
+                                                @if($loser->ctl_user_id_winner == $loser->ctl_user_id_challenger) {{-- si el id del GANADOR es igual al de EL RETADOR  poner el nombre del retador --}}
+                                                <div class="col-md-4 history-challenge text-center">{{$loser->ctlUser1->username}}</div>
+                                                @else
+                                                    <div class="col-md-4 history-challenge text-center">{{$loser->ctlUser0->username}}</div>
+                                                @endif
+                                                <div class="col-md-2 history-stacks">{{$loser->pot}}</div>
+                                                <div class="col-md-3 history-date">{{$loser->startDate}}</div>
                                                 <div class="col-md-3 history-info">More info</div>
                                             </div>
+                                            @endforeach
                                             {{--                                            THIS IS A LINE INSIDE THE LOST TAB--}}
-                                            <div class="row lost-row">
-                                                <div class="col-md-4 history-challenge">Peter</div>
-                                                <div class="col-md-2 history-stacks">256</div>
-                                                <div class="col-md-3 history-date">2020/2/15</div>
-                                                <div class="col-md-3 history-info">More info</div>
-                                            </div>
-                                            {{--                                            THIS IS A LINE INSIDE THE LOST TAB--}}
-                                            <div class="row lost-row">
-                                                <div class="col-md-4 history-challenge">Josh</div>
-                                                <div class="col-md-2 history-stacks">50</div>
-                                                <div class="col-md-3 history-date">2020/2/15</div>
-                                                <div class="col-md-3 history-info">More info</div>
-                                            </div>
+
                                          </div>
                                         <div id="menu2" class="tab-pane fade">
                                             {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            @foreach($r_witness as $witness)
                                             <div class="row win-row">
-                                                <div class="col-md-4 history-challenge text-center">Michael</div>
-                                                <div class="col-md-2 history-stacks text-center">336</div>
-                                                <div class="col-md-3 history-date text-center">2020/2/15</div>
+                                                <div class="col-md-4 history-challenge text-center">{{$witness->tittle}}</div>
+                                                <div class="col-md-2 history-stacks text-center">{{$witness->pot}}</div>
+                                                <div class="col-md-3 history-date text-center">{{$witness->startDate}}</div>
                                                 <div class="col-md-3 history-info text-center">More info</div>
                                             </div>
-                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
-                                            <div class="row win-row">
-                                                <div class="col-md-4 history-challenge">Rick</div>
-                                                <div class="col-md-2 history-stacks">256</div>
-                                                <div class="col-md-3 history-date">2020/2/15</div>
-                                                <div class="col-md-3 history-info">More info</div>
-                                            </div>
-                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
-                                            <div class="row win-row">
-                                                <div class="col-md-4 history-challenge">Morty</div>
-                                                <div class="col-md-2 history-stacks">50</div>
-                                                <div class="col-md-3 history-date">2020/2/15</div>
-                                                <div class="col-md-3 history-info">More info</div>
-                                            </div>
+                                                @endforeach
+
+
                                         </div>
                                         <div id="menu3" class="tab-pane fade">
                                             <h3>Menu 3</h3>
