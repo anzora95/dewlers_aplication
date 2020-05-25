@@ -74,7 +74,6 @@ class DuelController extends Controller
 
 //        return view('UserMenu.index'); che
         return redirect("dashboard");
-
     }
 
     /**

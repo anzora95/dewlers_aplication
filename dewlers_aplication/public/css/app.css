@@ -10997,7 +10997,7 @@ a.text-dark:focus {
 }
 
 .dewl-content{
-    margin: 50px 0px 0px 0px;
+    margin: 15px 0px 0px 0px;
     color: #ffffff;
 }
 .dewl-row{
@@ -11120,4 +11120,24 @@ a:hover {
 }
 .active-li{
     background-color: #00d9aa;
+}
+
+.card.card-body.pending-dewls{
+    background-color: #000000;
+}
+
+.pending-dewl-title{
+    font-weight: 600;
+}
+.pending-dewl-description{
+font-weight: 200;
+}
+
+
+.row.pending-dewl-witness-row{
+    font-weight: 200;
+    border: 1px solid #cbae22;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 30px;
 }

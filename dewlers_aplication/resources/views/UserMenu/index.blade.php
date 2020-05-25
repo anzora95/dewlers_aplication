@@ -35,7 +35,7 @@
                             </div>
                             <div class="container dewl-content text-center">
                                 @foreach($duels as $du)
-                                <div class="row dewl-row">
+                                <div class="row dewl-row" data-toggle="collapse" href="#{{$du->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                     <div class="col-md-3 vs-div" >VS</div>
                                     <div class="col-md-4 info-div-first">{{$du->ctlUser1->username}}</div>
                                     <div class="col-md-3 info-icon">
@@ -46,30 +46,38 @@
                                             @case(1)
                                             {{ HTML::image('img/Dewlers_iconos_Lo-P2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
                                             @break
-
                                             @case(2)
                                             {{ HTML::image('img/Dewlers_iconos_Lo-P2-Wi.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
                                             @break
-
                                             @case(3)
                                             {{ HTML::image('img/Dewlers_iconos_Lo-Wi.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
                                             @break
-
                                             @case(4)
                                             {{ HTML::image('img/Dewlers_iconos_P1vP2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
                                             @break
-
                                             @default
                                             {{ HTML::image('img/Dewlers_iconos_X2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
-
                                         @endswitch
-
                                     </div>
                                     <div class="col-md-2 info-div text-dewl-green">
                                         {{$du->pot}}
                                     </div>
 
                                 </div>
+                            <div class="collapse" id="{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;">
+                                <div class="card card-body pending-dewls">
+                                    <p class="pending-dewl-title">{{$du->tittle}}</p>
+                                    <p class="pending-dewl-description">{{$du->Description}} </p>
+                                    <div class="pending-dewl-witness">
+                                        <div class="row pending-dewl-witness-row">
+                                            <div class="col-md-3">Witness:</div>
+                                            <div class="col-md-3">{{$du->witness}}</div>
+                                            <div class="col-md-6">%5</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                                 @endforeach
 
 
