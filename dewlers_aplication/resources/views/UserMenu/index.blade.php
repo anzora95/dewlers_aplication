@@ -64,20 +64,66 @@
                                     </div>
 
                                 </div>
-                            <div class="collapse" id="{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;">
+{{--                                Information collapse--}}
+                            <div class="collapse collapse-pending-dewl" id="{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid #ffffff;">
                                 <div class="card card-body pending-dewls">
                                     <p class="pending-dewl-title">{{$du->tittle}}</p>
                                     <p class="pending-dewl-description">{{$du->Description}} </p>
+                                    <p class="pending-dewl-info">Start date: {{$du->startDate }}</p>
+                                    <p class="pending-dewl-info">Status: Dewling</p>
+                                    @if($du->ctlUser2->id !=5)
                                     <div class="pending-dewl-witness">
                                         <div class="row pending-dewl-witness-row">
-                                            <div class="col-md-3">Witness:</div>
-                                            <div class="col-md-3">{{$du->witness}}</div>
-                                            <div class="col-md-6">%5</div>
+                                            <div class="col-md-8">Witness: {{$du->ctlUser2->username}}</div>
+
+                                            <div class="col-md-4">%5</div>
                                         </div>
                                     </div>
+                                    @else
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse" onclick="hideinfo{{$du->id}}()"  aria-expanded="false" aria-controls="collapseExampledewlwinner">
+                                            Choose winner
+                                        </button>
+
+                                    @endif
+                                    <script type="application/javascript">
+                                        function hideinfo{{$du->id}}(){
+                                        $('#{{$du->id}}').toggle()
+                                            $('#collapseExample{{$du->id}}').toggle()
+                                        }
+                                        function hidechoosewinner{{$du->id}}(){
+
+                                            $('#{{$du->id}}').toggle()
+                                            $('#collapseExample{{$du->id}}').toggle()
+
+                                        }
+                                    </script>
 
                                 </div>
                             </div>
+{{--                                    Choose winner collapse--}}
+                                    <div class="collapse choose-dewl-winner" id="collapseExample{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid #ffffff;">
+                                        <div class="card card-body choose-winner-dewl">
+                                            <div class="container">
+                                                <div  class="row">
+                                                    <div class="col text-left">
+                                                        <svg onclick="hidechoosewinner{{$du->id}}()" style="cursor: pointer" class="bi bi-arrow-left" width="1.6em" height="1.6em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
+                                                            <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="col"></div>
+                                                    <div class="col"></div>
+                                                    <div class="col text-right">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="container choose-winner-container text-center">
+                                                <div class="container border-winner">
+
+                                                </div>
+                                            </div>
+                                         </div>
+                                    </div>
                                 @endforeach
 
 
@@ -214,7 +260,7 @@
                                     <textarea name="description" id="descriptio" class="form-control" cols="30" rows="3" required></textarea>
                                 </div>
                                 {{--                                POT--}}
-                                <label for="pot">Dewl</label>
+                                <label for="pot">stacks</label>
                                 <div class="input-group mb-3">
 
                                     <div class="input-group-prepend">

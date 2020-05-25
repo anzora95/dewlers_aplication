@@ -11002,6 +11002,7 @@ a.text-dark:focus {
 }
 .dewl-row{
     margin: 0px 0px 8px 0px !important;
+    cursor: pointer;
 }
 .vs-div:after, .info-div-first:before {
     content:'';
@@ -11125,6 +11126,9 @@ a:hover {
 .card.card-body.pending-dewls{
     background-color: #000000;
 }
+.card.card-body.choose-winner-dewl{
+    background-color: #000000;
+}
 
 .pending-dewl-title{
     font-weight: 600;
@@ -11136,8 +11140,18 @@ font-weight: 200;
 
 .row.pending-dewl-witness-row{
     font-weight: 200;
+    color:#cbae22;
     border: 1px solid #cbae22;
     margin-left: 40px;
     margin-right: 40px;
     margin-top: 30px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+}
+.pending-dewl-info{
+    margin-bottom: 8px;
+}
+
+.border-winner{
+    border: 1px solid #cbae22;
 }
