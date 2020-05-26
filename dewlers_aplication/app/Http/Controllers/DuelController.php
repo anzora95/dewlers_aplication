@@ -55,9 +55,18 @@ class DuelController extends Controller
         $end='2020-02-10';
         $file='this is a test file';
         $status=1;
+        $witness_validate= $request->post('witness_validate');
 //        $user_winner=;
         $duel_state=1;
         $pot=$request->post('pot');
+//        echo('este es el valor de witness validate');
+//        echo $witness_validate;  ------------------LA VARIABLE PUEDE TENER UN VALOR "ON" EN STRING SI VIENE CHEQUEADO
+//        echo gettype($witness_validate);
+//        return View('teste_picker')->with('check_value', $witness_validate);
+
+        if($witness_validate!="on"){
+            $user_witness=null;
+        }
 
         DB::table('duels')->insert(["tittle"=>$tittle,
             'ctl_user_id_challenger'=>$user_challenger,
@@ -153,19 +162,39 @@ class DuelController extends Controller
         $id_winner=$idwinner;
         $id_loser=$idlosser;
 
+//        ----------------------------------------------------------------------------------------------
+
+
+
 //        TEST DUEL BALANCE
         $duel_id=$idduel;
 
         DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>4, 'status'=>0 ]);
 
+
 //        POT DEL DUELO
         $duels_pot_data=duels::where('id','=',$duel_id)->first();
         $pot=$duels_pot_data->pot;
 
+        //        COMPROBACION SI EL DEWL TIENE O NO WITNESS
+        $nowitness= $duels_pot_data->ctl_user_id_witness;
+
         //division del pot
         $pot_dewlers=$pot*0.1;
-        $pot_winner=$pot*0.85;
-        $pot_witness=$pot*0.05;
+
+        if ($nowitness==null){
+            $pot_winner=$pot*0.9;
+        }
+        else{
+            $pot_witness=$pot*0.05;
+            $pot_winner=$pot*0.85;
+
+            //INTERNAL WITNESS ACCOUNT BALANCE
+            $id_witness=$duels_pot_data->ctl_user_id_witness;// se obtiene el id de el witness
+            $data_witness_balance=internalaccounts::where('ctl_user_id',$id_witness)->first(); //se obtiene la row donde esta la cuenta interna de el witness
+            $plus_balance_witness=$data_witness_balance->balance + $pot_witness;
+            DB::table('internalaccounts')->where('ctl_user_id',$id_witness)->update(['balance'=>$plus_balance_witness]);
+        }
 
 //        INTERNAL WINNER ACCOUNT BALANCE
         $data_winner_balance=internalaccounts::where('ctl_user_id',$id_winner)->first();
@@ -184,11 +213,6 @@ class DuelController extends Controller
 //          UPDATING LOSER ACCOUNT BALANCE
         DB::table('internalaccounts')->where('ctl_user_id',$id_loser)->update(['balance'=>$less_balance]);
 
-        //INTERNAL WITNESS ACCOUNT BALANCE
-        $id_witness=$duels_pot_data->ctl_user_id_witness;// se obtiene el id de el witness
-        $data_witness_balance=internalaccounts::where('ctl_user_id',$id_witness)->first(); //se obtiene la row donde esta la cuenta interna de el witness
-        $plus_balance_witness=$data_witness_balance->balance + $pot_witness;
-        DB::table('internalaccounts')->where('ctl_user_id',$id_witness)->update(['balance'=>$plus_balance_witness]);
 
         //create double or nothing dependiendo del perdedor
         DB::table('double_or_nothing')->insert(["duel_id"=>$duel_id,

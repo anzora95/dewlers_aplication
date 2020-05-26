@@ -9,6 +9,9 @@
     @stop
 @section('content')
 
+
+    <h3>{{$check_value}}</h3>
+
     <input id="datepicker" width="276" />
     <script>
         $('#datepicker').datepicker({
