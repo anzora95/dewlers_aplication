@@ -10932,6 +10932,7 @@ a.text-dark:focus {
     height: 500px;
     background-color:#393a3c;
     padding: 0;
+
 }
 
 
@@ -11080,11 +11081,13 @@ a.text-dark:focus {
     margin-bottom: 10px;
     margin-top: 10px;
     max-width: 100%;
+    cursor: pointer;
 }
 .lost-row{
     margin-bottom: 10px;
     margin-top: 10px;
     max-width: 100%;
+    cursor: pointer;
 }
 .history-info{
     background-color: #00d9aa;
@@ -11126,6 +11129,13 @@ a:hover {
 .card.card-body.pending-dewls{
     background-color: #000000;
 }
+
+.card.card-body.win-history{
+    background-color: #000000;
+}
+.card.card-body.lost-history{
+    background-color: #000000;
+}
 .card.card-body.choose-winner-dewl{
     background-color: #000000;
 }
@@ -11153,5 +11163,34 @@ font-weight: 200;
 }
 
 .border-winner{
+    border: 1px solid #00d9aa;
+}
+.border-winner:hover{
+    border: 1px solid #00d9aa;
+    background-color: rgba(0, 217, 170, 1);
+    cursor: pointer;
+}
+.container.choose-winner-container.text-center{
+    margin-top: 0px;
+    max-width: 100%;
+    padding: 0px;
+}
+.p-box{
     border: 1px solid #cbae22;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 8px !important;
+}
+#p1-box{
+    padding: 0;
+    cursor: pointer;
+
+}
+#p2-box{
+    padding: 0;
+    cursor: pointer;
+}
+
+.active-winner{
+    background-color: rgba(203, 174, 34, 1);
 }

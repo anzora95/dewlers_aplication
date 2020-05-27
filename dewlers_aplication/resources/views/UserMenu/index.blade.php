@@ -8,6 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('js/scripts.js') }}" type="application/javascript"></script>
 @stop
 @section('content')
 
@@ -36,7 +37,15 @@
                             <div class="container dewl-content text-center">
                                 @foreach($duels as $du)
                                 <div class="row dewl-row" data-toggle="collapse" href="#{{$du->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    <div class="col-md-3 vs-div" >VS</div>
+                                    <div class="col-md-3 vs-div"
+                                         @if($du->ctlUser2->id !=5)
+                                         style="background: rgb(168,0,4);
+                                        background: linear-gradient(150deg, rgba(168,0,4,1) 28%, rgba(253,36,17,1) 100%);"
+                                        @else
+                                            style="background: rgb(168,0,4);
+                                            background: linear-gradient(150deg, rgba(161,133,0,1) 28%, rgba(120,100,2,1) 100%);"
+                                         @endif
+                                    >VS</div>
                                     <div class="col-md-4 info-div-first">{{$du->ctlUser1->username}}</div>
                                     <div class="col-md-3 info-icon">
 {{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
@@ -80,7 +89,7 @@
                                         </div>
                                     </div>
                                     @else
-                                        <button class="btn btn-primary" type="button" data-toggle="collapse" onclick="hideinfo{{$du->id}}()"  aria-expanded="false" aria-controls="collapseExampledewlwinner">
+                                        <button class="btn btn-outline-warning" type="button" data-toggle="collapse" onclick="hideinfo{{$du->id}}()"  aria-expanded="false" aria-controls="collapseExampledewlwinner">
                                             Choose winner
                                         </button>
 
@@ -103,7 +112,7 @@
 {{--                                    Choose winner collapse--}}
                                     <div class="collapse choose-dewl-winner" id="collapseExample{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid #ffffff;">
                                         <div class="card card-body choose-winner-dewl">
-                                            <div class="container">
+                                            <div class="container" style="margin-bottom: 10px;">
                                                 <div  class="row">
                                                     <div class="col text-left">
                                                         <svg onclick="hidechoosewinner{{$du->id}}()" style="cursor: pointer" class="bi bi-arrow-left" width="1.6em" height="1.6em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -117,10 +126,19 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="container">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div id="p1-box" class="col-5"><p id="box-player" class="p-box">{{$du->ctlUser1->username}}</p></div>
+                                                    <div id="vs-box" class="col-2"><p class="vs-box">VS</p></div>
+                                                    <div id="p2-box" class="col-5"><p id="box-player" class="p-box">{{$du->ctlUser0->username}}</p></div>
+                                                </div>
+                                            </div>
                                             <div class="container choose-winner-container text-center">
                                                 <div class="container border-winner">
-
+                                                    Winner
                                                 </div>
+                                            </div>
                                             </div>
                                          </div>
                                     </div>
@@ -128,8 +146,8 @@
 
 
                             </div>
-
                         </div>
+                        {{-- RIGH SECTION HISTORY AND WITNESS--}}
                         <div class="col-md-6 history-flex">
                             <div class="div-history overflow-auto">
                                 <div class="row add-dewl-icon">
@@ -167,7 +185,7 @@
                                         <div id="home" class="tab-pane fade in active show">
                                             {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
                                             @foreach($r_winner as $winner)
-                                            <div class="row win-row">
+                                            <div class="row win-row" data-toggle="collapse"  href="#winner-history{{$winner->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                 @if($winner->ctl_user_id_winner == $winner->ctl_user_id_challenger) {{-- si el id del GANADOR es igual al de EL RETADOR  poner el nombre del retador --}}
                                                 <div class="col-md-4 history-challenge text-center">{{$winner->ctlUser1->username}}</div>
                                                  @else
@@ -177,6 +195,17 @@
                                                 <div class="col-md-3 history-date text-center">{{$winner->startDate}}</div>
                                                 <div class="col-md-3 history-info text-center">More info</div>
                                             </div>
+{{--                                                COLLAPSE WIN TAB--}}
+                                                <div class="collapse" id="winner-history{{$winner->id}}">
+                                                    <div class="card card-body win-history">
+                                                        <p class="pending-dewl-title">{{$winner->tittle}}</p>
+                                                        <p class="pending-dewl-description">{{$winner->Description}} </p>
+                                                        <p class="pending-dewl-info">Start date: {{$winner->startDate }}</p>
+                                                        <p class="pending-dewl-info">Stacks: {{$winner->pot }}</p>
+
+                                                    </div>
+                                                </div>
+
                                             @endforeach
                                             {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
 
@@ -184,7 +213,7 @@
                                         <div id="menu1" class="tab-pane fade">
                                             {{--                                            THIS IS A LINE INSIDE THE LOST TAB--}}
                                             @foreach($r_loser as $loser)
-                                            <div class="row lost-row">
+                                            <div class="row lost-row" data-toggle="collapse"  href="#loser-history{{$loser->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                 @if($loser->ctl_user_id_winner == $loser->ctl_user_id_challenger) {{-- si el id del GANADOR es igual al de EL RETADOR  poner el nombre del retador --}}
                                                 <div class="col-md-4 history-challenge text-center">{{$loser->ctlUser1->username}}</div>
                                                 @else
@@ -194,6 +223,17 @@
                                                 <div class="col-md-3 history-date">{{$loser->startDate}}</div>
                                                 <div class="col-md-3 history-info">More info</div>
                                             </div>
+
+                                                {{--                                                COLLAPSE Loser TAB--}}
+                                                <div class="collapse" id="loser-history{{$loser->id}}">
+                                                    <div class="card card-body lost-history">
+                                                        <p class="pending-dewl-title">{{$loser->tittle}}</p>
+                                                        <p class="pending-dewl-description">{{$loser->Description}} </p>
+                                                        <p class="pending-dewl-info">Start date: {{$loser->startDate }}</p>
+                                                        <p class="pending-dewl-info">Stacks: {{$loser->pot }}</p>
+
+                                                    </div>
+                                                </div>
                                             @endforeach
                                             {{--                                            THIS IS A LINE INSIDE THE LOST TAB--}}
 
