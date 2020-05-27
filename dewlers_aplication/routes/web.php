@@ -19,6 +19,10 @@ Route::get('/test', function () {
     return view('test');
 });
 
+Route::get('/datepicker', function () {
+    return view('teste_picker');
+});
+
 Route::get('/review_duel', function () {
     return view('Duels/duels_review');
 });

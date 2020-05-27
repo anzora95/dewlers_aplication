@@ -167,7 +167,7 @@
                                     </div>
                                     <ul class="nav nav-tabs">
                                         <li onclick="active_li(0)"  class="history-li" style="background-color: #00d9aa"><a class="navigation-url" data-toggle="tab" href="#home">Win</a></li>
-                                        <li onclick="active_li(1)"  class="history-li"><a class="navigation-url" data-toggle="tab" href="#menu1">Lost</a></li>
+                                        <li onclick="active_li(1)"  class="history-li"><a class="navigation-url" data-toggle="tab" href="#menu1">Loss</a></li>
                                         <li onclick="active_li(2)"  class="history-li"><a class="navigation-url" data-toggle="tab" href="#menu2">Witness</a></li>
 
                                     </ul>
@@ -175,7 +175,7 @@
                                     <div class="tab-content">
                                         <div class="tab-header">
                                             <div class="row">
-                                                <div class="col-md-4 text-center"><strong>Challenge</strong></div>
+                                                <div class="col-md-4 text-center"><strong>Opponent</strong></div>
                                                 <div class="col-md-2 text-center"><strong>Stacks</strong></div>
                                                 <div class="col-md-3 text-center"><strong>Date</strong></div>
                                                 <div class="col-md-3 text-center"></div>
@@ -320,29 +320,37 @@
                                     </select>
                                 </div>
 
-
-                                {{--                                      TESTIGO--}}
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Witness</label>
-                                    <select class="form-control" name="witness" id="witness">
-                                        @foreach($challengeds as $chall)
-                                            <option value="{{$chall->id}}" > {{ $chall->username }} </option>
-                                        @endforeach
-                                    </select>
+                                    <div>
+                                        <input type='checkbox' data-toggle='collapse' data-target='#collapsediv1' name='witness_validate'> Select witness
+                                        </input>
+                                    </div>
+                                    <div id='collapsediv1' class='collapse div1'>
+                                        <div>
+                                            {{--                                      TESTIGO--}}
+                                            <label for="formGroupExampleInput">Witness</label>
+                                            <select class="form-control" name="witness" id="witness">
+                                                @foreach($challengeds as $chall)
+                                                    <option value="{{$chall->id}}" > {{ $chall->username }} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
                                 </div>
+
+
                                 <div class="form-group">
                                     <label for="formGroupExampleInput">Schedule Dewl</label>
                                     <br>
-{{--                                    <svg class="bi bi-calendar" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                                        <path fill-rule="evenodd" d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" clip-rule="evenodd"/>--}}
-{{--                                        <path fill-rule="evenodd" d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>--}}
-{{--                                    </svg>--}}
+
                                     <input name="startdate" type="text" id="datepicker">
                                     <script type="application/javascript">
                                         $('#datepicker').datepicker({ format: 'yyyy-mm-dd' });
                                     </script>
 
                                 </div>
+
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-danger">DEWL</button>
                             </form>

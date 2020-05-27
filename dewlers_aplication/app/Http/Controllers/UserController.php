@@ -57,4 +57,17 @@ class UserController extends Controller
         return view('UserMenu.witness')->with('duels',$duels)->with('don_status',$don_status)->with('witness_acept',$witness_acept); // se enviara para evitar que el witness pueda ver este duelo se ocupara si es necesario.
     }
 
+
+    //FUNCION PARA DECIDIR GANADOR SI SE ES EL CREADOR DEL DUELO
+    //
+    //SELECCIONAR DE LA BASE LOS DUELOS CON WITNESS VACIO Y QUE EL USUARIO LOGUEADO SEA EL CHALLENGER
+
+    public function challenger_decides(){
+        $id=Auth::user();
+
+        $no_witness= duels::with('ctlUser0', 'ctlUser1')->where([['ctl_user_id_witness', '=', null],['ctl_user_id_challenger','=', $id->id]]);
+
+
+    }
+
 }
