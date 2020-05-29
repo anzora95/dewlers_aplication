@@ -38,7 +38,7 @@
                                 @foreach($duels as $du)
                                 <div class="row dewl-row" data-toggle="collapse" href="#{{$du->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                     <div class="col-md-3 vs-div"
-                                         @if($du->ctlUser2->id !=5)
+                                         @if($du->ctl_user_id_witness)
                                          style="background: rgb(168,0,4);
                                         background: linear-gradient(150deg, rgba(168,0,4,1) 28%, rgba(253,36,17,1) 100%);"
                                         @else
@@ -80,7 +80,7 @@
                                     <p class="pending-dewl-description">{{$du->Description}} </p>
                                     <p class="pending-dewl-info">Start date: {{$du->startDate }}</p>
                                     <p class="pending-dewl-info">Status: Dewling</p>
-                                    @if($du->ctlUser2->id !=5)
+                                    @if($du->ctl_user_id_witness)
                                     <div class="pending-dewl-witness">
                                         <div class="row pending-dewl-witness-row">
                                             <div class="col-md-8">Witness: {{$du->ctlUser2->username}}</div>
