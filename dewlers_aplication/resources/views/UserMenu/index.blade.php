@@ -45,7 +45,7 @@
                                             style="background: rgb(168,0,4);
                                             background: linear-gradient(150deg, rgba(161,133,0,1) 28%, rgba(120,100,2,1) 100%);"
                                          @endif
-                                    >VS</div>
+                                    >{{ HTML::image('img/Dewlers_iconos_VS.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}</div>
                                     <div class="col-md-4 info-div-first">{{$du->ctlUser1->username}}</div>
                                     <div class="col-md-3 info-icon">
 {{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
