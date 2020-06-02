@@ -46,7 +46,11 @@
                                             background: linear-gradient(150deg, rgba(161,133,0,1) 28%, rgba(120,100,2,1) 100%);"
                                          @endif
                                     >{{ HTML::image('img/Dewlers_iconos_VS.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}</div>
+                                    @if($du->ctl_user_id_challenger == @Auth::id())
                                     <div class="col-md-4 info-div-first">{{$du->ctlUser1->username}}</div>
+                                    @else
+                                    <div class="col-md-4 info-div-first">{{$du->ctlUser0->username}}</div>
+                                    @endif
                                     <div class="col-md-3 info-icon">
 {{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
 {{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
@@ -112,6 +116,9 @@
 {{--                                    Choose winner collapse--}}
                                     <div class="collapse choose-dewl-winner" id="collapseExample{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid #ffffff;">
                                         <div class="card card-body choose-winner-dewl">
+                                            <form action="#" method="post">
+                                                @csrf
+
                                             <div class="container" style="margin-bottom: 10px;">
                                                 <div  class="row">
                                                     <div class="col text-left">
@@ -129,19 +136,79 @@
                                             <div class="container">
                                             <div class="container">
                                                 <div class="row">
-                                                    <div id="p1-box" class="col-5"><p id="box-player" class="p-box">{{$du->ctlUser1->username}}</p></div>
+                                                    <div id="player{{$du->id}}" class="col-5 "><p id="box-player" class="p-box">{{$du->ctlUser1->username}}</p></div>
                                                     <div id="vs-box" class="col-2"><p class="vs-box">VS</p></div>
-                                                    <div id="p2-box" class="col-5"><p id="box-player" class="p-box">{{$du->ctlUser0->username}}</p></div>
+                                                    <div id="player2{{$du->id}}" class="col-5 "><p id="box-player" class="p-box">{{$du->ctlUser0->username}}</p></div>
                                                 </div>
                                             </div>
-                                            <div class="container choose-winner-container text-center">
+                                            <div class="container choose-winner-container text-center" role="button" onclick="ajaxwinner{{$du->id}}()">
                                                 <div class="container border-winner">
                                                     Winner
                                                 </div>
                                             </div>
                                             </div>
                                          </div>
+                                        </form>
                                     </div>
+                                    <script type="application/javascript">
+
+                                        $(document).ready(
+                                            function()
+                                            {
+                                                $("#player{{$du->id}}").click(
+                                                    function(event)
+                                                    {
+                                                        $('#player{{$du->id}}').toggleClass("active");
+
+
+                                                    }
+                                                );
+                                                $("3player2{{$du->id}}").click(
+                                                    function(event)
+                                                    {
+                                                        $('#player2{{$du->id}}').toggleClass("active");
+
+
+                                                    }
+                                                );
+                                            });
+
+                                        // ESPACIO PARA AJAX
+                                        function ajaxwinner{{$du->id}}(){
+                                            console.log("hola"+{{$du->id}});
+                                            if($("#player{{$du->id}}").hasClass("active")){
+                                                console.log('Gano el retador');
+                                                var xhttp = new XMLHttpRequest();
+                                                xhttp.onreadystatechange = function() {
+                                                    if (this.readyState == 4 && this.status == 200) {
+
+
+                                                    }
+                                                };
+                                                xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}/{{$du->ctl_user_id_challenged}}", true);
+                                                xhttp.send();
+                                                // alertify.alert('Ready!');
+
+                                                setTimeout(function(){ location.reload(); }, 2000);
+                                            }
+                                            else{
+                                                console.log('Gano el retado');
+                                                var xhttp = new XMLHttpRequest();
+                                                xhttp.onreadystatechange = function() {
+                                                    if (this.readyState == 4 && this.status == 200) {
+
+                                                    }
+                                                };
+                                                xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenged}}/{{$du->ctl_user_id_challenger}}", true);
+                                                xhttp.send();
+                                                // alertify.alert('Ready!');
+                                                setTimeout(function(){ location.reload(); }, 2000);
+
+                                            }
+                                        }
+                                    </script>
+
+
                                 @endforeach
 
 
@@ -214,7 +281,7 @@
                                             {{--                                            THIS IS A LINE INSIDE THE LOST TAB--}}
                                             @foreach($r_loser as $loser)
                                             <div class="row lost-row" data-toggle="collapse"  href="#loser-history{{$loser->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                @if($loser->ctl_user_id_winner == $loser->ctl_user_id_challenger) {{-- si el id del GANADOR es igual al de EL RETADOR  poner el nombre del retador --}}
+                                                @if($loser->ctl_user_id_challenger == @Auth::id()) {{-- si el id del GANADOR es igual al de EL RETADOR  poner el nombre del retador --}}
                                                 <div class="col-md-4 history-challenge text-center">{{$loser->ctlUser1->username}}</div>
                                                 @else
                                                     <div class="col-md-4 history-challenge text-center">{{$loser->ctlUser0->username}}</div>
