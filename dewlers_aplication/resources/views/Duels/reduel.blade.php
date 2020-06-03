@@ -2,7 +2,9 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center text-center">
+            <script>
 
+            </script>
                 {{--                AQUI EL MENU--}}
             <div class="container">
                 <div  class="row">
@@ -23,18 +25,22 @@
                     <div class="card">
                         <div class="card-header">Create a Dewl</div>
                         <div class="card-body">
-                            <form action="/saveduel" method="post" onsubmit="sub_butt.disabled = true; return true;">
+                            <form action="/re_duel" method="post" onsubmit="sub_butt.disabled = true; return true;">
                                 @csrf
 {{--                                Tittle--}}
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input type="text" class="form-control" id="tittle" name="tittle" aria-describedby="tittle" required>
+                                    <input type="text" class="form-control" id="tittle" name="tittle" aria-describedby="tittle" disabled value={{$title}}>
+                                    <input type="text" class="form-control" id="duel" name="duel" aria-describedby="duel" hidden value={{$duel}}>
+
                                 </div>
 {{--                                DESCRIPTION--}}
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea name="description" id="descriptio" class="form-control" cols="30" rows="3" required></textarea>
+                                    <textarea name="description" id="descriptio" class="form-control" cols="30" rows="3" disabled >{{$description}}</textarea>
+
                                 </div>
+
 {{--                                POT--}}
                                 <label for="pot">Dewl</label>
                                 <div class="input-group mb-3">
@@ -42,15 +48,18 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">$</span>
                                     </div>
-                                    <input type="number" id="pot" name="pot" class="form-control" placeholder="10.00" aria-label="pot" aria-describedby="pot"  required min="10" >
+                                    <input type="number" id="pot" name="pot" class="form-control" aria-label="pot" aria-describedby="pot" disabled   VALUE="{{$amount}}">
                                 </div>
 
 {{--                                RETADO--}}
                                 <div class="form-group">
                                     <label for="challendged">VS</label>
-                                    <select class="form-control" id="challendged"  name="challendged" >
+                                    <select class="form-control" id="challendged"  name="challendged" disabled >
                                         @foreach($challengeds as $chall)
-                                            <option value="{{$chall->id}}" > {{ $chall->username }} </option>
+                                            @if($chall->id == $challenged){
+                                            <option value="{{$chall->id}}" > {{ $chall->username }}  </option>
+                                        }
+                                        @endif
                                         @endforeach
 
                                     </select>
@@ -60,9 +69,12 @@
 {{--                                      TESTIGO--}}
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Witness</label>
-                                    <select class="form-control" name="witness" id="witness">
+                                    <select class="form-control" name="witness" id="witness" disabled>
                                         @foreach($challengeds as $chall)
+                                            @if($chall->id == $witness){
                                             <option value="{{$chall->id}}" > {{ $chall->username }} </option>
+                                        }
+                                        @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -73,6 +85,34 @@
                         </div>
                     </div>
                 </div>
+
+            <script>
+
+                {{--$(document).ready(){--}}
+                {{--    var first ={{$amount}} *2;--}}
+                {{--    console.log(first);--}}
+
+                {{--    document.getElementById('pot').innerHTML = 400;--}}
+
+                {{--}--}}
+
+
+
+
+                console.log("{{$challenged}}  this is the challenged id");
+
+                console.log("{{$witness}}  this is the witness id");
+
+                console.log("{{$title}} this is the tittle of duel");
+
+                console.log("this is the pot");
+
+
+
+
+                var nameInput = document.getElementById('pot');
+                console.log(nameInput.value());
+            </script>
 
 {{--            <div>--}}
 {{--                @foreach($f_root as $groot)--}}

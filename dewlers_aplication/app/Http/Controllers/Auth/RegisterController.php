@@ -9,6 +9,7 @@ use App\persons;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\internalaccounts;
 use DB;
 
 class RegisterController extends Controller
@@ -83,6 +84,13 @@ class RegisterController extends Controller
 
         $last_id = DB::table('ctl_users')->insertGetId($data_ctl_users);
 
+        internalaccounts::create([
+            'code'=>1,
+            'balance'=>2500,
+            'status'=>1,
+            'ctl_user_id'=>$last_id
+        ]);
+
         persons::create([
             'firstName'=>$data['name'],
             'lastName'=>$data['name'],
@@ -91,7 +99,7 @@ class RegisterController extends Controller
             'photography'=>'123456789',
             'ctl_user_id'=>$last_id
         ]);
-        return \Dewlers\User::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
