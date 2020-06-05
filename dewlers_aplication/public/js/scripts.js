@@ -32,3 +32,5 @@ var $boxes = $("p#box-player").click(function(){
         $boxes.removeClass("active-winner");
         $(this).addClass("active-winner");
     });
+
+
