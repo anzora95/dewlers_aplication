@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\duels;
 use App\double_or_nothing;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\StatusUpdate;
 
 class DuelController extends Controller
 {
@@ -47,6 +49,10 @@ class DuelController extends Controller
         $user=Auth::user();
 //        $challenger=DB::table('')
 
+        Notification::route('mail', 'jose@mvagency.co')
+            ->notify(new StatusUpdate());
+
+
         $tittle=$request->post('tittle');
         $user_challenger=$user->id;
         $user_challenged=$request->post('challendged');
@@ -80,6 +86,7 @@ class DuelController extends Controller
             'status'=>$status,
             'duelstate'=>$duel_state,
             'pot'=>$pot]);
+
 
 //        return view('UserMenu.index'); che
         return redirect("dashboard");
