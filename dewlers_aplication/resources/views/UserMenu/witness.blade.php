@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('extra_links')
+
+    <script src="{{ asset('js/scripts.js') }}" type="application/javascript"></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
+@endsection
 @section('content')
 
     <!-- JavaScript -->
