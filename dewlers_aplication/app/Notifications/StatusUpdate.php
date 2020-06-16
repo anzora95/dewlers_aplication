@@ -55,8 +55,7 @@ class StatusUpdate extends Notification
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
                     ->greeting('Lets Dewl!')
                     ->line('You have been invited by '.$this->infouser[0].' to participate  on a Dewl')
-                    ->action('Check it out', url('/status'))
-                    ->line('Good luck!');
+                    ->action('Check it out', url('/status'));
                 return ($challenger);
 
                 break;
@@ -68,8 +67,7 @@ class StatusUpdate extends Notification
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
                     ->greeting('Lets Dewl!')
                     ->line('You have been invited by '.$this->infouser[0].' to participate on a Dewl as a witness')
-                    ->action('Check it out', url('/witness'))
-                    ->line('Good luck!');
+                    ->action('Check it out', url('/witness'));
                 return ($witness);
 
 
@@ -80,10 +78,12 @@ class StatusUpdate extends Notification
                 $winner = new MailMessage;
                 $winner->subject('Dewl Win')
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
-                    ->greeting('Congrats!')
-                    ->line('You are the winner of this dewl.')
+                    ->greeting('Congratulations!')
+                    ->line('You are the winner of the Dewl '.$this->infouser[0].'! The stacks you won are already on your account.') // infouser[0] debe ser el nombre del dewl
                     ->action('Check it out', url('/dashboard'))
-                    ->line('Congrats!');
+                    ->line('Continue Dewling!');
+
+//                    ->action('Check it out', url('/dashboard'));
                 return ($winner);
 
 
@@ -94,10 +94,10 @@ class StatusUpdate extends Notification
                 $loser = new MailMessage;
                 $loser->subject('Dewl loss')
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
-                    ->greeting('Lets Dewl!')
-                    ->line('You have loss this dewl more luck to the next')
+                    ->greeting('Better luck next time!')
+                    ->line('You have lost against'.$this->infouser[3].' the Dewl'.$this->infouser[0])  // infouser[0] debe ser el nombre del dewl, infouser[3] debe ser el nombre del oponente
                     ->action('Check it out', url('/dashboard'))
-                    ->line('Good luck to the next!');
+                    ->line('Continue Dewling!');
                 return ($loser);
 
                 break;
@@ -108,9 +108,8 @@ class StatusUpdate extends Notification
                 $double_or_noting->subject('Dewl double or nothing')
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
                     ->greeting('Lets Dewl!')
-                    ->line('You have been invited by '.$this->infouser[0].' to participate on a Dewl double or nothing')
-                    ->action('Check it out', url('/dashboard'))
-                    ->line('Good luck!');
+                    ->line('You have been invited by '.$this->infouser[0].' to participate on a Dewl double or nothing.')
+                    ->action('Check it out', url('/dashboard'));
                 return ($double_or_noting);
                 break;
         }
