@@ -27,3 +27,5 @@ dewlers_aplication/composer.lock
 dewlers_aplication/composer.json
 
 dewlers_aplication/database/migrations/
+
+*.lock

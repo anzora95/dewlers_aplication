@@ -19,6 +19,10 @@ Route::get('/test', function () {
     return view('test');
 });
 
+Route::get('/datepicker', function () {
+    return view('teste_picker');
+});
+
 Route::get('/review_duel', function () {
     return view('Duels/duels_review');
 });
@@ -45,7 +49,14 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/update_balance/{idduel}/{idwinner}/{idlosser}', 'DuelController@gamewinner');
     Route::get('/double_or_nothing/{id}/','Post_Controller@don_reduel');
     Route::get('/acepted_don/{id}/','DONController@acept_don');
+    Route::get('send', 'UserController@mail');
 
+    Route::get('mail', function () {
+        $order = App\duels::find(1);
+
+        return (new App\Notifications\StatusUpdate($order))
+            ->toMail($order->user);
+    });
 
 
 

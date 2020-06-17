@@ -23,7 +23,7 @@ class DONController extends Controller
 
         DB::table('duels')->where('id', $id_duel)->update(['pot'=>$pot, 'duelstate'=>5, 'status'=>1]);
 
-        return view('UserMenu.index');
+        return view('');
 
 
     }

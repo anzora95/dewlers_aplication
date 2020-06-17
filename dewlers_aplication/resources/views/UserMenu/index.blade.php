@@ -38,15 +38,19 @@
                                 @foreach($duels as $du)
                                 <div class="row dewl-row" data-toggle="collapse" href="#{{$du->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                     <div class="col-md-3 vs-div"
-                                         @if($du->ctlUser2->id !=5)
+                                         @if($du->ctl_user_id_witness)
                                          style="background: rgb(168,0,4);
                                         background: linear-gradient(150deg, rgba(168,0,4,1) 28%, rgba(253,36,17,1) 100%);"
                                         @else
                                             style="background: rgb(168,0,4);
                                             background: linear-gradient(150deg, rgba(161,133,0,1) 28%, rgba(120,100,2,1) 100%);"
                                          @endif
-                                    >VS</div>
+                                    >{{ HTML::image('img/Dewlers_iconos_VS.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}</div>
+                                    @if($du->ctl_user_id_challenger == @Auth::id())
                                     <div class="col-md-4 info-div-first">{{$du->ctlUser1->username}}</div>
+                                    @else
+                                    <div class="col-md-4 info-div-first">{{$du->ctlUser0->username}}</div>
+                                    @endif
                                     <div class="col-md-3 info-icon">
 {{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
 {{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
@@ -80,7 +84,7 @@
                                     <p class="pending-dewl-description">{{$du->Description}} </p>
                                     <p class="pending-dewl-info">Start date: {{$du->startDate }}</p>
                                     <p class="pending-dewl-info">Status: Dewling</p>
-                                    @if($du->ctlUser2->id !=5)
+                                    @if($du->ctl_user_id_witness)
                                     <div class="pending-dewl-witness">
                                         <div class="row pending-dewl-witness-row">
                                             <div class="col-md-8">Witness: {{$du->ctlUser2->username}}</div>
@@ -112,6 +116,9 @@
 {{--                                    Choose winner collapse--}}
                                     <div class="collapse choose-dewl-winner" id="collapseExample{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid #ffffff;">
                                         <div class="card card-body choose-winner-dewl">
+                                            <form action="#" method="post">
+                                                @csrf
+
                                             <div class="container" style="margin-bottom: 10px;">
                                                 <div  class="row">
                                                     <div class="col text-left">
@@ -129,19 +136,79 @@
                                             <div class="container">
                                             <div class="container">
                                                 <div class="row">
-                                                    <div id="p1-box" class="col-5"><p id="box-player" class="p-box">{{$du->ctlUser1->username}}</p></div>
+                                                    <div id="player{{$du->id}}" class="col-5 "><p id="box-player" class="p-box">{{$du->ctlUser1->username}}</p></div>
                                                     <div id="vs-box" class="col-2"><p class="vs-box">VS</p></div>
-                                                    <div id="p2-box" class="col-5"><p id="box-player" class="p-box">{{$du->ctlUser0->username}}</p></div>
+                                                    <div id="player2{{$du->id}}" class="col-5 "><p id="box-player" class="p-box">{{$du->ctlUser0->username}}</p></div>
                                                 </div>
                                             </div>
-                                            <div class="container choose-winner-container text-center">
+                                            <div class="container choose-winner-container text-center" role="button" onclick="ajaxwinner{{$du->id}}()">
                                                 <div class="container border-winner">
                                                     Winner
                                                 </div>
                                             </div>
                                             </div>
                                          </div>
+                                        </form>
                                     </div>
+                                    <script type="application/javascript">
+
+                                        $(document).ready(
+                                            function()
+                                            {
+                                                $("#player{{$du->id}}").click(
+                                                    function(event)
+                                                    {
+                                                        $('#player{{$du->id}}').toggleClass("active");
+
+
+                                                    }
+                                                );
+                                                $("3player2{{$du->id}}").click(
+                                                    function(event)
+                                                    {
+                                                        $('#player2{{$du->id}}').toggleClass("active");
+
+
+                                                    }
+                                                );
+                                            });
+
+                                        // ESPACIO PARA AJAX
+                                        function ajaxwinner{{$du->id}}(){
+                                            console.log("hola"+{{$du->id}});
+                                            if($("#player{{$du->id}}").hasClass("active")){
+                                                console.log('Gano el retador');
+                                                var xhttp = new XMLHttpRequest();
+                                                xhttp.onreadystatechange = function() {
+                                                    if (this.readyState == 4 && this.status == 200) {
+
+
+                                                    }
+                                                };
+                                                xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}/{{$du->ctl_user_id_challenged}}", true);
+                                                xhttp.send();
+                                                // alertify.alert('Ready!');
+
+                                                setTimeout(function(){ location.reload(); }, 2000);
+                                            }
+                                            else{
+                                                console.log('Gano el retado');
+                                                var xhttp = new XMLHttpRequest();
+                                                xhttp.onreadystatechange = function() {
+                                                    if (this.readyState == 4 && this.status == 200) {
+
+                                                    }
+                                                };
+                                                xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenged}}/{{$du->ctl_user_id_challenger}}", true);
+                                                xhttp.send();
+                                                // alertify.alert('Ready!');
+                                                setTimeout(function(){ location.reload(); }, 2000);
+
+                                            }
+                                        }
+                                    </script>
+
+
                                 @endforeach
 
 
@@ -167,7 +234,7 @@
                                     </div>
                                     <ul class="nav nav-tabs">
                                         <li onclick="active_li(0)"  class="history-li" style="background-color: #00d9aa"><a class="navigation-url" data-toggle="tab" href="#home">Win</a></li>
-                                        <li onclick="active_li(1)"  class="history-li"><a class="navigation-url" data-toggle="tab" href="#menu1">Lost</a></li>
+                                        <li onclick="active_li(1)"  class="history-li"><a class="navigation-url" data-toggle="tab" href="#menu1">Loss</a></li>
                                         <li onclick="active_li(2)"  class="history-li"><a class="navigation-url" data-toggle="tab" href="#menu2">Witness</a></li>
 
                                     </ul>
@@ -175,7 +242,7 @@
                                     <div class="tab-content">
                                         <div class="tab-header">
                                             <div class="row">
-                                                <div class="col-md-4 text-center"><strong>Challenge</strong></div>
+                                                <div class="col-md-4 text-center"><strong>Opponent</strong></div>
                                                 <div class="col-md-2 text-center"><strong>Stacks</strong></div>
                                                 <div class="col-md-3 text-center"><strong>Date</strong></div>
                                                 <div class="col-md-3 text-center"></div>
@@ -214,7 +281,7 @@
                                             {{--                                            THIS IS A LINE INSIDE THE LOST TAB--}}
                                             @foreach($r_loser as $loser)
                                             <div class="row lost-row" data-toggle="collapse"  href="#loser-history{{$loser->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                @if($loser->ctl_user_id_winner == $loser->ctl_user_id_challenger) {{-- si el id del GANADOR es igual al de EL RETADOR  poner el nombre del retador --}}
+                                                @if($loser->ctl_user_id_challenger == @Auth::id()) {{-- si el id del GANADOR es igual al de EL RETADOR  poner el nombre del retador --}}
                                                 <div class="col-md-4 history-challenge text-center">{{$loser->ctlUser1->username}}</div>
                                                 @else
                                                     <div class="col-md-4 history-challenge text-center">{{$loser->ctlUser0->username}}</div>
@@ -239,7 +306,7 @@
 
                                          </div>
                                         <div id="menu2" class="tab-pane fade">
-                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            {{--                                            THIS IS A LINE INSIDE THE WITNESS TAB--}}
                                             @foreach($r_witness as $witness)
                                             <div class="row win-row">
                                                 <div class="col-md-4 history-challenge text-center">{{$witness->tittle}}</div>
@@ -320,29 +387,37 @@
                                     </select>
                                 </div>
 
-
-                                {{--                                      TESTIGO--}}
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Witness</label>
-                                    <select class="form-control" name="witness" id="witness">
-                                        @foreach($challengeds as $chall)
-                                            <option value="{{$chall->id}}" > {{ $chall->username }} </option>
-                                        @endforeach
-                                    </select>
+                                    <div>
+                                        <input type='checkbox' data-toggle='collapse' data-target='#collapsediv1' name='witness_validate'> Select witness
+                                        </input>
+                                    </div>
+                                    <div id='collapsediv1' class='collapse div1'>
+                                        <div>
+                                            {{--                                      TESTIGO--}}
+                                            <label for="formGroupExampleInput">Witness</label>
+                                            <select class="form-control" name="witness" id="witness">
+                                                @foreach($challengeds as $chall)
+                                                    <option value="{{$chall->id}}" > {{ $chall->username }} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
                                 </div>
+
+
                                 <div class="form-group">
                                     <label for="formGroupExampleInput">Schedule Dewl</label>
                                     <br>
-{{--                                    <svg class="bi bi-calendar" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                                        <path fill-rule="evenodd" d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" clip-rule="evenodd"/>--}}
-{{--                                        <path fill-rule="evenodd" d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>--}}
-{{--                                    </svg>--}}
+
                                     <input name="startdate" type="text" id="datepicker">
                                     <script type="application/javascript">
                                         $('#datepicker').datepicker({ format: 'yyyy-mm-dd' });
                                     </script>
 
                                 </div>
+
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-danger">DEWL</button>
                             </form>
@@ -360,6 +435,58 @@
 
         </div>
     </div>
+
+    <script>
+
+        // export default {
+        //     props: ["user"],
+        //     data: () => ({
+        //         drawer: null,
+        //         allNotifications: [],
+        //         unreadNotifications: [],
+        //     }),
+        //     props: ["user"],
+        //     watch:{
+        //         allNotifications(val){
+        //             this.unreadNotifications =  this.allNotifications.filter(notification => {
+        //                 return notification.read_at == null;
+        //             });
+        //         }
+        //     },
+        //     methods: {
+        //         logout() {
+        //             axios.post("/logout").then(response => window.location.reload());
+        //         },
+        //         markAsRead() {
+        //             axios.get("/mark-all-read/" + this.user.id).then(response=>{
+        //                 this.unreadNotifications = [];
+        //             });
+        //         }
+        //     },
+        //
+        //     created() {
+        //         this.allNotifications = window.user.user.notifications;
+        //         // this.unreadNotifications =  this.allNotifications.filter(notification => {
+        //         //     return notification.read_at == null;
+        //         // });
+        //         // Echo.private("App.User." + this.user.id).notification(notification => {
+        //         //   this.allNotifications.unshift(notification.notification);
+        //         // });
+        //     }
+        // };
+
+        export default {
+            created() {
+                var allNotifications =window.user.user.notifications;
+
+                Echo.private('App.duels.' + userId)
+                    .notification((notification) => {
+                        console.log("new dewl en real time");
+                    });
+            }
+        }
+
+    </script>
 
 
 @endsection

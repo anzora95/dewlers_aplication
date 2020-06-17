@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('extra_links')
+
+    <script src="{{ asset('js/scripts.js') }}" type="application/javascript"></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
+@endsection
 @section('content')
 
     <!-- JavaScript -->
@@ -92,35 +98,6 @@
                                 </div>
                                 </form>
 
-{{--                                    @else--}}
-
-{{--                                        <div class="container">--}}
-{{--                                            <div class="row ">--}}
-
-{{--                                                <div class="col">--}}
-{{--                                                    <p>Have you received a request to witness a duel? <br>--}}
-
-{{--                                                        Do you accept</p>--}}
-{{--                                                </div>--}}
-
-{{--                                            </div>--}}
-
-{{--                                            <div class="row justify-content-center">--}}
-
-{{--                                                <div class="col-md-4">--}}
-{{--                                                    <div class="btn btn-primary">Accept</div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col-md-4">--}}
-{{--                                                    <div class="btn btn-warning">Cancel</div>--}}
-{{--                                                </div>--}}
-
-
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-
-
-{{--                                    @endif--}}
 
                             </div>
                         </div>

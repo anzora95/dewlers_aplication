@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\StatusUpdate;
+use App\User;
 use Illuminate\Http\Request;
 use App\Post;
 use App\duels;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class Post_Controller extends Controller
 {
@@ -25,11 +28,23 @@ class Post_Controller extends Controller
 
         $title_reduel= $don_duel->tittle;
         $description_reduel = $don_duel->Desciption;
-        $amount_reduel= ($don_duel->pot) *2;
+        $amount_reduel= ($don_duel->pot)*2;
         $challenged_reduel= $don_duel->ctl_user_id_challenged;
         $witness_reduel=$don_duel->ctl_user_id_witness;
 
         DB::table('double_or_nothing')->where('duel_id','=',$id_duel)->update(['status'=>0]);
+
+        //-----------------------------------CORREOS DON--------------------------------------------
+
+
+        $don_mail=User::where('id','=',$don_duel->ctl_user_id_winner)->first();//WINNER
+//        $email_loser=User::where('id','=',$id_loser)->first();//LOSS
+
+        $arr3=[$user->name,4,$don_mail->name]; //DATA FOR EMAIL TEMPLATE WINNER
+        Notification::route('mail', $don_mail->email)
+            ->notify(new StatusUpdate($arr3)); //EMAIL FOR WINNER
+
+
 
 
         return View('Duels.reduel')->with('title',$title_reduel)->with('description',$description_reduel)->with('amount',$amount_reduel)->with('challenged',$challenged_reduel)->with('witness',$witness_reduel)->with('challengeds',$challengeds)->with('duel',$id_duel);
