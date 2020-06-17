@@ -76,11 +76,11 @@ class StatusUpdate extends Notification
             case 2: //winner
 
                 $winner = new MailMessage;
-                $winner->subject('Dewl Win')
+                $winner->subject('You are the winner!')
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
                     ->greeting('Congratulations!')
                     ->line('You are the winner of the Dewl '.$this->infouser[0].'! The stacks you won are already on your account.') // infouser[0] debe ser el nombre del dewl
-                    ->action('Check it out', url('/dashboard'))
+                    ->action('My Account', url('/dashboard'))
                     ->line('Continue Dewling!');
 
 //                    ->action('Check it out', url('/dashboard'));
@@ -92,11 +92,11 @@ class StatusUpdate extends Notification
             case 3: //loser
 
                 $loser = new MailMessage;
-                $loser->subject('Dewl loss')
+                $loser->subject('Your lost the Dewl')
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
                     ->greeting('Better luck next time!')
                     ->line('You have lost against'.$this->infouser[3].' the Dewl'.$this->infouser[0])  // infouser[0] debe ser el nombre del dewl, infouser[3] debe ser el nombre del oponente
-                    ->action('Check it out', url('/dashboard'))
+                    ->action('My Account', url('/dashboard'))
                     ->line('Continue Dewling!');
                 return ($loser);
 
@@ -105,11 +105,11 @@ class StatusUpdate extends Notification
             case 4:
 
                 $double_or_noting=new MailMessage;
-                $double_or_noting->subject('Dewl double or nothing')
+                $double_or_noting->subject('Continue the Dewl!')
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
                     ->greeting('Lets Dewl!')
-                    ->line('You have been invited by '.$this->infouser[0].' to participate on a Dewl double or nothing.')
-                    ->action('Check it out', url('/dashboard'));
+                    ->line('You have been invited by '.$this->infouser[0].' to continue Dewling in a Double or Nothing')
+                    ->action('Check Dewl', url('/dashboard'));
                 return ($double_or_noting);
                 break;
         }
