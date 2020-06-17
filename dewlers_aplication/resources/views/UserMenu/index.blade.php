@@ -306,7 +306,7 @@
 
                                          </div>
                                         <div id="menu2" class="tab-pane fade">
-                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            {{--                                            THIS IS A LINE INSIDE THE WITNESS TAB--}}
                                             @foreach($r_witness as $witness)
                                             <div class="row win-row">
                                                 <div class="col-md-4 history-challenge text-center">{{$witness->tittle}}</div>
