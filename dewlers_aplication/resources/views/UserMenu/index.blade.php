@@ -136,9 +136,9 @@
                                             <div class="container">
                                             <div class="container">
                                                 <div class="row">
-                                                    <div id="player{{$du->id}}" class="col-5 "><p id="box-player" class="p-box">{{$du->ctlUser1->username}}</p></div>
+                                                    <div id="player{{$du->id}}" class="col-5 choose-winner-box " style="padding-left: 0px !important;"><p id="box-player" class="p-box">{{$du->ctlUser1->username}}</p></div>
                                                     <div id="vs-box" class="col-2"><p class="vs-box">VS</p></div>
-                                                    <div id="player2{{$du->id}}" class="col-5 "><p id="box-player" class="p-box">{{$du->ctlUser0->username}}</p></div>
+                                                    <div id="player2{{$du->id}}" class="col-5 choose-winner-box" style="padding-right: 0px !important;"><p id="box-player" class="p-box">{{$du->ctlUser0->username}}</p></div>
                                                 </div>
                                             </div>
                                             <div class="container choose-winner-container text-center" role="button" onclick="ajaxwinner{{$du->id}}()">
@@ -217,14 +217,7 @@
                         {{-- RIGH SECTION HISTORY AND WITNESS--}}
                         <div class="col-md-6 history-flex">
                             <div class="div-history overflow-auto">
-                                <div class="row add-dewl-icon">
-                                    <div class="col text-left" style="padding-left: 30px;">
 
-
-                                    </div>
-                                    <div class="col"></div>
-
-                                </div>
                                 <div class="container history-content">
                                     <div class="row add-dewl-icon">
                                         <div class="col text-left" style="padding-left: 30px;">
@@ -326,17 +319,53 @@
                                 </div>
                             </div>
                             <div class="div-witness overflow-auto">
-                                <div class="row add-dewl-icon">
-                                    <div class="col text-left" style="padding-left: 30px;">
 
-                                        <span class="title-dashboard-history-witness" >Witness </span>
+                                    <div class="container dewl-content text-center">
+                                        <div class="row add-dewl-icon">
+                                            <div class="col text-left" style="padding-left: 30px;">
+                                                <span class="title-dashboard" style="color: white">Record</span>
+                                            </div>
+                                            <div class="col"></div>
+                                        </div>
+                                        <div class="container witness-content">
+{{--                                        @foreach($duels as $du)--}}
+
+                                            <div class="row dewl-row" data-toggle="collapse" href="#xxxx" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                <div style="height: 33px;" class="col-md-4 ">Player 1</div>
+                                                <div class="col-md-1 info-icon">VS</div>
+                                                <div class="col-md-4 ">Player 2</div>
+                                                <div class="col-md-2 text-dewl-green">324</div>
+                                                <div class="col-md-1 text-dewl-gold" style="padding-left: 5px !important;">5%</div>
+                                            </div>
+
+                                                {{--                                    Choose winner collapse--}}
+                                                <div class="collapse choose-dewl-winner" id="xxxx" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid rgb(255, 255, 255);">
+                                                    <div class="card card-body choose-winner-dewl" style="border-radius: 0px 0px 3px 3px;">
+                                                        <form action="#" method="post">
+                                                            @csrf
+
+                                                            <div class="container">
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div id="player1id" class="col-5 choose-winner-box" style="padding-left: 0px !important;"><p id="box-player"  class="p-box">Player 1</p></div>
+                                                                        <div id="vs-box" class="col-2"><p class="vs-box">VS</p></div>
+                                                                        <div id="player2id" class="col-5 choose-winner-box " style="padding-right: 0px !important;"><p id="box-player"  class="p-box">Player 2</p></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="container choose-winner-container text-center" role="button" onclick="xxxx()">
+                                                                    <div class="container border-winner">
+                                                                        Winner
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    </form>
+                                                    </div>
+                                                </div>
+
+{{--                                        @endforeach--}}
+                                        </div>
                                     </div>
-                                    <div class="col"></div>
 
-                                </div>
-                                <div class="container witness-content">
-
-                                </div>
                             </div>
                         </div>
                     </div>
