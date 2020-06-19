@@ -62,30 +62,28 @@ class DuelController extends Controller
         $status=1;
         $witness_validate= $request->post('witness_validate');
 //        $user_winner=;
-        $duel_state=1;
+        $duel_state=2;
         $pot=$request->post('pot');
-//        echo('este es el valor de witness validate');
-//        echo $witness_validate;  ------------------LA VARIABLE PUEDE TENER UN VALOR "ON" EN STRING SI VIENE CHEQUEADO
-//        echo gettype($witness_validate);
-//        return View('teste_picker')->with('check_value', $witness_validate);
+
 
         //EMAIL NOTIFICATION
 
         $email_challenged=User::where('id','=',$user_challenged)->first(); //CHALLENGED data from user FOR EMAIL
         $email_witness=User::where('id','=',$user_witness)->first(); //WITNESS DATA FROM USER(MODEL) FOR EMAIL
 
-        $arr=[$user->name,0,$email_challenged->name]; //DATA FOR EMAIL TEMPLATE CHALLENGER
+        $arr=[$user->name,0,$email_challenged->name,$tittle]; //DATA FOR EMAIL TEMPLATE CHALLENGER
 
         Notification::route('mail', $email_challenged->email)
             ->notify(new StatusUpdate($arr)); //EMAIL FOR CHALLENGED
 
-        $arr2=[$user->name,1,$email_witness->name]; //DATA FOR EMAIL TEMPLATE WITNESS
+        $arr2=[$user->name,1,$email_witness->name,$tittle]; //DATA FOR EMAIL TEMPLATE WITNESS
         Notification::route('mail', $email_witness->email)
             ->notify(new StatusUpdate($arr2)); //EMAIL FOR WITNESS
 
 
         if($witness_validate!="on"){
             $user_witness=null;
+            $duel_state=1;
         }
 
         DB::table('duels')->insert(["tittle"=>$tittle,

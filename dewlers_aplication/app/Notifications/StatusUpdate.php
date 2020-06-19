@@ -51,10 +51,10 @@ class StatusUpdate extends Notification
 
             case 0: // challenger
                 $challenger = new MailMessage;
-                $challenger->subject('New Dewl')
+                $challenger->subject('Get ready to Dewl!')
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
-                    ->greeting('Lets Dewl!')
-                    ->line('You have been invited by '.$this->infouser[0].' to participate  on a Dewl')
+                    ->greeting('Do you accept it?')
+                    ->line($this->infouser[0].' has created the Dewl'.$this->infouser[2].'. Do you accept it?')
                     ->action('Check it out', url('/status'));
                 return ($challenger);
 
@@ -63,11 +63,11 @@ class StatusUpdate extends Notification
             case 1: //witness
 
                 $witness = new MailMessage;
-                $witness->subject('New Dewl')
+                $witness->subject('A Dewl needs your help')
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
-                    ->greeting('Lets Dewl!')
-                    ->line('You have been invited by '.$this->infouser[0].' to participate on a Dewl as a witness')
-                    ->action('Check it out', url('/witness'));
+                    ->greeting('Always be fair!')
+                    ->line('You have been invited by '.$this->infouser[0].' to participate on a Dewl '.$this->infouser[2].' as a witness')
+                    ->action('Let’s Dewl!', url('/witness'));
                 return ($witness);
 
 
@@ -80,8 +80,8 @@ class StatusUpdate extends Notification
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
                     ->greeting('Congratulations!')
                     ->line('You are the winner of the Dewl '.$this->infouser[0].'! The stacks you won are already on your account.') // infouser[0] debe ser el nombre del dewl
-                    ->action('My Account', url('/dashboard'))
-                    ->line('Continue Dewling!');
+                    ->action('My Account', url('/dashboard'));
+//                    ->line('Continue Dewling!');
 
 //                    ->action('Check it out', url('/dashboard'));
                 return ($winner);
@@ -96,19 +96,50 @@ class StatusUpdate extends Notification
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
                     ->greeting('Better luck next time!')
                     ->line('You have lost against'.$this->infouser[3].' the Dewl'.$this->infouser[0])  // infouser[0] debe ser el nombre del dewl, infouser[3] debe ser el nombre del oponente
-                    ->action('My Account', url('/dashboard'))
-                    ->line('Continue Dewling!');
+                    ->action('My Account', url('/dashboard'));
+//                    ->line('Continue Dewling!');
                 return ($loser);
 
                 break;
 
-            case 4:
+            case 4: //double or nothing
 
                 $double_or_noting=new MailMessage;
                 $double_or_noting->subject('Continue the Dewl!')
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
                     ->greeting('Lets Dewl!')
                     ->line('You have been invited by '.$this->infouser[0].' to continue Dewling in a Double or Nothing')
+                    ->action('Check Dewl', url('/dashboard'));
+                return ($double_or_noting);
+                break;
+
+            case 5: //witness accept
+
+                //infouser[0] nombre del dewl
+                //infouser[1] bandera de la operacion
+                //infouser[2] nombre del creador del duelo
+                //infouser[3] nombre del withness
+
+                $double_or_noting=new MailMessage;
+                $double_or_noting->subject('The witness acepted the Dewl')
+                    ->from('dewlermailtest@gmail.com', 'Dewlers')
+                    ->greeting('Lets Dewl!')
+                    ->line('Your witness '.$this->infouser[3].' agreed to participate.')
+                    ->action('Check Dewl', url('/dashboard'));
+                return ($double_or_noting);
+                break;
+
+            case 6: //witness refuse
+
+                //infouser[0] nombre del dewl
+                //infouser[1] bandera de la operacion
+                //infouser[2] nombre del witness
+
+                $double_or_noting=new MailMessage;
+                $double_or_noting->subject('The witness rejected the Dewl')
+                    ->from('dewlermailtest@gmail.com', 'Dewlers')
+                    ->greeting('Lets Dewl!')
+                    ->line('Your witness  '.$this->infouser[3].' refuse to participate.')
                     ->action('Check Dewl', url('/dashboard'));
                 return ($double_or_noting);
                 break;

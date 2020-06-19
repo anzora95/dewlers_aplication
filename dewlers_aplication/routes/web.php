@@ -50,6 +50,9 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/double_or_nothing/{id}/','Post_Controller@don_reduel');
     Route::get('/acepted_don/{id}/','DONController@acept_don');
     Route::get('send', 'UserController@mail');
+    Route::post('/witn_validate', 'UserController@witness_contract');
+    Route::post('/nowith', 'UserController@witness_refuse');
+
 
     Route::get('mail', function () {
         $order = App\duels::find(1);
