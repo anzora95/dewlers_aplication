@@ -320,21 +320,24 @@
                             </div>
                             <div class="div-witness overflow-auto">
 
+
+
                                     <div class="container dewl-content text-center">
                                         <div class="row add-dewl-icon">
                                             <div class="col text-left" style="padding-left: 30px;">
-                                                <span class="title-dashboard" style="color: white">Record</span>
+                                                <span class="title-dashboard" style="color: white;margin-bottom: 3px;">Witness</span>
                                             </div>
                                             <div class="col"></div>
                                         </div>
-                                        <div class="container witness-content">
+                                        @foreach($dash_witness as $wit)
+                                        <div class="container witness-content" style="margin-top: 3px">
 {{--                                        @foreach($duels as $du)--}}
 
                                             <div class="row dewl-row" data-toggle="collapse" href="#xxxx" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                <div style="height: 33px;" class="col-md-4 ">Player 1</div>
+                                                <div style="height: 33px;" class="col-md-4">{{$wit->ctlUser1->username}}</div>
                                                 <div class="col-md-1 info-icon">VS</div>
-                                                <div class="col-md-4 ">Player 2</div>
-                                                <div class="col-md-2 text-dewl-green">324</div>
+                                                <div class="col-md-4 ">{{$wit->ctlUser0->username}}</div>
+                                                <div class="col-md-2 text-dewl-green">{{$wit->pot}}</div>
                                                 <div class="col-md-1 text-dewl-gold" style="padding-left: 5px !important;">5%</div>
                                             </div>
 
@@ -347,14 +350,14 @@
                                                             <div class="container">
                                                                 <div class="container">
                                                                     <div class="row">
-                                                                        <div id="player1id" class="col-5 choose-winner-box" style="padding-left: 0px !important;"><p id="box-player"  class="p-box">Player 1</p></div>
+                                                                        <div id="player1id" class="col-5 choose-winner-box" style="padding-left: 0px !important; "><p id="box-player"  class="p-box" style="background-color: #CBAE22">{{$wit->ctlUser1->username}}</p></div>
                                                                         <div id="vs-box" class="col-2"><p class="vs-box">VS</p></div>
-                                                                        <div id="player2id" class="col-5 choose-winner-box " style="padding-right: 0px !important;"><p id="box-player"  class="p-box">Player 2</p></div>
+                                                                        <div id="player2id" class="col-5 choose-winner-box " style="padding-right: 0px !important; "><p id="box-player"  class="p-box" style="background-color: #CBAE22">{{$wit->ctlUser0->username}}</p></div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="container choose-winner-container text-center" role="button" onclick="xxxx()">
-                                                                    <div class="container border-winner">
-                                                                        Winner
+                                                                    <div class="container border-winner" style="background-color: #00C7AA">
+                                                                        Select a winner
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -364,7 +367,10 @@
 
 {{--                                        @endforeach--}}
                                         </div>
+                                        @endforeach
                                     </div>
+
+
 
                             </div>
                         </div>

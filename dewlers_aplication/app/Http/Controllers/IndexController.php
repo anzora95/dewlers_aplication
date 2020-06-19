@@ -52,11 +52,19 @@ class IndexController extends Controller
 
 //-------------------------------------------------------------*------------------------------------------------------------*------------------------------------
 
+        //Witness
+        //if duelstatus == finish codigo 6  y ctl_user_witness == usuariologueado
+        $dash_witness=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where([['ctl_user_id_witness','=',$id_auth->id],['duelstate','!=',6]])->get();
+
         //WITNESS
 
         //if duelstatus != finish codigo 4  y ctl_user_witness == usuariologueado
 
-        return view('UserMenu.index')->with('duels',$due2)->with('challengeds',$challengeds)->with('r_winner', $record_winner)->with('r_loser',$record_loser)->with('r_witness',$record_witness);
+        return view('UserMenu.index')->with('duels',$due2)->with('challengeds',$challengeds)->with('r_winner', $record_winner)->with('r_loser',$record_loser)->with('r_witness',$record_witness)->with('dash_witness',$dash_witness);
+
+
+
+
     }
 
 
