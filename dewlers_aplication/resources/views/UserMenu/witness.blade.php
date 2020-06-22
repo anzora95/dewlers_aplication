@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('extra_links')
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/scripts.js') }}" type="application/javascript"></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
+@endsection
 @section('content')
 
     <!-- JavaScript -->
@@ -49,9 +55,62 @@
                 </div>
 
 
-                {{--            DUelos donde se es witness--}}
+                {{-- DUelos donde se es witness--}}
                 @foreach($duels as $du)
-                    @if($du->status==1)
+                    @if($du->duelstate==2 or $du->duelstate==3)
+
+                    <div class="col-md-8 duelwitness">
+                        <div class="card">
+                            <div class="card-header">{{$du->tittle}}</div>
+                            <div class="card-body">
+
+                                {{--                                    @if($witness_acept==1)--}}
+
+                                <form action="#" method="POST" id="witnees_contract{{$du->id}}">
+                                    @csrf
+
+                                    <div class="container">
+                                        <div> You have been invited as a Witness to this Dewl.
+                                            <br> Please select your Witness Percentage.
+                                        </div>
+                                        <br>
+                                        <div class="row text-center">
+                                            <div class="col-lg-4 offset-lg-4">
+
+                                                <input type="number" name="percentage">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <input type="text" value="{{$du->id}}" name="id" hidden>
+                                        <div class="row text-center">
+
+
+                                            {{--                                            <div class="row text-center">--}}
+                                            <div class="col-lg-6">
+                                                <button class="btn-primary btn" style="background-color: #00B6E3;" id="acept{{$du->id}}" type="submit" formaction="/witn_validate">Acept</button>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <button class="btn btn-danger" style="background-color: #D5130B" id="refuse{{$du->id}}" type="submit" formaction="/nowith">Refuse</button>
+
+                                            </div>
+{{--                                            </div>--}}
+                                        </div>
+                                        <div class="text-center">
+
+
+
+                                        </div>
+
+                                    </div>
+
+                            </form>
+                        </div>
+
+                        </div>
+                    </div>
+
+
+                        @else
                         <div class="col-md-8 duelwitness">
                             <div class="card">
                                 <div class="card-header">{{$du->tittle}}</div>
@@ -69,7 +128,7 @@
                                                 <div class="col"><h5> Select a winner</h5> </div>
                                                 <div class="radio-group">
                                                     <div class="row">
-                                                        <div  class="col-md-5 option{{$du->id}}  option challenger"   id="challenger{{$du->id}}"   >
+                                                        <div  class="col-md-5 option{{$du->id}}  option challenger"   id="challenger{{$du->id}}" >
                                                             {{ Html::image('img/avatar.svg', 'challenger', array('style' => 'max-width: 40px; margin:auto; margin-top:15px;')) }}
                                                             <h5 >{{$du->ctlUser0->username}}</h5>
                                                         </div>
@@ -105,6 +164,31 @@
         <br>
         <br>
 @foreach($duels as $du)
+
+            @if($du->duelstate==2 or $du->duelstate==3)
+
+{{--                <script type="application/javascript">--}}
+
+{{--                    $('#acept{{$du->id}}').click(function(){--}}
+{{--                        $('#witnees_contract{{$du->id}}').attr('action', '/dashboard');--}}
+{{--                        $('#witnees_contract{{$du->id}}').submit();--}}
+{{--                    });--}}
+
+{{--                    $('#refuse{{$du->id}}').click(function(){--}}
+{{--                        $('#witnees_contract{{$du->id}}').attr('action', '/addcoins');--}}
+{{--                        $('#witnees_contract{{$du->id}}').submit();--}}
+{{--                    });--}}
+
+
+{{--                </script>--}}
+
+
+
+                @else
+{{--            -----------------------------------------------------------    ELSE   -------------------------------------------------------------------------                     --}}
+
+
+
         <script type="application/javascript">
             $(document).ready(
                 function()
@@ -175,6 +259,9 @@
                 }
             }
         </script>
+
+
+            @endif
         @endforeach
             {{--         FIN de DUelos donde se es witness--}}
         </div>

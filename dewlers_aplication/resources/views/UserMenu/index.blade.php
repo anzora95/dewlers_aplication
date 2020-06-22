@@ -57,19 +57,19 @@
 
                                         @switch($du->duelstate)
                                             @case(1)
-                                            {{ HTML::image('img/Dewlers_iconos_Lo-P2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
+                                            {{ HTML::image('img/Dewlers_iconos_Lo-P2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}{{--  pending oponnet --}}
                                             @break
                                             @case(2)
-                                            {{ HTML::image('img/Dewlers_iconos_Lo-P2-Wi.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
+                                            {{ HTML::image('img/Dewlers_iconos_Lo-P2-Wi.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}{{--  pending witness and opponent --}}
                                             @break
                                             @case(3)
-                                            {{ HTML::image('img/Dewlers_iconos_Lo-Wi.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
+                                            {{ HTML::image('img/Dewlers_iconos_Lo-Wi.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}  {{--  pending witness --}}
                                             @break
                                             @case(4)
-                                            {{ HTML::image('img/Dewlers_iconos_P1vP2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
+                                            {{ HTML::image('img/Dewlers_iconos_P1vP2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}  {{--  Dewling --}}
                                             @break
                                             @default
-                                            {{ HTML::image('img/Dewlers_iconos_X2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
+                                            {{ HTML::image('img/Dewlers_iconos_X2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}  {{--  Doble o nada --}}
                                         @endswitch
                                     </div>
                                     <div class="col-md-2 info-div text-dewl-green">
@@ -136,9 +136,9 @@
                                             <div class="container">
                                             <div class="container">
                                                 <div class="row">
-                                                    <div id="player{{$du->id}}" class="col-5 "><p id="box-player" class="p-box">{{$du->ctlUser1->username}}</p></div>
+                                                    <div id="player{{$du->id}}" class="col-5 choose-winner-box " style="padding-left: 0px !important;"><p id="box-player" class="p-box">{{$du->ctlUser1->username}}</p></div>
                                                     <div id="vs-box" class="col-2"><p class="vs-box">VS</p></div>
-                                                    <div id="player2{{$du->id}}" class="col-5 "><p id="box-player" class="p-box">{{$du->ctlUser0->username}}</p></div>
+                                                    <div id="player2{{$du->id}}" class="col-5 choose-winner-box" style="padding-right: 0px !important;"><p id="box-player" class="p-box">{{$du->ctlUser0->username}}</p></div>
                                                 </div>
                                             </div>
                                             <div class="container choose-winner-container text-center" role="button" onclick="ajaxwinner{{$du->id}}()">
@@ -217,14 +217,7 @@
                         {{-- RIGH SECTION HISTORY AND WITNESS--}}
                         <div class="col-md-6 history-flex">
                             <div class="div-history overflow-auto">
-                                <div class="row add-dewl-icon">
-                                    <div class="col text-left" style="padding-left: 30px;">
 
-
-                                    </div>
-                                    <div class="col"></div>
-
-                                </div>
                                 <div class="container history-content">
                                     <div class="row add-dewl-icon">
                                         <div class="col text-left" style="padding-left: 30px;">
@@ -260,9 +253,14 @@
                                                 @endif
                                                 <div class="col-md-2 history-stacks text-center">{{$winner->pot}}</div>
                                                 <div class="col-md-3 history-date text-center">{{$winner->startDate}}</div>
-                                                <div class="col-md-3 history-info text-center">More info</div>
+                                                    @if($winner->status==1)
+                                                        <div class="col-md-3 history-info text-center ">Doble or nothing</div>
+                                                        @else
+                                                        <div class="col-md-3 history-info text-center btn"><a href="/">Review</a></div>
+                                                        @endif
+
                                             </div>
-{{--                                                COLLAPSE WIN TAB--}}
+{{--          COLLAPSE WIN TAB      --}}
                                                 <div class="collapse" id="winner-history{{$winner->id}}">
                                                     <div class="card card-body win-history">
                                                         <p class="pending-dewl-title">{{$winner->tittle}}</p>
@@ -306,7 +304,7 @@
 
                                          </div>
                                         <div id="menu2" class="tab-pane fade">
-                                            {{--                                            THIS IS A LINE INSIDE THE WIN TAB--}}
+                                            {{--                                            THIS IS A LINE INSIDE THE WITNESS TAB--}}
                                             @foreach($r_witness as $witness)
                                             <div class="row win-row">
                                                 <div class="col-md-4 history-challenge text-center">{{$witness->tittle}}</div>
@@ -326,17 +324,59 @@
                                 </div>
                             </div>
                             <div class="div-witness overflow-auto">
-                                <div class="row add-dewl-icon">
-                                    <div class="col text-left" style="padding-left: 30px;">
 
-                                        <span class="title-dashboard-history-witness" >Witness </span>
+
+
+                                    <div class="container dewl-content text-center">
+                                        <div class="row add-dewl-icon">
+                                            <div class="col text-left" style="padding-left: 30px;">
+                                                <span class="title-dashboard" style="color: white;margin-bottom: 3px;">Witness</span>
+                                            </div>
+                                            <div class="col"></div>
+                                        </div>
+                                        @foreach($dash_witness as $wit)
+                                        <div class="container witness-content" style="margin-top: 3px">
+{{--                                        @foreach($duels as $du)--}}
+
+                                            <div class="row dewl-row" data-toggle="collapse" href="#{{$wit->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                <div style="height: 33px;" class="col-md-4">{{$wit->ctlUser1->username}}</div>
+                                                <div class="col-md-1 info-icon">VS</div>
+                                                <div class="col-md-4 ">{{$wit->ctlUser0->username}}</div>
+                                                <div class="col-md-2 text-dewl-green">{{$wit->pot}}</div>
+                                                <div class="col-md-1 text-dewl-gold" style="padding-left: 5px !important;">5%</div>
+                                            </div>
+
+                                                {{--                                    Choose winner collapse--}}
+                                                <div class="collapse choose-dewl-winner" id="{{$wit->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid rgb(255, 255, 255);">
+                                                    <div class="card card-body choose-winner-dewl" style="border-radius: 0px 0px 3px 3px;">
+                                                        <form action="#" method="post">
+                                                            @csrf
+
+                                                            <div class="container">
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div id="player1id" class="col-5 choose-winner-box" style="padding-left: 0px !important; "><p id="box-player"  class="p-box" style="background-color: #CBAE22">{{$wit->ctlUser1->username}}</p></div>
+                                                                        <div id="vs-box" class="col-2"><p class="vs-box">VS</p></div>
+                                                                        <div id="player2id" class="col-5 choose-winner-box " style="padding-right: 0px !important; "><p id="box-player"  class="p-box" style="background-color: #CBAE22">{{$wit->ctlUser0->username}}</p></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="container choose-winner-container text-center" role="button" onclick="xxxx()">
+                                                                    <div class="container border-winner" style="background-color: #00C7AA">
+                                                                        Select a winner
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    </form>
+                                                    </div>
+                                                </div>
+
+{{--                                        @endforeach--}}
+                                        </div>
+                                        @endforeach
                                     </div>
-                                    <div class="col"></div>
 
-                                </div>
-                                <div class="container witness-content">
 
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -435,6 +475,58 @@
 
         </div>
     </div>
+
+    <script>
+
+        // export default {
+        //     props: ["user"],
+        //     data: () => ({
+        //         drawer: null,
+        //         allNotifications: [],
+        //         unreadNotifications: [],
+        //     }),
+        //     props: ["user"],
+        //     watch:{
+        //         allNotifications(val){
+        //             this.unreadNotifications =  this.allNotifications.filter(notification => {
+        //                 return notification.read_at == null;
+        //             });
+        //         }
+        //     },
+        //     methods: {
+        //         logout() {
+        //             axios.post("/logout").then(response => window.location.reload());
+        //         },
+        //         markAsRead() {
+        //             axios.get("/mark-all-read/" + this.user.id).then(response=>{
+        //                 this.unreadNotifications = [];
+        //             });
+        //         }
+        //     },
+        //
+        //     created() {
+        //         this.allNotifications = window.user.user.notifications;
+        //         // this.unreadNotifications =  this.allNotifications.filter(notification => {
+        //         //     return notification.read_at == null;
+        //         // });
+        //         // Echo.private("App.User." + this.user.id).notification(notification => {
+        //         //   this.allNotifications.unshift(notification.notification);
+        //         // });
+        //     }
+        // };
+
+        export default {
+            created() {
+                var allNotifications =window.user.user.notifications;
+
+                Echo.private('App.duels.' + userId)
+                    .notification((notification) => {
+                        console.log("new dewl en real time");
+                    });
+            }
+        }
+
+    </script>
 
 
 @endsection

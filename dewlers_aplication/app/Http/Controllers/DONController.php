@@ -21,16 +21,16 @@ class DONController extends Controller
         $pot=($new_pot->pot) *2;
 
 
-        DB::table('duels')->where('id', $id_duel)->update(['pot'=>$pot, 'duelstate'=>5, 'status'=>1]);
+        DB::table('duels')->where('id', $id_duel)->update(['pot'=>$pot,'status'=>1]);
 
-        return view('UserMenu.index');
+        return view('/');
 
 
     }
 
     public function acept_don($duel_id){
 
-        DB::table('duels')->where('id', $duel_id)->update(['status'=>1, 'duelstate'=> 3]);
+        DB::table('duels')->where('id', $duel_id)->update(['duelstate'=> 5]);
         return view('UserMenu.index');
     }
 }

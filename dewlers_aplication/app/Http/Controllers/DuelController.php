@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\internalaccounts;
 use App\Reviews;
 use App\category_users;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\duels;
 use App\double_or_nothing;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\StatusUpdate;
+
 
 class DuelController extends Controller
 {
@@ -47,6 +51,7 @@ class DuelController extends Controller
         $user=Auth::user();
 //        $challenger=DB::table('')
 
+
         $tittle=$request->post('tittle');
         $user_challenger=$user->id;
         $user_challenged=$request->post('challendged');
@@ -57,15 +62,28 @@ class DuelController extends Controller
         $status=1;
         $witness_validate= $request->post('witness_validate');
 //        $user_winner=;
-        $duel_state=1;
+        $duel_state=2;
         $pot=$request->post('pot');
-//        echo('este es el valor de witness validate');
-//        echo $witness_validate;  ------------------LA VARIABLE PUEDE TENER UN VALOR "ON" EN STRING SI VIENE CHEQUEADO
-//        echo gettype($witness_validate);
-//        return View('teste_picker')->with('check_value', $witness_validate);
+
+
+        //EMAIL NOTIFICATION
+
+        $email_challenged=User::where('id','=',$user_challenged)->first(); //CHALLENGED data from user FOR EMAIL
+        $email_witness=User::where('id','=',$user_witness)->first(); //WITNESS DATA FROM USER(MODEL) FOR EMAIL
+
+        $arr=[$user->name,0,$email_challenged->name,$tittle]; //DATA FOR EMAIL TEMPLATE CHALLENGER
+
+        Notification::route('mail', $email_challenged->email)
+            ->notify(new StatusUpdate($arr)); //EMAIL FOR CHALLENGED
+
+        $arr2=[$user->name,1,$email_witness->name,$tittle]; //DATA FOR EMAIL TEMPLATE WITNESS
+        Notification::route('mail', $email_witness->email)
+            ->notify(new StatusUpdate($arr2)); //EMAIL FOR WITNESS
+
 
         if($witness_validate!="on"){
             $user_witness=null;
+            $duel_state=1;
         }
 
         DB::table('duels')->insert(["tittle"=>$tittle,
@@ -80,6 +98,7 @@ class DuelController extends Controller
             'status'=>$status,
             'duelstate'=>$duel_state,
             'pot'=>$pot]);
+
 
 //        return view('UserMenu.index'); che
         return redirect("dashboard");
@@ -160,20 +179,43 @@ class DuelController extends Controller
 //      PLAYERS IDS
         $id_winner=$idwinner;
         $id_loser=$idlosser;
-
+        $user=Auth::user();
 //        ----------------------------------------------------------------------------------------------
+
+
+        //        TEST DUEL BALANCE
+        $duel_id=$idduel;
+
+        //        POT DEL DUELO
+        $duels_pot_data=duels::where('id','=',$duel_id)->first();
+        $pot=$duels_pot_data->pot;
+        //-----------------------------------CORREOS WINNER--------------------------------------------
+
+
+        $email_winner=User::where('id','=',$id_winner)->first();//WINNER
+        $email_loser=User::where('id','=',$id_loser)->first();//LOSS
+
+        $arr3=[$duels_pot_data->tittle,2,$email_winner->name]; //DATA FOR EMAIL TEMPLATE WINNER
+        Notification::route('mail', $email_winner->email)
+            ->notify(new StatusUpdate($arr3)); //EMAIL FOR WINNER
+
+        //-----------------------------------CORREOS LOSS--------------------------------------------
+
+
+
+        $arr4=[$duels_pot_data->title,3,$email_loser->name,$email_winner->name]; //DATA FOR EMAIL TEMPLATE LOSS
+        Notification::route('mail', $email_loser->email)
+            ->notify(new StatusUpdate($arr4)); //EMAIL FOR LOSS
 
 
 
 //        TEST DUEL BALANCE
         $duel_id=$idduel;
 
-        DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>4, 'status'=>0 ]);
+        DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>6, 'status'=>0 ]);
 
 
-//        POT DEL DUELO
-        $duels_pot_data=duels::where('id','=',$duel_id)->first();
-        $pot=$duels_pot_data->pot;
+
 
         //        COMPROBACION SI EL DEWL TIENE O NO WITNESS
         $nowitness= $duels_pot_data->ctl_user_id_witness;
@@ -199,7 +241,7 @@ class DuelController extends Controller
         $data_winner_balance=internalaccounts::where('ctl_user_id',$id_winner)->first();
         $plus_balance=$data_winner_balance->balance + $pot_winner;
 //        return View('test')->with('like',$plus_balance);
-//marvin 2585 jose 2471 ariel 4418.5
+
 //        UPDATING WINNER INTERNAL ACCOUNT
         DB::table('internalaccounts')->where('ctl_user_id',$id_winner)->update(['balance'=>$plus_balance]);
 
@@ -231,7 +273,6 @@ class DuelController extends Controller
         //Loser Review Count
         $loser_review_count=DB::table('Reviews')->where('user','=',$idlosser)->avg('stars');
         DB::table('category_users')->where('user',$idlosser)->update(['avg'=>$loser_review_count]);
-
 
 
     }

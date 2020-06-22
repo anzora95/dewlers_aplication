@@ -49,7 +49,17 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/update_balance/{idduel}/{idwinner}/{idlosser}', 'DuelController@gamewinner');
     Route::get('/double_or_nothing/{id}/','Post_Controller@don_reduel');
     Route::get('/acepted_don/{id}/','DONController@acept_don');
+    Route::get('send', 'UserController@mail');
+    Route::post('/witn_validate', 'UserController@witness_contract');
+    Route::post('/nowith', 'UserController@witness_refuse');
 
+
+    Route::get('mail', function () {
+        $order = App\duels::find(1);
+
+        return (new App\Notifications\StatusUpdate($order))
+            ->toMail($order->user);
+    });
 
 
 

@@ -11031,6 +11031,9 @@ a.text-dark:focus {
 .text-dewl-green{
     color: #00d9aa;
 }
+.text-dewl-gold{
+    color: #ffc107;
+}
 .vs-div{
     background: rgb(168,0,4);
     background: linear-gradient(150deg, rgba(168,0,4,1) 28%, rgba(253,36,17,1) 100%);
@@ -11050,9 +11053,11 @@ a.text-dark:focus {
     margin-top: 10px;
 }
 .witness-content{
-    margin-top: 10px;
+    margin-top: 20px !important;
 }
-
+.choose-winner-box{
+    cursor: pointer;
+}
 .title-dashboard{
     font-size: 22px;
     margin: 0;
@@ -11161,6 +11166,11 @@ a:hover {
 .pending-dewl-info{
     margin-bottom: 8px;
 }
+.row.witness-row{
+    margin-top: 20px !important;
+    color: #ffffff;
+    background-color: #000000;
+}
 
 .border-winner{
     border: 1px solid #00d9aa;
@@ -11169,6 +11179,14 @@ a:hover {
     border: 1px solid #00d9aa;
     background-color: rgba(0, 217, 170, 1);
     cursor: pointer;
+}
+.witness-row{
+    background-color: #000000;
+    color: #ffffff;
+
+}
+.dewl-row{
+    background-color: #000000;
 }
 .container.choose-winner-container.text-center{
     margin-top: 0px;
