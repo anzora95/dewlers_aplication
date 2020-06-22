@@ -70,7 +70,9 @@
                                     @csrf
 
                                     <div class="container">
-                                        <div> Has been invited as witness to this duel <br> choose your commision</div>
+                                        <div> You have been invited as a Witness to this Dewl.
+                                            <br> Please select your Witness Percentage.
+                                        </div>
                                         <br>
                                         <div class="row text-center">
                                             <div class="col-lg-4 offset-lg-4">
