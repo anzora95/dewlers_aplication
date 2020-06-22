@@ -57,19 +57,19 @@
 
                                         @switch($du->duelstate)
                                             @case(1)
-                                            {{ HTML::image('img/Dewlers_iconos_Lo-P2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
+                                            {{ HTML::image('img/Dewlers_iconos_Lo-P2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}{{--  pending oponnet --}}
                                             @break
                                             @case(2)
-                                            {{ HTML::image('img/Dewlers_iconos_Lo-P2-Wi.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
+                                            {{ HTML::image('img/Dewlers_iconos_Lo-P2-Wi.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}{{--  pending witness and opponent --}}
                                             @break
                                             @case(3)
-                                            {{ HTML::image('img/Dewlers_iconos_Lo-Wi.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
+                                            {{ HTML::image('img/Dewlers_iconos_Lo-Wi.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}  {{--  pending witness --}}
                                             @break
                                             @case(4)
-                                            {{ HTML::image('img/Dewlers_iconos_P1vP2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
+                                            {{ HTML::image('img/Dewlers_iconos_P1vP2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}  {{--  Dewling --}}
                                             @break
                                             @default
-                                            {{ HTML::image('img/Dewlers_iconos_X2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}
+                                            {{ HTML::image('img/Dewlers_iconos_X2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}  {{--  Doble o nada --}}
                                         @endswitch
                                     </div>
                                     <div class="col-md-2 info-div text-dewl-green">
@@ -253,9 +253,14 @@
                                                 @endif
                                                 <div class="col-md-2 history-stacks text-center">{{$winner->pot}}</div>
                                                 <div class="col-md-3 history-date text-center">{{$winner->startDate}}</div>
-                                                <div class="col-md-3 history-info text-center">More info</div>
+                                                    @if($winner->status==1)
+                                                        <div class="col-md-3 history-info text-center ">Doble or nothing</div>
+                                                        @else
+                                                        <div class="col-md-3 history-info text-center btn"><a href="/">Review</a></div>
+                                                        @endif
+
                                             </div>
-{{--                                                COLLAPSE WIN TAB--}}
+{{--          COLLAPSE WIN TAB      --}}
                                                 <div class="collapse" id="winner-history{{$winner->id}}">
                                                     <div class="card card-body win-history">
                                                         <p class="pending-dewl-title">{{$winner->tittle}}</p>
@@ -333,7 +338,7 @@
                                         <div class="container witness-content" style="margin-top: 3px">
 {{--                                        @foreach($duels as $du)--}}
 
-                                            <div class="row dewl-row" data-toggle="collapse" href="#xxxx" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                            <div class="row dewl-row" data-toggle="collapse" href="#{{$wit->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                 <div style="height: 33px;" class="col-md-4">{{$wit->ctlUser1->username}}</div>
                                                 <div class="col-md-1 info-icon">VS</div>
                                                 <div class="col-md-4 ">{{$wit->ctlUser0->username}}</div>
@@ -342,7 +347,7 @@
                                             </div>
 
                                                 {{--                                    Choose winner collapse--}}
-                                                <div class="collapse choose-dewl-winner" id="xxxx" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid rgb(255, 255, 255);">
+                                                <div class="collapse choose-dewl-winner" id="{{$wit->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid rgb(255, 255, 255);">
                                                     <div class="card card-body choose-winner-dewl" style="border-radius: 0px 0px 3px 3px;">
                                                         <form action="#" method="post">
                                                             @csrf

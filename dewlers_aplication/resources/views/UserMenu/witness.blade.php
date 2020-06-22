@@ -55,7 +55,7 @@
                 </div>
 
 
-                {{--            DUelos donde se es witness--}}
+                {{-- DUelos donde se es witness--}}
                 @foreach($duels as $du)
                     @if($du->duelstate==2 or $du->duelstate==3)
 
