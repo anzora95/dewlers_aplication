@@ -24,7 +24,7 @@ Route::get('/datepicker', function () {
 });
 
 Route::get('/review_duel', function () {
-    return view('Duels/duels_review');
+    return view('UserMenu/review');
 });
 //      Authentication routes
 Auth::routes();
@@ -52,6 +52,8 @@ Route::middleware(['auth'])->group(function (){
     Route::get('send', 'UserController@mail');
     Route::post('/witn_validate', 'UserController@witness_contract');
     Route::post('/nowith', 'UserController@witness_refuse');
+    Route::post( '/send_rev','Post_Controller@get_review');
+    Route::get( '/send_rev/{id}','Post_Controller@render_review');
 
 
     Route::get('mail', function () {

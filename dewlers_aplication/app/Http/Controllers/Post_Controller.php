@@ -7,9 +7,11 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Post;
 use App\duels;
+use App\Reviews;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\View\View;
 
 class Post_Controller extends Controller
 {
@@ -72,6 +74,44 @@ class Post_Controller extends Controller
         $rating->user_id = auth()->user()->id;
         $post->ratings()->save($rating);
         return redirect()->route("posts");
+    }
+
+
+    public function render_review($id_duel){
+
+          $user = Auth::user();
+
+          $valid=Reviews::where([['rol',$id_duel],['user',$user->id]])->count();
+
+
+          if($valid<1){
+
+              return view('UserMenu.review')->with('id',$id_duel);
+
+          }
+        return redirect()->route("home");
+
+    }
+
+    public function get_review(Request $request){
+
+        $stars=$request->post('stars');
+        $review=$request->post('review');
+        $id_duel=$request->post('id');
+        $user = Auth::user();
+
+        $reviewdata=new Reviews;
+        $reviewdata->description=$review;
+        $reviewdata->stars=$stars;
+        $reviewdata->rol=$id_duel;
+        $reviewdata->user =$user->id;
+        $reviewdata->timestamps =false;
+
+
+        $reviewdata->save();
+
+        return view('thank');
+
     }
 }
 

@@ -256,7 +256,7 @@
                                                     @if($winner->status==1)
                                                         <div class="col-md-3 history-info text-center ">Doble or nothing</div>
                                                         @else
-                                                        <div class="col-md-3 history-info text-center btn"><a href="/">Review</a></div>
+                                                        <div class="col-md-3 history-info text-center btn"><a href="send_rev/{{$winner->id}}">Review</a></div>
                                                         @endif
 
                                             </div>
@@ -472,48 +472,11 @@
 {{--            BOOSTRAP MODAL--}}
 
 
-
         </div>
     </div>
 
     <script>
 
-        // export default {
-        //     props: ["user"],
-        //     data: () => ({
-        //         drawer: null,
-        //         allNotifications: [],
-        //         unreadNotifications: [],
-        //     }),
-        //     props: ["user"],
-        //     watch:{
-        //         allNotifications(val){
-        //             this.unreadNotifications =  this.allNotifications.filter(notification => {
-        //                 return notification.read_at == null;
-        //             });
-        //         }
-        //     },
-        //     methods: {
-        //         logout() {
-        //             axios.post("/logout").then(response => window.location.reload());
-        //         },
-        //         markAsRead() {
-        //             axios.get("/mark-all-read/" + this.user.id).then(response=>{
-        //                 this.unreadNotifications = [];
-        //             });
-        //         }
-        //     },
-        //
-        //     created() {
-        //         this.allNotifications = window.user.user.notifications;
-        //         // this.unreadNotifications =  this.allNotifications.filter(notification => {
-        //         //     return notification.read_at == null;
-        //         // });
-        //         // Echo.private("App.User." + this.user.id).notification(notification => {
-        //         //   this.allNotifications.unshift(notification.notification);
-        //         // });
-        //     }
-        // };
 
         export default {
             created() {
