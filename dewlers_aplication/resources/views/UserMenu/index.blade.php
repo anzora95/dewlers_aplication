@@ -256,7 +256,7 @@
                                                     @if($winner->status==1)
                                                         <div class="col-md-3 history-info text-center ">Doble or nothing</div>
                                                         @else
-                                                        <div class="col-md-3 history-info text-center btn"><a href="send_rev/{{$winner->id}}">Review</a></div>
+                                                        <div class="col-md-3 history-info text-center btn"><a href="send_rev/{{$winner->id}}" style="color: black">Review</a></div>
                                                         @endif
 
                                             </div>

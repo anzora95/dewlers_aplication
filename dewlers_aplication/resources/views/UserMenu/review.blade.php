@@ -11,7 +11,7 @@
 
     <div class="col-lg-12 duelwitness text-center">
         <div class="card ">
-            <div class="card-header">Hola mundo</div>
+            <div class="card-header">Test Review</div>
             <div class="card-body">
 
 
@@ -24,7 +24,7 @@
                         <div class="container">
 
                             <!-- End Input with Masking -->
-                            <h3 class="text-center sans" style="color: #333333;font-weight:300; font-size: 22px; padding-bottom:5px; ">Leave a review :</h3>
+                            <h3 class="text-center sans" style="color: #333333;font-weight:300; font-size: 22px; padding-bottom:5px; ">Leave us a review :</h3>
 
                             <!-- Star System -->
                             <div class="text-center underline" style="margin-top: 30px; ">
@@ -70,7 +70,7 @@
 
                                 <p class="text-center" >
 
-                                    <button  id="two"class="button1 text-center">Send</button>
+                                    <button  id="two"class="button1 text-center btn btn-primary">Send</button>
                                 </p>
 
                             </div>
