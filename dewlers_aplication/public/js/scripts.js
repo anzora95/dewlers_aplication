@@ -49,3 +49,10 @@ function refuse_request($id){
 
 }
 
+function aceptduel(){
+
+
+
+
+}
+

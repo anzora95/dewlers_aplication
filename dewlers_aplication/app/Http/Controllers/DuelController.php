@@ -74,18 +74,24 @@ class DuelController extends Controller
         $email_witness=User::where('id','=',$user_witness)->first(); //WITNESS DATA FROM USER(MODEL) FOR EMAIL
 
         $arr=[$user->name,0,$email_challenged->name,$tittle]; //DATA FOR EMAIL TEMPLATE CHALLENGER
+        //[0] Nombre del retador
+        //[1] Identificador dentro de status update
+        //[2] Nombre del retado
+        //[3] Titulo del dewl
 
-        Notification::route('mail', $email_challenged->email)
+        Notification::route('mail', "jose@mvagency.co")
             ->notify(new StatusUpdate($arr)); //EMAIL FOR CHALLENGED
 
-        $arr2=[$user->name,1,$email_witness->name,$tittle]; //DATA FOR EMAIL TEMPLATE WITNESS
-        Notification::route('mail', $email_witness->email)
-            ->notify(new StatusUpdate($arr2)); //EMAIL FOR WITNESS
+
 
 
         if($witness_validate!="on"){
             $user_witness=null;
             $duel_state=1;
+        }else{
+            $arr2=[$user->name,1,$email_witness->name,$tittle]; //DATA FOR EMAIL TEMPLATE WITNESS
+            Notification::route('mail', "jose@mvagency.co")
+                ->notify(new StatusUpdate($arr2)); //EMAIL FOR WITNESS
         }
 
         DB::table('duels')->insert(["tittle"=>$tittle,

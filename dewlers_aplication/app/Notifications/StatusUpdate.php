@@ -26,7 +26,6 @@ class StatusUpdate extends Notification
         //
         $this->infouser= $infouser;
     }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -54,7 +53,7 @@ class StatusUpdate extends Notification
                 $challenger->subject('Get ready to Dewl!')
                     ->from('dewlermailtest@gmail.com', 'Dewlers')
                     ->greeting('Do you accept it?')
-                    ->line($this->infouser[0].' has created the Dewl'.$this->infouser[2].'. Do you accept it?')
+                    ->line($this->infouser[0].' has created the Dewl '.$this->infouser[3].'. Do you accept it?')
                     ->action('Check it out', url('/status'));
                 return ($challenger);
 

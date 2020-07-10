@@ -110,6 +110,8 @@
                     </div>
 
 
+
+
                         @else
                         <div class="col-md-8 duelwitness">
                             <div class="card">

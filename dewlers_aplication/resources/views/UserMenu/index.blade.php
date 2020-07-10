@@ -110,7 +110,6 @@
 
                                         }
                                     </script>
-
                                 </div>
                             </div>
 {{--                                    Choose winner collapse--}}
@@ -313,8 +312,6 @@
                                                 <div class="col-md-3 history-info text-center">More info</div>
                                             </div>
                                                 @endforeach
-
-
                                         </div>
                                         <div id="menu3" class="tab-pane fade">
                                             <h3>Menu 3</h3>
@@ -325,8 +322,6 @@
                             </div>
                             <div class="div-witness overflow-auto">
 
-
-
                                     <div class="container dewl-content text-center">
                                         <div class="row add-dewl-icon">
                                             <div class="col text-left" style="padding-left: 30px;">
@@ -335,8 +330,10 @@
                                             <div class="col"></div>
                                         </div>
                                         @foreach($dash_witness as $wit)
+
+
                                         <div class="container witness-content" style="margin-top: 3px">
-{{--                                        @foreach($duels as $du)--}}
+                                            @if($wit->duelstate==2 or $wit->duelstate==3)
 
                                             <div class="row dewl-row" data-toggle="collapse" href="#{{$wit->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                 <div style="height: 33px;" class="col-md-4">{{$wit->ctlUser1->username}}</div>
@@ -346,22 +343,72 @@
                                                 <div class="col-md-1 text-dewl-gold" style="padding-left: 5px !important;">5%</div>
                                             </div>
 
+                                                <div class="collapse choose-dewl-winner" id="{{$wit->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid rgb(255, 255, 255);">
+                                                    <div class="card card-body choose-winner-dewl" style="border-radius: 0px 0px 3px 3px;">
+                                                        <form action="#" method="post">
+                                                            @csrf
+                                                            <div class="container">
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div id="" class="col-12 " style="padding-left: 0px !important; "><p id=""  class="p-box" style="">You have been invited as a Witness to this Dewl.
+                                                                                <br> Please select your Witness Percentage.</p></div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row ">
+                                                                    {{--                                            <div class="row text-center">--}}
+                                                                    <div class=" col-lg-12 ">
+                                                                        <input type="number" name="percentage">
+                                                                        <input type="text" value="{{$wit->id}}" name="id" hidden>
+                                                                    </div>
+                                                                </div>
+                                                                <br>
+                                                                    {{--                                            </div>--}}
+                                                                </div>
+{{--                                                                Select a winner()--}}
+                                                                <div class="row text-center">
+                                                                    {{--                                            <div class="row text-center">--}}
+                                                                    <div class="col-lg-6">
+                                                                        <button class="btn-primary btn" style="background-color: #00B6E3;" id="acept{{$wit->id}}" type="submit" formaction="/witn_validate">Acept</button>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <button class="btn btn-danger" style="background-color: #D5130B" id="refuse{{$wit->id}}" type="submit" formaction="/nowith">Refuse</button>
+
+                                                                    </div>
+                                                                    {{--                                            </div>--}}
+                                                                </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+
+                                            @else
+
+                                                <div class="row dewl-row" data-toggle="collapse" href="#{{$wit->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    <div style="height: 33px;" class="col-md-4">{{$wit->ctlUser1->username}}</div>
+                                                    <div class="col-md-1 info-icon">VS</div>
+                                                    <div class="col-md-4 ">{{$wit->ctlUser0->username}}</div>
+                                                    <div class="col-md-2 text-dewl-green">{{$wit->pot}}</div>
+                                                    <div class="col-md-1 text-dewl-gold" style="padding-left: 5px !important;">5%</div>
+                                                </div>
+
                                                 {{--                                    Choose winner collapse--}}
                                                 <div class="collapse choose-dewl-winner" id="{{$wit->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid rgb(255, 255, 255);">
                                                     <div class="card card-body choose-winner-dewl" style="border-radius: 0px 0px 3px 3px;">
                                                         <form action="#" method="post">
                                                             @csrf
-
                                                             <div class="container">
                                                                 <div class="container">
                                                                     <div class="row">
-                                                                        <div id="player1id" class="col-5 choose-winner-box" style="padding-left: 0px !important; "><p id="box-player"  class="p-box" style="background-color: #CBAE22">{{$wit->ctlUser1->username}}</p></div>
+                                                                        <div id="player{{$wit->id}}" class="col-5 choose-winner-box" style="padding-left: 0px !important; "><p id="box-player"  class="p-box" style="">{{$wit->ctlUser1->username}}</p></div>
                                                                         <div id="vs-box" class="col-2"><p class="vs-box">VS</p></div>
-                                                                        <div id="player2id" class="col-5 choose-winner-box " style="padding-right: 0px !important; "><p id="box-player"  class="p-box" style="background-color: #CBAE22">{{$wit->ctlUser0->username}}</p></div>
+                                                                        <div id="player2{{$wit->id}}" class="col-5 choose-winner-box " style="padding-right: 0px !important; "><p id="box-player"  class="p-box" style="">{{$wit->ctlUser0->username}}</p></div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="container choose-winner-container text-center" role="button" onclick="xxxx()">
-                                                                    <div class="container border-winner" style="background-color: #00C7AA">
+{{--                                                                Select a winner()--}}
+                                                                <div class="container choose-winner-container text-center" role="button" onclick="ajaxwinner{{$wit->id}}()">
+                                                                    <div class="container border-winner" style="">
                                                                         Select a winner
                                                                     </div>
                                                                 </div>
@@ -369,9 +416,68 @@
                                                     </form>
                                                     </div>
                                                 </div>
+                                            @endif
+                                            <script type="application/javascript">
+
+                                                $(document).ready(
+                                                    function()
+                                                    {
+                                                        $("#player{{$wit -> id}}").click(
+                                                            function(event)
+                                                            {
+                                                                $('#player{{$wit->id}}').toggleClass("active");
+
+                                                            }
+                                                        );
+                                                        $("3player2{{$wit->id}}").click(
+                                                            function(event)
+                                                            {
+                                                                $('#player2{{$wit->id}}').toggleClass("active");
+
+
+                                                            }
+                                                        );
+                                                    });
+
+                                                // ESPACIO PARA AJAX
+                                                function ajaxwinner{{$wit->id}}(){
+                                                    console.log("hola"+{{$wit->id}});
+                                                    if($("#player{{$wit->id}}").hasClass("active")){
+                                                        console.log('Gano el retador');
+                                                        var xhttp = new XMLHttpRequest();
+                                                        xhttp.onreadystatechange = function() {
+                                                            if (this.readyState == 4 && this.status == 200) {
+
+
+                                                            }
+                                                        };
+                                                        xhttp.open("GET", "/update_balance/{{$wit->id}}/{{$wit->ctl_user_id_challenger}}/{{$wit->ctl_user_id_challenged}}", true);
+                                                        xhttp.send();
+                                                        // alertify.alert('Ready!');
+
+                                                        setTimeout(function(){ location.reload(); }, 2000);
+                                                    }
+                                                    else{
+                                                        console.log('Gano el retado');
+                                                        var xhttp = new XMLHttpRequest();
+                                                        xhttp.onreadystatechange = function() {
+                                                            if (this.readyState == 4 && this.status == 200) {
+
+                                                            }
+                                                        };
+                                                        xhttp.open("GET", "/update_balance/{{$wit->id}}/{{$wit->ctl_user_id_challenged}}/{{$wit->ctl_user_id_challenger}}", true);
+                                                        xhttp.send();
+                                                        // alertify.alert('Ready!');
+                                                        setTimeout(function(){ location.reload(); }, 2000);
+
+                                                    }
+                                                }
+                                            </script>
+
 
 {{--                                        @endforeach--}}
                                         </div>
+
                                         @endforeach
                                     </div>
 

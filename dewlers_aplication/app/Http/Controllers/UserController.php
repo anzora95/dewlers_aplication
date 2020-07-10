@@ -90,7 +90,7 @@ class UserController extends Controller
             ->notify(new StatusUpdate($arr5)); //EMAIL FOR WINNER
 
 
-        return view('home');
+        return redirect('/dashboard');
 
 
 
@@ -100,12 +100,20 @@ class UserController extends Controller
 
         $id = Auth::user();
         $percentage = $request->input("percentage");
+
         $duel=$request->input("id");
-        DB::table('duels')
-            ->where('id','=',$duel)
-            ->update(['duelstate'=>3]);
 
         $duels_data= DB::table('duels')->where('id','=',$duel)->first();
+
+        DB::table('duels')
+            ->where('id','=',$duel)
+            ->update(['ctl_user_id_witness'=>null]);
+
+        DB::table('duels')
+            ->where('id','=',$duel)
+            ->update(['duelstate'=>1]);
+
+
         //-----------------------------------CORREOS WINNER--------------------------------------------
 
 
@@ -116,7 +124,7 @@ class UserController extends Controller
         Notification::route('mail', $email_challenger->email)
             ->notify(new StatusUpdate($arr5)); //EMAIL FOR WINNER
 
-        return view('home');
+        return redirect('/dashboard');
 
 
 
@@ -161,7 +169,7 @@ class UserController extends Controller
 
         $user = Auth::user();
         $me_user=ctl_users::where('id',$user->id)->first();
-        $recipient=ctl_users::where('id',2)->first();
+        $recipient=ctl_users::where('id',7)->first();
 
         $me_user->befriend($recipient);
 

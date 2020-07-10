@@ -41,11 +41,9 @@ class IndexController extends Controller
         //if duelstatus == finish codigo 6  y  ctl_user_winner == usuariologueado
         $record_winner=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where( [['ctl_user_id_winner','=',$id_auth->id],['duelstate','=',6]])->get();
 
-
         //Lost
         //if duelstatus == finish codigo 6  y  ctl_user_winner != usuariologueado y ctl_user_witness != usuario logeado
         $record_loser=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where([['ctl_user_id_winner','!=',$id_auth->id],['duelstate','=',6],['ctl_user_id_witness','!=',$id_auth->id]])->orWhere([['ctl_user_id_winner','!=',$id_auth->id],['duelstate','=',6],['ctl_user_id_witness','!=',null]])->get();
-
 
         //Witness
         //if duelstatus == finish codigo 6  y ctl_user_witness == usuariologueado
