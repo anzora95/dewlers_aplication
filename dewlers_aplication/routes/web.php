@@ -30,8 +30,8 @@ Route::get('/review_duel', function () {
 Auth::routes();
 
 
-Route::get('/date', function () {
-    return view('Duels/date');
+Route::get('/myaacount', function () {
+    return view('UserMenu/myaccount');
 });
 
 
@@ -54,6 +54,13 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/nowith', 'UserController@witness_refuse');
     Route::post( '/send_rev','Post_Controller@get_review');
     Route::get( '/send_rev/{id}','Post_Controller@render_review');
+    //friendship
+    Route::get( '/acept_friend/{id}','UserController@accept_friend');
+    Route::get( '/refuse_friend/{id}','UserController@refuse_friend');
+    Route::get( '/send_f_request','UserController@send_friend');
+    //myaccount
+    Route::get('/myaccount','UserController@myaccount');
+    Route::get('/autocomplete/','AutocompleteController@autocomplete');
 
 
     Route::get('mail', function () {
@@ -62,9 +69,6 @@ Route::middleware(['auth'])->group(function (){
         return (new App\Notifications\StatusUpdate($order))
             ->toMail($order->user);
     });
-
-
-
 
 //      POST
     Route::post('/saveduel', 'DuelController@store');
@@ -79,7 +83,6 @@ Route::middleware(['auth'])->group(function (){
     Route::get('posts/{id}', 'Post_Controller@show')->name('posts.show');
 
 //    Route::get('posts/{id}', 'Post_Controller@show')->name('posts.show');
-
 
 });
 

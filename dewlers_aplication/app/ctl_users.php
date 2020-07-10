@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Hootlex\Friendships\Traits\Friendable;
 
 /**
  * @property int $id
@@ -32,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ctl_users extends Model
 {
+    use Friendable;
     /**
      * @var array
      */
@@ -115,5 +117,10 @@ class ctl_users extends Model
     public function persons()
     {
         return $this->hasMany('App\Person');
+    }
+
+    public function friendship()
+    {
+        return $this->hasMany('App\friendships');
     }
 }

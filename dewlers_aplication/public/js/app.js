@@ -23203,7 +23203,7 @@ var Echo = /*#__PURE__*/function () {
       //
       // This also ensures a stable sort in V8 and other engines.
       // See https://bugs.chromium.org/p/v8/issues/detail?id=90 for more details.
-      return object.index - other.index;
+      return object.myaacount - other.myaacount;
     }
 
     /**
@@ -24700,7 +24700,7 @@ var Echo = /*#__PURE__*/function () {
           result = new array.constructor(length);
 
       // Add properties assigned by `RegExp#exec`.
-      if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
+      if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'myaacount.blade.php')) {
         result.index = array.index;
         result.input = array.input;
       }
@@ -36503,7 +36503,7 @@ function getPopperOffsets(popper, referenceOffsets, placement) {
  * @argument {Array} arr
  * @argument prop
  * @argument value
- * @returns index or -1
+ * @returns myaacount.blade.php or -1
  */
 function find(arr, check) {
   // use native find if supported
@@ -36522,7 +36522,7 @@ function find(arr, check) {
  * @argument {Array} arr
  * @argument prop
  * @argument value
- * @returns index or -1
+ * @returns myaacount.blade.php or -1
  */
 function findIndex(arr, prop, value) {
   // use native findIndex if supported

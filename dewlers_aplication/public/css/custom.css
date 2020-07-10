@@ -44,3 +44,26 @@ label[for="star-null"] {
     margin: 0 auto;
     color: #999;
 }
+
+div.friend_notify{
+    border: 1px solid #1d2124;
+    margin: 5px 0 5px 0;
+    border-radius: 10px;
+    padding: 0 0 0 10px;
+}
+
+div.fb_btn{
+
+    padding: 2px 0 2px 0;
+
+}
+.friend_container{
+    max-height: 500px;
+    height: 400px;
+    overflow:auto;
+}
+
+hr{
+    margin-top: 3px !important;
+    border-top: 1px solid #000000 !important;
+}

@@ -54,6 +54,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Reset Password') }}
                                 </button>
+                                <p>
+                                    If this wasn't you and you believe someone has access too your account contact us at (insert help email) or no further action is required
+                                </p>
                             </div>
                         </div>
                     </form>

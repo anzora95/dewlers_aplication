@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ctl_users;
 use App\double_or_nothing;
 use App\duels;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class IndexController extends Controller
 
         $id_auth=Auth::user();
         $due2=duels::with('ctlUser0','ctlUser3', 'duelstatus')->where([['ctl_user_id_challenger','=',$id_auth->id],['duelstate','!=',6]])->orWhere([['ctl_user_id_challenged','=',$id_auth->id],['duelstate','!=',6]])->get(); //->orWhere([['ctl_user_id_witness','=',$id_auth->id],['duelstate','!=',6]])
-       $challengeds= DB::table('ctl_users')->where('id','!=',$id_auth->id)->get();
+//       $challengeds= DB::table('ctl_users')->where('id','!=',$id_auth->id)->get();
 
 
         //detalles para el front
@@ -60,9 +61,11 @@ class IndexController extends Controller
 
         //if duelstatus != finish codigo 4  y ctl_user_witness == usuariologueado
 
-        return view('UserMenu.index')->with('duels',$due2)->with('challengeds',$challengeds)->with('r_winner', $record_winner)->with('r_loser',$record_loser)->with('r_witness',$record_witness)->with('dash_witness',$dash_witness);
+        $me_user=ctl_users::where('id',$id_auth->id)->first();
 
+        $friends=$me_user->getFriends();
 
+        return view('UserMenu.index')->with('duels',$due2)->with('challengeds',$friends)->with('r_winner', $record_winner)->with('r_loser',$record_loser)->with('r_witness',$record_witness)->with('dash_witness',$dash_witness);
 
 
     }

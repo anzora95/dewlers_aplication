@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\internalaccounts;
 use App\duels;
 use Illuminate\Support\Facades\Notification;
+//use Frie/
 
 class UserController extends Controller
 {
@@ -118,6 +119,53 @@ class UserController extends Controller
         return view('home');
 
 
+
+    }
+
+    public function myaccount(){
+
+        $id = Auth::user();
+
+        $ctl_log_user= ctl_users::where('id','=',$id->id)->first();
+
+        $resquet_pending= $ctl_log_user->getFriendRequests();
+        $friends=$ctl_log_user->getFriends();
+
+        return view('UserMenu/myaccount')->with('pending_f_req',$resquet_pending)->with('friends',$friends);
+
+    }
+
+    public function accept_friend($id_accept){
+
+        $user = Auth::user();
+        $me_user=ctl_users::where('id',$user->id)->first();
+        $sender_friend=ctl_users::where('id',$id_accept)->first();
+
+        $me_user->acceptFriendRequest($sender_friend);
+
+        return redirect('/myaccount');
+    }
+
+    public function refuse_friend($id_accept){
+
+        $user = Auth::user();
+        $me_user=ctl_users::where('id',$user->id)->first();
+        $sender_friend=ctl_users::where('id',$id_accept)->first();
+
+        $me_user->denyFriendRequest($sender_friend);
+
+        return redirect('/myaccount');
+    }
+
+    public function send_friend(){
+
+        $user = Auth::user();
+        $me_user=ctl_users::where('id',$user->id)->first();
+        $recipient=ctl_users::where('id',2)->first();
+
+        $me_user->befriend($recipient);
+
+        return redirect('/myaccount');
 
     }
 

@@ -11135,6 +11135,11 @@ a:hover {
     background-color: #000000;
 }
 
+.card.card-body.friend_container{
+    max-height: 160px;
+    overflow:auto;
+}
+
 .card.card-body.win-history{
     background-color: #000000;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ctl_users;
 use App\internalaccounts;
 use App\Reviews;
 use App\category_users;
@@ -25,6 +26,7 @@ class DuelController extends Controller
     public function index()
     {
         $user = Auth::user();
+
 
         $challengeds= DB::table('ctl_users')->where('id','!=',$user->id)->get();
         return view('Duels.createduel')->with('challengeds',$challengeds);

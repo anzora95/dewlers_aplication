@@ -33,4 +33,19 @@ var $boxes = $("p#box-player").click(function(){
         $(this).addClass("active-winner");
     });
 
+// funciones de la seccion de friend
+
+
+
+function accept_request($id){
+
+    window.location.href ="/acept_friend/"+$id;
+
+
+}
+
+function refuse_request($id){
+    window.location.href ="/refuse_friend/"+$id;
+
+}
 
