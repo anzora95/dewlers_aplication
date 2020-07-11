@@ -89,7 +89,7 @@ class Post_Controller extends Controller
               return view('UserMenu.review')->with('id',$id_duel);
 
           }
-        return redirect()->route("home");
+        return redirect()->route("dashboard");
 
     }
 

@@ -79,10 +79,8 @@ class DuelController extends Controller
         //[2] Nombre del retado
         //[3] Titulo del dewl
 
-        Notification::route('mail', "jose@mvagency.co")
+        Notification::route('mail', $email_challenged->email)
             ->notify(new StatusUpdate($arr)); //EMAIL FOR CHALLENGED
-
-
 
 
         if($witness_validate!="on"){
@@ -90,7 +88,7 @@ class DuelController extends Controller
             $duel_state=1;
         }else{
             $arr2=[$user->name,1,$email_witness->name,$tittle]; //DATA FOR EMAIL TEMPLATE WITNESS
-            Notification::route('mail', "jose@mvagency.co")
+            Notification::route('mail', $email_witness->email)
                 ->notify(new StatusUpdate($arr2)); //EMAIL FOR WITNESS
         }
 
@@ -287,8 +285,28 @@ class DuelController extends Controller
 
     public function acept_challenge($id){
 
+
+
         DB::table('duels')->where('id',$id)->update(['duelstate'=>2]);
         return redirect('/status');
+
+    }
+
+    public function dewl_challenged_acept(Request $request){
+
+        $id_duel_acepted=$request->post('id');
+        $status_duel=duels::where("id",$id_duel_acepted)->first();
+
+        if($status_duel->duelstate==1){
+
+            DB::table('duels')->where('id',$id_duel_acepted)->update(['duelstate'=>4]);
+
+        }elseif ($status_duel->duelstate==2){
+            DB::table('duels')->where('id',$id_duel_acepted)->update(['duelstate'=>3]);
+        }
+
+
+        return redirect('/dashboard');
 
     }
 

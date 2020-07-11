@@ -52,12 +52,16 @@ Route::middleware(['auth'])->group(function (){
     Route::get('send', 'UserController@mail');
     Route::post('/witn_validate', 'UserController@witness_contract');
     Route::post('/nowith', 'UserController@witness_refuse');
-    Route::post( '/send_rev','Post_Controller@get_review');
+    Route::post( '/send_rev','UserController@get_review');
     Route::get( '/send_rev/{id}','Post_Controller@render_review');
+    Route::post('/acept_duel','DuelController@dewl_challenged_acept');
     //friendship
     Route::get( '/acept_friend/{id}','UserController@accept_friend');
     Route::get( '/refuse_friend/{id}','UserController@refuse_friend');
     Route::get( '/send_f_request','UserController@send_friend');
+    Route::post( '/search_person','UserController@search_person');
+    Route::get('/api/{id}', 'IndexController@api')->name('api');
+
     //myaccount
     Route::get('/myaccount','UserController@myaccount');
     Route::get('/autocomplete/','AutocompleteController@autocomplete');

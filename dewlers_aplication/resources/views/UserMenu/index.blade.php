@@ -36,6 +36,8 @@
                             </div>
                             <div class="container dewl-content text-center">
                                 @foreach($duels as $du)
+
+
                                 <div class="row dewl-row" data-toggle="collapse" href="#{{$du->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                     <div class="col-md-3 vs-div"
                                          @if($du->ctl_user_id_witness)
@@ -51,7 +53,7 @@
                                     @else
                                     <div class="col-md-4 info-div-first">{{$du->ctlUser0->username}}</div>
                                     @endif
-                                    <div class="col-md-3 info-icon">
+                                    <div id="img-ajax{{$du->id}}" class="col-md-3 info-icon">
 {{--                                        <svg class="bi bi-person-fill text-dewl-green" width="2.3em" height="2.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
 {{--                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>--}}
 
@@ -71,31 +73,160 @@
                                             @default
                                             {{ HTML::image('img/Dewlers_iconos_X2.svg', '303', array('style' => 'width: 33px; high: 33px;')) }}  {{--  Doble o nada --}}
                                         @endswitch
+                                        <script>
+                                            function  iconchanger{{$du->id}}() {
+
+                                                var xhttp = new XMLHttpRequest();
+                                                xhttp.onreadystatechange = function() {
+                                                    if (this.readyState == 4 && this.status == 200) {
+                                                        var icono{{$du->id}} =  document.getElementById("img-ajax{{$du->id}}");
+                                                        console.log(icono{{$du->id}})
+                                                        switch(this.response) {
+                                                            case "1":
+                                                                // code block
+                                                                icono{{$du->id}}.innerHTML='<img src="/img/Dewlers_iconos_Lo-P2.svg" style="width: 33px; high: 33px;" alt="303">';
+                                                                break;
+                                                            case "2":
+                                                                // code block
+                                                                icono{{$du->id}}.innerHTML='<img src="/img/Dewlers_iconos_Lo-P2-Wi.svg" style="width: 33px; high: 33px;" alt="303">';
+                                                                break;
+                                                            case "3":
+                                                                // code block
+                                                                icono{{$du->id}}.innerHTML='<img src="/img/Dewlers_iconos_Lo-Wi.svg" style="width: 33px; high: 33px;" alt="303">';
+                                                                break;
+                                                            case "4":
+                                                                // code block
+                                                                icono{{$du->id}}.innerHTML='<img src="/img/Dewlers_iconos_P1vP2.svg" style="width: 33px; high: 33px;" alt="303">';
+                                                                break;
+                                                            case "5":
+                                                                // code block
+                                                                icono{{$du->id}}.innerHTML='<img src="/img/Dewlers_iconos_X2.svg" style="width: 33px; high: 33px;" alt="303">';
+                                                                break;
+                                                            default:
+                                                            // code block
+                                                        }
+
+                                                        console.log(this.response);
+                                                    }
+                                                };
+                                                xhttp.open("GET", "/api/+{{$du->id}}", true);
+                                                xhttp.send();
+                                            }
+
+
+                                            setInterval(function(){
+                                                //code goes here that will be run every 5 seconds.
+                                                iconchanger{{$du->id}}();
+                                            }, 10000);
+                                        </script>
                                     </div>
                                     <div class="col-md-2 info-div text-dewl-green">
                                         {{$du->pot}}
                                     </div>
 
                                 </div>
+                                    @if($du->ctl_user_id_challenged==Auth::user()->id and $du->duelstate==1)
+                                        <div class="collapse collapse-pending-dewl" id="{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid #ffffff;">
+
+                                        <div class="card card-body choose-winner-dewl" style="border-radius: 0px 0px 3px 3px;">
+                                            <form action="#" method="post">
+                                                @csrf
+                                                <div class="container">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div id="" class="col-12 " style="padding-left: 0px !important; "><p id=""  class="p-box" style="">You have been invited as a Witness to this Dewl.
+                                                                    <br> Confirm please.</p></div>
+                                                        </div>
+                                                    </div>
+
+                                                            <input type="text" value="{{$du->id}}" name="id" hidden>
+
+                                                    <br>
+                                                    {{--                                            </div>--}}
+                                                </div>
+                                                {{--                                                                Select a winner()--}}
+                                                <div class="row text-center">
+                                                    {{--                                            <div class="row text-center">--}}
+                                                    <div class="col-lg-6">
+                                                        <button class="btn-primary btn" style="background-color: #00B6E3;" id="acept{{$du->id}}" type="submit" formaction="/acept_duel">Acept</button>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <button class="btn btn-danger" style="background-color: #D5130B" id="refuse{{$du->id}}" type="submit" formaction="/nowith">Refuse</button>
+
+                                                    </div>
+                                                    {{--                                            </div>--}}
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        </div>
+
+                                        @elseif($du->ctl_user_id_challenged==Auth::user()->id and $du->duelstate==2)
+
+                                        <div class="collapse collapse-pending-dewl" id="{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid #ffffff;">
+
+                                            <div class="card card-body choose-winner-dewl" style="border-radius: 0px 0px 3px 3px;">
+                                                <form action="#" method="post">
+                                                    @csrf
+                                                    <div class="container">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div id="" class="col-12 " style="padding-left: 0px !important; "><p id=""  class="p-box" style="">You have been invited as a Witness to this Dewl.
+                                                                        <br> Confirm please.</p></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <input type="text" value="{{$du->id}}" name="id" hidden>
+
+                                                        <br>
+                                                        {{--                                            </div>--}}
+                                                    </div>
+                                                    {{--                                                                Select a winner()--}}
+                                                    <div class="row text-center">
+                                                        {{--                                            <div class="row text-center">--}}
+                                                        <div class="col-lg-6">
+                                                            <button class="btn-primary btn" style="background-color: #00B6E3;" id="acept{{$du->id}}" type="submit" formaction="/acept_duel">Acept</button>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <button class="btn btn-danger" style="background-color: #D5130B" id="refuse{{$du->id}}" type="submit" formaction="/nowith">Refuse</button>
+
+                                                        </div>
+                                                        {{--                                            </div>--}}
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+                                    @else
+
 {{--                                Information collapse--}}
                             <div class="collapse collapse-pending-dewl" id="{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid #ffffff;">
                                 <div class="card card-body pending-dewls">
                                     <p class="pending-dewl-title">{{$du->tittle}}</p>
                                     <p class="pending-dewl-description">{{$du->Description}} </p>
                                     <p class="pending-dewl-info">Start date: {{$du->startDate }}</p>
-                                    <p class="pending-dewl-info">Status: Dewling</p>
-                                    @if($du->ctl_user_id_witness)
+                                    <p class="pending-dewl-info">Status: {{$du->duelstatus->description}}</p>
+                                    @if($du->ctl_user_id_witness or $du->ctl_user_id_challenged==Auth::user()->id)
                                     <div class="pending-dewl-witness">
-                                        <div class="row pending-dewl-witness-row">
+
+
+                                            @if($du->ctl_user_id_witness)
+                                                <div class="row pending-dewl-witness-row">
                                             <div class="col-md-8">Witness: {{$du->ctlUser2->username}}</div>
 
                                             <div class="col-md-4">%5</div>
-                                        </div>
+                                                </div>
+                                                @endif
+
                                     </div>
-                                    @else
+                                    @elseif($du->ctl_user_id_challenger==Auth::user()->id and $du->duelstate==4)
                                         <button class="btn btn-outline-warning" type="button" data-toggle="collapse" onclick="hideinfo{{$du->id}}()"  aria-expanded="false" aria-controls="collapseExampledewlwinner">
                                             Choose winner
                                         </button>
+
+{{--                                        @elseif()--}}
 
                                     @endif
                                     <script type="application/javascript">
@@ -206,6 +337,7 @@
                                             }
                                         }
                                     </script>
+                                    @endif
 
 
                                 @endforeach
@@ -519,7 +651,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">$</span>
                                     </div>
-                                    <input type="number" id="pot" name="pot" class="form-control" placeholder="10.00" aria-label="pot" aria-describedby="pot"  required min="10" >
+                                    <input type="number" id="pot" name="pot" class="form-control" placeholder="10.00" aria-label="pot" aria-describedby="pot"  required min="10" max="" >
                                 </div>
 
                                 {{--                                RETADO--}}
@@ -557,7 +689,7 @@
                                     <label for="formGroupExampleInput">Schedule Dewl</label>
                                     <br>
 
-                                    <input name="startdate" type="text" id="datepicker">
+                                    <input name="startdate" type="text" id="datepicker" required>
                                     <script type="application/javascript">
                                         $('#datepicker').datepicker({ format: 'yyyy-mm-dd' });
                                     </script>

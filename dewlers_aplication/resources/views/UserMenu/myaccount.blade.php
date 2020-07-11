@@ -19,26 +19,16 @@
 
        <div class="row">
 
-            <div class="col-sm-12 col-md-4  offset-md-4">
+            <div class="col-sm-12 col-md-4  offset-md-4 text-center">
 
                 <p>Search a friend:</p>
+                <form action="/search_person" method="POST">
+                    @csrf
                 <input type="text" name="user" id="search_user" class="form-control">
+                    <br>
+                    <button class="btn btn-dark text-center" type="submit">Search</button>
+                </form>
 
-                <script type="text/javascript">
-
-                    var route = "{{ url('/autocomplete/') }}";
-                    $('#search_user').typeahead({
-                        source:  function (term, process) {
-                            return $.get(route, { term: term }, function (data) {
-                                return {
-
-                                    label:data.username,
-
-                                };
-                            });
-                        }
-                    });
-                </script>
 
             </div>
         </div>

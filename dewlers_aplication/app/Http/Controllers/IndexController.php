@@ -68,5 +68,32 @@ class IndexController extends Controller
 
     }
 
+    public function api($id_duel)
+    {
+
+        $evalue=duels::where('id',$id_duel)->first();
+        switch ($evalue->duelstate){
+            case 1:
+                $re="1";
+                break;
+            case 2:
+                $re="2";
+                break;
+            case 3:
+                $re="3";
+                break;
+            case 4:
+                $re="4";
+                break;
+            case 5:
+                $re="5";
+                break;
+
+        }
+
+        return $re;
+
+    }
+
 
 }

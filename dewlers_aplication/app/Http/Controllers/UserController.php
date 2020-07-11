@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ctl_users;
+use App\Notifications\addfriend;
+use App\Notifications\send_req_friend;
 use App\Notifications\StatusUpdate;
 use App\User;
 use Illuminate\Http\Request;
@@ -85,7 +87,7 @@ class UserController extends Controller
         $email_challenger=User::where('id','=',$duels_data->ctl_user_id_challenger)->first();//WINNER
         $email_witness=User::where('id','=',$duels_data->ctl_user_id_witness)->first();//LOSS
 
-        $arr5=[$duels_data->tittle,6,$email_challenger->name, $email_witness->name]; //DATA FOR EMAIL TEMPLATE WINNER
+        $arr5=[$duels_data->tittle,5,$email_challenger->name, $email_witness->name]; //DATA FOR EMAIL TEMPLATE WINNER
         Notification::route('mail', $email_challenger->email)
             ->notify(new StatusUpdate($arr5)); //EMAIL FOR WINNER
 
@@ -148,8 +150,13 @@ class UserController extends Controller
         $user = Auth::user();
         $me_user=ctl_users::where('id',$user->id)->first();
         $sender_friend=ctl_users::where('id',$id_accept)->first();
+        $frien_email=User::where('id',$id_accept)->first();
 
         $me_user->acceptFriendRequest($sender_friend);
+
+        $arr5=[$me_user->username]; //DATA FOR EMAIL TEMPLATE WINNER
+        Notification::route('mail', $frien_email->email)
+            ->notify(new addfriend($arr5)); //EMAIL FOR WINNER
 
         return redirect('/myaccount');
     }
@@ -165,15 +172,32 @@ class UserController extends Controller
         return redirect('/myaccount');
     }
 
-    public function send_friend(){
+    public function send_friend(Request $request){
+
+        $id_recipient=$request->input('user_id');
 
         $user = Auth::user();
         $me_user=ctl_users::where('id',$user->id)->first();
-        $recipient=ctl_users::where('id',7)->first();
+        $recipient=ctl_users::where('id',$id_recipient)->first();
+        $frien_email=User::where('id',$id_recipient)->first();
 
         $me_user->befriend($recipient);
 
+        $arr5=[$me_user->username]; //DATA FOR EMAIL TEMPLATE WINNER
+        Notification::route('mail', $frien_email->email)
+            ->notify(new send_req_friend($arr5)); //EMAIL FOR WINNER
+
         return redirect('/myaccount');
+//        return view('test')->with('like',$container);/
+
+    }
+
+    public function search_person(Request $request){
+
+        $name = $request->input('user');
+        $user_requested= ctl_users::where('username','LIKE','%'.$name.'%')->get();
+
+        return view('UserMenu.search')->with("selected",$user_requested);
 
     }
 
