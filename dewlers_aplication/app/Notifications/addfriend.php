@@ -45,7 +45,8 @@ class addfriend extends Notification
         $friend->subject('New friend')
             ->from('dewlermailtest@gmail.com', 'Dewlers')
             ->greeting('New friend')
-            ->line($this->infouser[0]. ' accept your friend request.');
+            ->line($this->infouser[0]. ' accept your friend request.')
+            ->action('My Account', url('/myaccount'));
 
         return ($friend);
     }

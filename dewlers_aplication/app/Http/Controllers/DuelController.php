@@ -218,7 +218,14 @@ class DuelController extends Controller
 //        TEST DUEL BALANCE
         $duel_id=$idduel;
 
-        DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>6, 'status'=>0 ]);
+        if($duels_pot_data->state==0){
+            DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>6, 'status'=>2 ]);
+
+        }else{
+            DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>6, 'status'=>0 ]);
+
+        }
+
 
 
 
@@ -265,6 +272,8 @@ class DuelController extends Controller
         DB::table('double_or_nothing')->insert(["duel_id"=>$duel_id,
             'status'=>1,
             'loser_id'=>$id_loser]);
+
+
 
         //Creation of reviews and user_category
         //Winner Review

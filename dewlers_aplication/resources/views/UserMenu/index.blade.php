@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <script src="{{ asset('js/scripts.js') }}" type="application/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 @stop
 @section('content')
 
@@ -293,7 +294,7 @@
 
                                                     }
                                                 );
-                                                $("3player2{{$du->id}}").click(
+                                                $("player2{{$du->id}}").click(
                                                     function(event)
                                                     {
                                                         $('#player2{{$du->id}}').toggleClass("active");
@@ -384,11 +385,7 @@
                                                 @endif
                                                 <div class="col-md-2 history-stacks text-center">{{$winner->pot}}</div>
                                                 <div class="col-md-3 history-date text-center">{{$winner->startDate}}</div>
-                                                    @if($winner->status==1)
-                                                        <div class="col-md-3 history-info text-center ">Doble or nothing</div>
-                                                        @else
-                                                        <div class="col-md-3 history-info text-center btn"><a href="send_rev/{{$winner->id}}" style="color: black">Review</a></div>
-                                                        @endif
+                                                <div class="col-md-3 history-info text-center btn"><a href="send_rev/{{$winner->id}}" style="color: black">Review</a></div>
 
                                             </div>
 {{--          COLLAPSE WIN TAB      --}}
@@ -417,7 +414,7 @@
                                                 @endif
                                                 <div class="col-md-2 history-stacks">{{$loser->pot}}</div>
                                                 <div class="col-md-3 history-date">{{$loser->startDate}}</div>
-                                                <div class="col-md-3 history-info">More info</div>
+                                                 <div class="col-md-3 history-info">More info</div>
                                             </div>
 
                                                 {{--                                                COLLAPSE Loser TAB--}}
@@ -427,6 +424,12 @@
                                                         <p class="pending-dewl-description">{{$loser->Description}} </p>
                                                         <p class="pending-dewl-info">Start date: {{$loser->startDate }}</p>
                                                         <p class="pending-dewl-info">Stacks: {{$loser->pot }}</p>
+                                                        @if($loser->status==0)
+                                                            <a href="/double_or_nothing/{{$loser->id}}" class="btn btn-dark"><p class="pending-dewl-info">Double or nothing</p></a>
+                                                            <a href="/send_rev/{{$loser->id}}" class="btn btn-dark"><p class="pending-dewl-info">Review</p></a>
+                                                            @else
+                                                            <a href="/send_rev/{{$loser->id}}" class="btn btn-dark"><p class="pending-dewl-info">Review</p></a>
+                                                            @endif
 
                                                     </div>
                                                 </div>
@@ -561,7 +564,7 @@
 
                                                             }
                                                         );
-                                                        $("3player2{{$wit->id}}").click(
+                                                        $("player2{{$wit->id}}").click(
                                                             function(event)
                                                             {
                                                                 $('#player2{{$wit->id}}').toggleClass("active");

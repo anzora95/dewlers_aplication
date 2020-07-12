@@ -42,7 +42,7 @@ class refused_friend extends Notification
     public function toMail($notifiable)
     {
         $friend_no = new MailMessage;
-        $friend_no->subject('New friend')
+        $friend_no->subject('Decline friend')
             ->from('dewlermailtest@gmail.com', 'Dewlers')
             ->greeting('On the next')
             ->line($this->infouser[0]. 'refuse your friend request.');

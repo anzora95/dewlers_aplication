@@ -67,3 +67,10 @@ hr{
     margin-top: 3px !important;
     border-top: 1px solid #000000 !important;
 }
+
+button.swal2-confirm{
+    background-color: transparent  !important;
+}
+button.swal2-cancel{
+    background-color: transparent  !important;
+}

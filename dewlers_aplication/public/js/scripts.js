@@ -49,10 +49,29 @@ function refuse_request($id){
 
 }
 
-function aceptduel(){
+// function dom_review(id){
+//
+//     console.log(id);
+//     // var choose=id;
+//
+//     Swal.fire({
+//         title: 'Choose a option',
+//         html:'<a onclick=go_dom(id) style="color: " class="btn btn-dark">Review</a>',
+//         text:'Select one option',
+//         showCloseButton: true,
+//         showCancelButton: true,
+//         confirmButtonText:
+//             "<a>Double or nothing!</a>",
+//         cancelButtonText:
+//             '<a href="" style="color: " class="btn btn-dark">Review</a>',
+//     })
+//
+//
+// }
+//
+// function go_dom(id){
+//
+//     window.location.href ="/double_or_nothing/"+{{}};
+// }
 
-
-
-
-}
 
