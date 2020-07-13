@@ -57,6 +57,7 @@ class DuelController extends Controller
         $tittle=$request->post('tittle');
         $user_challenger=$user->id;
         $user_challenged=$request->post('challendged');
+        $description=$request->post('description');
         $user_witness=$request->post("witness");
         $start= $request->post("startdate");
         $end='2020-02-10';
@@ -103,7 +104,8 @@ class DuelController extends Controller
             'testFile'=>$file,
             'status'=>$status,
             'duelstate'=>$duel_state,
-            'pot'=>$pot]);
+            'pot'=>$pot,
+            'Description'=>$description]);
 
 
 //        return view('UserMenu.index'); che

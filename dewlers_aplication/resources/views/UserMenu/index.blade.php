@@ -672,10 +672,11 @@
                                 {{--                                DESCRIPTION--}}
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea name="description" id="descriptio" class="form-control" cols="30" rows="3" required></textarea>
+                                    <textarea name="description" id="descriptio" class="form-control" cols="30" rows="3" maxlength="140" required></textarea>
                                 </div>
                                 {{--                                POT--}}
-                                <label for="pot">stacks</label>
+                                <label for="pot" style="margin-bottom: 0px !important;">Stacks</label>
+                                <p><small>10% of this amount goes to Dewlers</small></p>
                                 <div class="input-group mb-3">
 
                                     <div class="input-group-prepend">
@@ -721,7 +722,11 @@
 
                                     <input name="startdate" type="text" id="datepicker" required>
                                     <script type="application/javascript">
-                                        $('#datepicker').datepicker({ format: 'yyyy-mm-dd' });
+                                        $('#datepicker').datepicker({ format: 'yyyy-mm-dd',
+                                            disableDates:  function (date) {
+                                                const currentDate = new Date();
+                                                return date > currentDate ? true : false;
+                                            }});
                                     </script>
 
                                 </div>
