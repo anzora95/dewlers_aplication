@@ -33,4 +33,5 @@ class DONController extends Controller
         DB::table('duels')->where('id', $duel_id)->update(['duelstate'=> 5]);
         return view('UserMenu.index');
     }
+
 }

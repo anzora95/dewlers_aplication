@@ -499,10 +499,20 @@
                                                             <div class="container">
                                                                 <div class="container">
                                                                     <div class="row">
-                                                                        <div id="" class="col-12 " style="padding-left: 0px !important; "><p id=""  class="p-box" style="">You have been invited as a Witness to this Dewl.
+                                                                        <div id="" class="col-12 " style="padding-left: 0px !important; "><p id=""  class="p-box" style="border: 0px none #761b18 !important;">You have been invited as a Witness to this Dewl.
                                                                                 <br> Please select your Witness Percentage.</p></div>
                                                                     </div>
                                                                 </div>
+
+                                                                @if($wit->ctlUser1->review_avg<2.5 )
+
+                                                                    <p style="border: 1px solid #761b18; background-color: #761b18"> {{$wit->ctlUser1->username}} is a sore loser</p>
+
+                                                                    @elseif($wit->ctlUser0->review_avg<2.5)
+
+                                                                    <p style="border: 1px solid #761b18; background-color: #761b18"> {{$wit->ctlUser0->username}} is a sore loser</p>
+
+                                                                    @endif
 
                                                                 <div class="row ">
                                                                     {{--                                            <div class="row text-center">--}}
@@ -518,10 +528,10 @@
                                                                 <div class="row text-center">
                                                                     {{--                                            <div class="row text-center">--}}
                                                                     <div class="col-lg-6">
-                                                                        <button class="btn-primary btn" style="background-color: #00B6E3;" id="acept{{$wit->id}}" type="submit" formaction="/witn_validate">Acept</button>
+                                                                        <button class="btn-primary btn" style="background-color: #00B6E3;" id="acept{{$wit->id}}" type="submit" formaction="/witn_validate">Accept</button>
                                                                     </div>
                                                                     <div class="col-lg-6">
-                                                                        <button class="btn btn-danger" style="background-color: #D5130B" id="refuse{{$wit->id}}" type="submit" formaction="/nowith">Refuse</button>
+                                                                        <button class="btn btn-danger" style="background-color: #D5130B" id="refuse{{$wit->id}}" type="submit" formaction="/nowith">Decline</button>
 
                                                                     </div>
                                                                     {{--                                            </div>--}}

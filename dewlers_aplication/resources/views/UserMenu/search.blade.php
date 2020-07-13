@@ -19,6 +19,12 @@
             <div class="col-lg-6 offset-lg-3 text-center">
         <div class="text-center">
 
+            @if($flag==1)
+
+                <h1>Users not found</h1>
+
+                @else
+
             @foreach($selected as $select)
 
                 <form action="/send_f_request">
@@ -38,6 +44,7 @@
                 </form>
 
                 @endforeach
+            @endif
 
         </div>
 

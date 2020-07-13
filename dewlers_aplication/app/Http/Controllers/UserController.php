@@ -199,7 +199,17 @@ class UserController extends Controller
         $user_requested= User::where('name','LIKE','%'.$name.'%')->orwhere('email','LIKE','%'.$name.'%')->get();
 
 
-        return view('UserMenu.search')->with("selected",$user_requested);
+        if($user_requested->isNotempty()){
+            $flag=0;
+            return view('UserMenu.search')->with("selected",$user_requested)->with('flag',$flag);
+
+        }else{
+            $flag=1;
+            return view('UserMenu.search')->with("selected",$user_requested)->with('flag',$flag);
+        }
+
+
+//        return view('UserMenu.search')->with("selected",$user_requested);
 
     }
 
@@ -211,6 +221,10 @@ class UserController extends Controller
         $review->rol= $request->input('id');
         $review->user = $user->id;
         $review->save();
+
+        $average = DB::table('reviews')->where('user',$user->id)->groupBy('user')->avg('stars');
+
+        DB::table('ctl_users')->where('id', $user->id)->update(['review_avg'=>$average]);
 
         $duelid=$request->input('id');
 
