@@ -98,6 +98,7 @@
                                                             case "4":
                                                                 // code block
                                                                 icono{{$du->id}}.innerHTML='<img src="/img/Dewlers_iconos_P1vP2.svg" style="width: 33px; high: 33px;" alt="303">';
+
                                                                 break;
                                                             case "5":
                                                                 // code block
@@ -164,7 +165,7 @@
 
                                         @elseif($du->ctl_user_id_challenged==Auth::user()->id and $du->duelstate==2)
 
-                                        <div class="collapse collapse-pending-dewl" id="{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid #ffffff;">
+                                        <div class="collapse collapse-pending-dewl" id="container{{$du->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid #ffffff;">
 
                                             <div class="card card-body choose-winner-dewl" style="border-radius: 0px 0px 3px 3px;">
                                                 <form action="#" method="post">
@@ -199,6 +200,8 @@
                                             </div>
                                         </div>
 
+{{--                                        @elseif($du->ctl_user_id_challenged==Auth::user()->id and $du->duelstate==2)--}}
+
 
                                     @else
 
@@ -222,7 +225,7 @@
                                                 @endif
 
                                     </div>
-                                    @elseif($du->ctl_user_id_challenger==Auth::user()->id and $du->duelstate==4)
+                                    @elseif($du->ctl_user_id_challenger==Auth::user()->id and $du->duelstate==4 or $du->duelstate==7  and $du->ctl_user_id_challenger==Auth::user()->id)
                                         <button class="btn btn-outline-warning" type="button" data-toggle="collapse" onclick="hideinfo{{$du->id}}()"  aria-expanded="false" aria-controls="collapseExampledewlwinner">
                                             Choose winner
                                         </button>
@@ -272,7 +275,7 @@
                                                     <div id="player2{{$du->id}}" class="col-5 choose-winner-box" style="padding-right: 0px !important;"><p id="box-player" class="p-box">{{$du->ctlUser0->username}}</p></div>
                                                 </div>
                                             </div>
-                                            <div class="container choose-winner-container text-center" role="button" onclick="ajaxwinner{{$du->id}}()">
+                                            <div class="container choose-winner-container text-center" role="button" onclick="ajaxwinner1{{$du->id}}()">
                                                 <div class="container border-winner">
                                                     Winner
                                                 </div>
@@ -305,7 +308,7 @@
                                             });
 
                                         // ESPACIO PARA AJAX
-                                        function ajaxwinner{{$du->id}}(){
+                                        function ajaxwinner1{{$du->id}}(){
                                             console.log("hola"+{{$du->id}});
                                             if($("#player{{$du->id}}").hasClass("active")){
                                                 console.log('Gano el retador');
@@ -316,7 +319,7 @@
 
                                                     }
                                                 };
-                                                xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}/{{$du->ctl_user_id_challenged}}", true);
+                                                xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenged}}/{{$du->ctl_user_id_challenger}}", true);
                                                 xhttp.send();
                                                 // alertify.alert('Ready!');
 
@@ -330,7 +333,7 @@
 
                                                     }
                                                 };
-                                                xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenged}}/{{$du->ctl_user_id_challenger}}", true);
+                                                xhttp.open("GET", "/update_balance/{{$du->id}}/{{$du->ctl_user_id_challenger}}/{{$du->ctl_user_id_challenged}}", true);
                                                 xhttp.send();
                                                 // alertify.alert('Ready!');
                                                 setTimeout(function(){ location.reload(); }, 2000);
@@ -385,7 +388,11 @@
                                                 @endif
                                                 <div class="col-md-2 history-stacks text-center">{{$winner->pot}}</div>
                                                 <div class="col-md-3 history-date text-center">{{$winner->startDate}}</div>
+                                                @if($winner->winner_review==0)
                                                 <div class="col-md-3 history-info text-center btn"><a href="send_rev/{{$winner->id}}" style="color: black">Review</a></div>
+                                                    @else
+                                                        <div class="col-md-3 history-info">More info</div>
+                                                @endif
 
                                             </div>
 {{--          COLLAPSE WIN TAB      --}}
@@ -424,12 +431,19 @@
                                                         <p class="pending-dewl-description">{{$loser->Description}} </p>
                                                         <p class="pending-dewl-info">Start date: {{$loser->startDate }}</p>
                                                         <p class="pending-dewl-info">Stacks: {{$loser->pot }}</p>
-                                                        @if($loser->status==0)
+                                                        @if($loser->loser_review==0 and $loser->don==1)
+
                                                             <a href="/double_or_nothing/{{$loser->id}}" class="btn btn-dark"><p class="pending-dewl-info">Double or nothing</p></a>
+
                                                             <a href="/send_rev/{{$loser->id}}" class="btn btn-dark"><p class="pending-dewl-info">Review</p></a>
-                                                            @else
+
+                                                        @elseif($loser->loser_review==0 and $loser->don==2)
+
                                                             <a href="/send_rev/{{$loser->id}}" class="btn btn-dark"><p class="pending-dewl-info">Review</p></a>
-                                                            @endif
+
+                                                            @elseif($loser->loser_review==1 and $loser->don==1)
+                                                            <a href="/double_or_nothing/{{$loser->id}}" class="btn btn-dark"><p class="pending-dewl-info">Double or nothing</p></a>
+                                                        @endif
 
                                                     </div>
                                                 </div>
@@ -528,6 +542,8 @@
                                                     <div class="col-md-1 text-dewl-gold" style="padding-left: 5px !important;">5%</div>
                                                 </div>
 
+                                            @if($wit->duelstate==4)
+
                                                 {{--                                    Choose winner collapse--}}
                                                 <div class="collapse choose-dewl-winner" id="{{$wit->id}}" style="margin-top: -8px;margin-bottom: 8px;border-top: 1px solid rgb(255, 255, 255);">
                                                     <div class="card card-body choose-winner-dewl" style="border-radius: 0px 0px 3px 3px;">
@@ -551,6 +567,7 @@
                                                     </form>
                                                     </div>
                                                 </div>
+                                                @endif
                                             @endif
                                             <script type="application/javascript">
 
@@ -586,7 +603,7 @@
 
                                                             }
                                                         };
-                                                        xhttp.open("GET", "/update_balance/{{$wit->id}}/{{$wit->ctl_user_id_challenger}}/{{$wit->ctl_user_id_challenged}}", true);
+                                                        xhttp.open("GET", "/update_balance/{{$wit->id}}/{{$wit->ctl_user_id_challenged}}/{{$wit->ctl_user_id_challenger}}", true);
                                                         xhttp.send();
                                                         // alertify.alert('Ready!');
 
@@ -600,7 +617,7 @@
 
                                                             }
                                                         };
-                                                        xhttp.open("GET", "/update_balance/{{$wit->id}}/{{$wit->ctl_user_id_challenged}}/{{$wit->ctl_user_id_challenger}}", true);
+                                                        xhttp.open("GET", "/update_balance/{{$wit->id}}/{{$wit->ctl_user_id_challenger}}/{{$wit->ctl_user_id_challenged}}", true);
                                                         xhttp.send();
                                                         // alertify.alert('Ready!');
                                                         setTimeout(function(){ location.reload(); }, 2000);

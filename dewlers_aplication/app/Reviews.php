@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Reviews extends Model
 {
+    public $timestamps = false;
     /**
      * The "type" of the auto-incrementing ID.
      *

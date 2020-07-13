@@ -24,11 +24,12 @@
                 <form action="/send_f_request">
                     @csrf
 
-                <div class="row" style="border: 1px solid #000000;border-radius: 5px; padding: 3px 0 3px 0; margin: 5px 0 5px 0" >
+                <div class="row" style="padding: 5px 0 5px 0; margin: 20px 0 20px 0; background-color: #e8f7e6" >
 
-                    <div class="col-lg-6">{{$select->username}}</div>
+                    <div class="col-lg-4">{{$select->name}}</div>
+                    <div class="col-lg-4">{{$select->email}}</div>
                     <input type="text" name="user_id" id="id_user" value="{{$select->id}}" hidden>
-                    <div class="col-lg-6">
+                    <div class="col-lg-4" style="padding-right: 0px !important;">
                         <button type="submit" class="btn btn-primary">Send Request</button>
                     </div>
 {{--                    <div class="col-lg-4">Button</div>--}}

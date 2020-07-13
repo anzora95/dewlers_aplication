@@ -218,13 +218,21 @@ class DuelController extends Controller
 //        TEST DUEL BALANCE
         $duel_id=$idduel;
 
-        if($duels_pot_data->state==0){
-            DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>6, 'status'=>2 ]);
+        if($duels_pot_data->duelstate==7){
 
+            DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>8, 'status'=>2,'don'=>2]);
         }else{
-            DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>6, 'status'=>0 ]);
-
+            DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>6, 'status'=>0,'don'=>1]);
         }
+
+//        if($duels_pot_data->status==0){
+//            DB::table('duels')->where('id', $duel_id)->update(['ctl_user_id_winner'=>$id_winner, 'duelstate'=>6, 'status'=>2]);'winner_review'=>2, 'loser_review'=>2
+//
+//        }elseif($duels_pot_data->status==1)
+//        {
+
+
+//        }
 
 
 
@@ -238,10 +246,16 @@ class DuelController extends Controller
 
         if ($nowitness==null){
             $pot_winner=$pot*0.9;
+            DB::table('duels')->where('id', $duel_id)->update(['winner_review'=>1, 'loser_review'=>1]);
         }
         else{
             $pot_witness=$pot*0.05;
             $pot_winner=$pot*0.85;
+            if($duels_pot_data->duelstate==7){
+
+                DB::table('duels')->where('id', $duel_id)->update(['winner_review'=>1, 'loser_review'=>1]);
+
+            }
 
             //INTERNAL WITNESS ACCOUNT BALANCE
             $id_witness=$duels_pot_data->ctl_user_id_witness;// se obtiene el id de el witness
@@ -293,8 +307,6 @@ class DuelController extends Controller
     }
 
     public function acept_challenge($id){
-
-
 
         DB::table('duels')->where('id',$id)->update(['duelstate'=>2]);
         return redirect('/status');

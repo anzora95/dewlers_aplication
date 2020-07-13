@@ -21,9 +21,9 @@ class DONController extends Controller
         $pot=($new_pot->pot) *2;
 
 
-        DB::table('duels')->where('id', $id_duel)->update(['pot'=>$pot]);
+        DB::table('duels')->where('id', $id_duel)->update(['pot'=>$pot,'don'=>2,'duelstate'=>7]);
 
-        return view('/');
+        return redirect('/dashboard');
 
 
     }

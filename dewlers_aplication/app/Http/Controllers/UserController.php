@@ -6,6 +6,7 @@ use App\ctl_users;
 use App\Notifications\addfriend;
 use App\Notifications\send_req_friend;
 use App\Notifications\StatusUpdate;
+use App\Reviews;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -195,10 +196,41 @@ class UserController extends Controller
     public function search_person(Request $request){
 
         $name = $request->input('user');
-        $user_requested= ctl_users::where('username','LIKE','%'.$name.'%')->get();
+        $user_requested= User::where('name','LIKE','%'.$name.'%')->orwhere('email','LIKE','%'.$name.'%')->get();
+
 
         return view('UserMenu.search')->with("selected",$user_requested);
 
     }
+
+    public function get_review(Request $request){
+        $user = Auth::user();
+        $review= new Reviews;
+        $review->description = $request->input('review');
+        $review->stars= $request->input('stars');
+        $review->rol= $request->input('id');
+        $review->user = $user->id;
+        $review->save();
+
+        $duelid=$request->input('id');
+
+        $du=duels::where('id',$duelid)->first();
+
+        if($user->id==$du->ctl_user_id_winner){
+
+            DB::table('duels')
+                ->where('id','=',$du->id)
+                ->update(['winner_review'=>1]);
+
+        }else{
+            DB::table('duels')
+                ->where('id','=',$du->id)
+                ->update(['loser_review'=>1]);
+        }
+
+
+        return redirect('/dashboard');
+    }
+
 
 }

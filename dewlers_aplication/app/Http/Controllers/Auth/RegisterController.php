@@ -86,7 +86,7 @@ class RegisterController extends Controller
 
         internalaccounts::create([
             'code'=>1,
-            'balance'=>2500,
+            'balance'=>0,
             'status'=>1,
             'ctl_user_id'=>$last_id
         ]);
